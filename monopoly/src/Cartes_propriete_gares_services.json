@@ -1,273 +1,410 @@
 [
     [
-        "Rose",
-        {
-            "nom": "RUE ROSSETTI",
-            "sous nom" : "",
-            "loyer": [
-                2,10,30,90,160,250
-            ],
-            "Bâtiments": [
-                50,50
-            ],
-            "hypothèque": 30
-        },
-        {
-            "nom": "RUE SMOLETT",
-            "sous nom" : "petit futé",
-            "loyer": [
-                4,20,60,180,320,450
-            ],
-            "Bâtiments": [
-                50,50
-            ],
-            "hypothèque": 30
-        },
-        
-        "Bleu_clair",
-        {
-            "nom": "BOULEVARD RENE CASSIN",
-            "sous nom" : "aux fleurs de la riviera",
-            "loyer": [
-                6,30,90,270,400,550
-            ],
-            "Bâtiments": [
-                50,50
-            ],
-            "hypothèque": 50
-        },
-        {
-            "nom": "BOULEVARD RISSO",
-            "sous nom" : "",
-            "loyer": [
-                6,30,90,270,400,550
-            ],
-            "Bâtiments": [
-                50,50
-            ],
-            "hypothèque": 50
-        },
-        {
-            "nom": "QUAI PAPACINO",
-            "sous nom" : "confiserie florian",
-            "loyer": [
-                8,40,100,300,450,600
-            ],
-            "Bâtiments": [
-                50,50
-            ],
-            "hypothèque": 60
-        },
-
-        "Violet",
-        {
-            "nom": "RUE BARLA",
-            "sous nom" : "",
-            "loyer": [
-                10,50,150,450,625,750
-            ],
-            "Bâtiments": [
-                100,100
-            ],
-            "hypothèque": 70
-        },
-        {
-            "nom": "AVENUE VALROSE",
-            "sous nom" : "",
-            "loyer": [
-                10,50,150,450,625,750
-            ],
-            "Bâtiments": [
-                100,100
-            ],
-            "hypothèque": 70
-        },
-        {
-            "nom": "AVENUE SAINT JEAN BAPTISTE",
-            "sous nom" : "",
-            "loyer": [
-                10,60,180,500,700,900
-            ],
-            "Bâtiments": [
-                100,100
-            ],
-            "hypothèque": 80
-        },
-
-        "Orange",
-        {
-            "nom": "PLACE GARIBALDI",
-            "sous nom" : "café de turin",
-            "loyer": [
-                14,70,200,550,750,950
-            ],
-            "Bâtiments": [
-                100,100
-            ],
-            "hypothèque": 90
-        },
-        {
-            "nom": "AVENUE DE LA CALIFORNIE",
-            "sous nom" : "",
-            "loyer": [
-                14,70,200,550,750,950
-            ],
-            "Bâtiments": [
-                100,100
-            ],
-            "hypothèque": 90
-        },
-        {
-            "nom": "RUE ST FRANCOIS DE PAULE",
-            "sous nom" : "auer",
-            "loyer": [
-                16,80,220,600,800,1000
-            ],
-            "Bâtiments": [
-                100,100
-            ],
-            "hypothèque": 100
-        },
-
-        "Rouge",
-        {
-            "nom": "RUE GIOFFREDO",
-            "sous nom" : "la maison du rideau",
-            "loyer": [
-                18,90,250,700,875,1050
-            ],
-            "Bâtiments": [
-                150,150
-            ],
-            "hypothèque": 110
-        },
-        {
-            "nom": "COURS SALEYA",
-            "sous nom" : "brasserie les pochettes",
-            "loyer": [
-                18,90,250,700,875,1050
-            ],
-            "Bâtiments": [
-                150,150
-            ],
-            "hypothèque": 110
-        },
-        {
-            "nom": "AVENUE JEAN MEDECIN",
-            "sous nom" : "nice etoile",
-            "loyer": [
-                20,100,300,750,925,1100
-            ],
-            "Bâtiments": [
-                150,150
-            ],
-            "hypothèque": 120
-        },
-
-        "Jaune",
-        {
-            "nom": "BOULEVARD DUBOUCHAGE",
-            "sous nom" : "cote",
-            "loyer": [
-                22,110,330,800,975,1150
-            ],
-            "Bâtiments": [
-                150,150
-            ],
-            "hypothèque": 130
-        },
-        {
-            "nom": "BOULEVARD CARABACEL",
-            "sous nom" : "costamagna",
-            "loyer": [
-                22,110,330,800,975,1150
-            ],
-            "Bâtiments": [
-                150,150
-            ],
-            "hypothèque": 130
-        },
-        {
-            "nom": "BOULEVARD TZAREWITCH",
-            "sous nom" : "",
-            "loyer": [
-                24,120,360,850,1025,1200
-            ],
-            "Bâtiments": [
-                150,150
-            ],
-            "hypothèque": 140
-        },
-
-        "Vert",
-        {
-            "nom": "BOULEVARD DE CIMIEZ",
-            "sous nom" : "",
-            "loyer": [
-                26,130,390,900,1100,1275
-            ],
-            "Bâtiments": [
-                200,200
-            ],
-            "hypothèque": 150
-        },
-        {
-            "nom": "PLACE MASSENA",
-            "sous nom" : "tmc monte carlo",
-            "loyer": [
-                26,130,390,900,1100,1275
-            ],
-            "Bâtiments": [
-                200,200
-            ],
-            "hypothèque": 150
-        },
-        {
-            "nom": "BD MAURICE MAETERLINCK",
-            "sous nom" : "palais maeterlinck",
-            "loyer": [
-                28,150,450,1000,1200,1400
-            ],
-            "Bâtiments": [
-                200,200
-            ],
-            "hypothèque": 160
-        },
-
-        "Bleu_foncé",
-        {
-            "nom": "AVENUE DE VERDUN",
-            "sous nom" : "barichella",
-            "loyer": [
-                35,175,500,1100,1300,1500
-            ],
-            "Bâtiments": [
-                200,200
-            ],
-            "hypothèque": 175
-        },
-        {
-            "nom": "PROMENADE DES ANGLAIS",
-            "sous nom" : "",
-            "loyer": [
-                50,200,600,1400,1700,2000
-            ],
-            "Bâtiments": [
-                200,200
-            ],
-            "hypothèque": 200
-        }
+        [
+            "Rose",
+            {
+                "nom": "RUE ROSSETTI",
+                "sous nom": "",
+                "loyer": [
+                    2,
+                    10,
+                    30,
+                    90,
+                    160,
+                    250
+                ],
+                "Bâtiments": [
+                    50,
+                    50
+                ],
+                "hypothèque": 30
+            },
+            {
+                "nom": "RUE SMOLETT",
+                "sous nom": "petit futé",
+                "loyer": [
+                    4,
+                    20,
+                    60,
+                    180,
+                    320,
+                    450
+                ],
+                "Bâtiments": [
+                    50,
+                    50
+                ],
+                "hypothèque": 30
+            }
+        ],
+        [
+            "Bleu_clair",
+            {
+                "nom": "BOULEVARD RENE CASSIN",
+                "sous nom": "aux fleurs de la riviera",
+                "loyer": [
+                    6,
+                    30,
+                    90,
+                    270,
+                    400,
+                    550
+                ],
+                "Bâtiments": [
+                    50,
+                    50
+                ],
+                "hypothèque": 50
+            },
+            {
+                "nom": "BOULEVARD RISSO",
+                "sous nom": "",
+                "loyer": [
+                    6,
+                    30,
+                    90,
+                    270,
+                    400,
+                    550
+                ],
+                "Bâtiments": [
+                    50,
+                    50
+                ],
+                "hypothèque": 50
+            },
+            {
+                "nom": "QUAI PAPACINO",
+                "sous nom": "confiserie florian",
+                "loyer": [
+                    8,
+                    40,
+                    100,
+                    300,
+                    450,
+                    600
+                ],
+                "Bâtiments": [
+                    50,
+                    50
+                ],
+                "hypothèque": 60
+            }
+        ],
+        [
+            "Violet",
+            {
+                "nom": "RUE BARLA",
+                "sous nom": "",
+                "loyer": [
+                    10,
+                    50,
+                    150,
+                    450,
+                    625,
+                    750
+                ],
+                "Bâtiments": [
+                    100,
+                    100
+                ],
+                "hypothèque": 70
+            },
+            {
+                "nom": "AVENUE VALROSE",
+                "sous nom": "",
+                "loyer": [
+                    10,
+                    50,
+                    150,
+                    450,
+                    625,
+                    750
+                ],
+                "Bâtiments": [
+                    100,
+                    100
+                ],
+                "hypothèque": 70
+            },
+            {
+                "nom": "AVENUE SAINT JEAN BAPTISTE",
+                "sous nom": "",
+                "loyer": [
+                    10,
+                    60,
+                    180,
+                    500,
+                    700,
+                    900
+                ],
+                "Bâtiments": [
+                    100,
+                    100
+                ],
+                "hypothèque": 80
+            }
+        ],
+        [
+            "Orange",
+            {
+                "nom": "PLACE GARIBALDI",
+                "sous nom": "café de turin",
+                "loyer": [
+                    14,
+                    70,
+                    200,
+                    550,
+                    750,
+                    950
+                ],
+                "Bâtiments": [
+                    100,
+                    100
+                ],
+                "hypothèque": 90
+            },
+            {
+                "nom": "AVENUE DE LA CALIFORNIE",
+                "sous nom": "",
+                "loyer": [
+                    14,
+                    70,
+                    200,
+                    550,
+                    750,
+                    950
+                ],
+                "Bâtiments": [
+                    100,
+                    100
+                ],
+                "hypothèque": 90
+            },
+            {
+                "nom": "RUE ST FRANCOIS DE PAULE",
+                "sous nom": "auer",
+                "loyer": [
+                    16,
+                    80,
+                    220,
+                    600,
+                    800,
+                    1000
+                ],
+                "Bâtiments": [
+                    100,
+                    100
+                ],
+                "hypothèque": 100
+            }
+        ],
+        [
+            "Rouge",
+            {
+                "nom": "RUE GIOFFREDO",
+                "sous nom": "la maison du rideau",
+                "loyer": [
+                    18,
+                    90,
+                    250,
+                    700,
+                    875,
+                    1050
+                ],
+                "Bâtiments": [
+                    150,
+                    150
+                ],
+                "hypothèque": 110
+            },
+            {
+                "nom": "COURS SALEYA",
+                "sous nom": "brasserie les pochettes",
+                "loyer": [
+                    18,
+                    90,
+                    250,
+                    700,
+                    875,
+                    1050
+                ],
+                "Bâtiments": [
+                    150,
+                    150
+                ],
+                "hypothèque": 110
+            },
+            {
+                "nom": "AVENUE JEAN MEDECIN",
+                "sous nom": "nice etoile",
+                "loyer": [
+                    20,
+                    100,
+                    300,
+                    750,
+                    925,
+                    1100
+                ],
+                "Bâtiments": [
+                    150,
+                    150
+                ],
+                "hypothèque": 120
+            }
+        ],
+        [
+            "Jaune",
+            {
+                "nom": "BOULEVARD DUBOUCHAGE",
+                "sous nom": "cote",
+                "loyer": [
+                    22,
+                    110,
+                    330,
+                    800,
+                    975,
+                    1150
+                ],
+                "Bâtiments": [
+                    150,
+                    150
+                ],
+                "hypothèque": 130
+            },
+            {
+                "nom": "BOULEVARD CARABACEL",
+                "sous nom": "costamagna",
+                "loyer": [
+                    22,
+                    110,
+                    330,
+                    800,
+                    975,
+                    1150
+                ],
+                "Bâtiments": [
+                    150,
+                    150
+                ],
+                "hypothèque": 130
+            },
+            {
+                "nom": "BOULEVARD TZAREWITCH",
+                "sous nom": "",
+                "loyer": [
+                    24,
+                    120,
+                    360,
+                    850,
+                    1025,
+                    1200
+                ],
+                "Bâtiments": [
+                    150,
+                    150
+                ],
+                "hypothèque": 140
+            }
+        ],
+        [
+            "Vert",
+            {
+                "nom": "BOULEVARD DE CIMIEZ",
+                "sous nom": "",
+                "loyer": [
+                    26,
+                    130,
+                    390,
+                    900,
+                    1100,
+                    1275
+                ],
+                "Bâtiments": [
+                    200,
+                    200
+                ],
+                "hypothèque": 150
+            },
+            {
+                "nom": "PLACE MASSENA",
+                "sous nom": "tmc monte carlo",
+                "loyer": [
+                    26,
+                    130,
+                    390,
+                    900,
+                    1100,
+                    1275
+                ],
+                "Bâtiments": [
+                    200,
+                    200
+                ],
+                "hypothèque": 150
+            },
+            {
+                "nom": "BD MAURICE MAETERLINCK",
+                "sous nom": "palais maeterlinck",
+                "loyer": [
+                    28,
+                    150,
+                    450,
+                    1000,
+                    1200,
+                    1400
+                ],
+                "Bâtiments": [
+                    200,
+                    200
+                ],
+                "hypothèque": 160
+            }
+        ],
+        [
+            "Bleu_foncé",
+            {
+                "nom": "AVENUE DE VERDUN",
+                "sous nom": "barichella",
+                "loyer": [
+                    35,
+                    175,
+                    500,
+                    1100,
+                    1300,
+                    1500
+                ],
+                "Bâtiments": [
+                    200,
+                    200
+                ],
+                "hypothèque": 175
+            },
+            {
+                "nom": "PROMENADE DES ANGLAIS",
+                "sous nom": "",
+                "loyer": [
+                    50,
+                    200,
+                    600,
+                    1400,
+                    1700,
+                    2000
+                ],
+                "Bâtiments": [
+                    200,
+                    200
+                ],
+                "hypothèque": 200
+            }
+        ]
     ],
     [
         "Gares",
-        {
-
-        }
+        {}
     ],
     [
         "Services",
-        {
-            
-        }
+        {}
     ]
 ]
