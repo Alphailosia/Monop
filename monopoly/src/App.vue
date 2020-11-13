@@ -1,16 +1,23 @@
 <template>
-  <div id="app">
-    <Monopoly/>
-  </div>
+  <v-app>
+    <v-main>
+      <Server/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import Monopoly from './components/Monopoly.vue'
+import Server from './components/Server';
 
 export default {
   name: 'App',
+
   components: {
-    Monopoly
-  }
-}
+    Server,
+  },
+
+  data: () => ({
+    //
+  }),
+};
 </script>
