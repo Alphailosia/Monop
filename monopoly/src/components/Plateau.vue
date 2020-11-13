@@ -4,7 +4,9 @@
     
     <CasePropriete 
     :nom="proprietes[0][1].nom" 
-    :monopole="proprietes[0][0]"
+    :sous_nom="proprietes[0][1].sous_nom" 
+    :monopole="proprietes[0][1].Color"
+    :loyer="proprietes[0][1].loyer[0]"
     />
   </div>
 </template>
@@ -21,7 +23,7 @@ export default {
     proprietes: [],
     jsonProprietes: [],
   }),
-  mounted() {
+  created() {
     this.jsonProprietes = Cartes_propriete_gares_services;
     this.init();
   },
