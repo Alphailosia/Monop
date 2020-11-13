@@ -1,23 +1,23 @@
 <template>
   <div>
     <p>C'est le plateau</p>
-    
-    <CasePropriete 
+    <!-- Permet d'afficher la première case propriété sur le plateau pour tester-->
+    <!--<CasePropriete 
     :nom="proprietes[0][1].nom" 
     :sous_nom="proprietes[0][1].sous_nom" 
     :monopole="proprietes[0][1].Color"
     :loyer="proprietes[0][1].loyer[0]"
-    />
+    />-->
   </div>
 </template>
 
 <script>
-import CasePropriete from "./CasePropriete";
+/*import CasePropriete from "./CasePropriete";*/
 import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
 
 export default {
   components: {
-    CasePropriete,
+    /*CasePropriete,*/
   },
   data: () => ({
     proprietes: [],

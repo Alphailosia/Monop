@@ -5,8 +5,10 @@
         <v-card-title class="title-propriete">
             {{nom}}
         </v-card-title>
-        <div class="info-propriete">
-            {{sous_nom}}
+        <div class="sous-nom-propriete">
+             {{sous_nom}}
+        </div>
+        <div class="prix-propriete">
             Prix : {{loyer}} euros
         </div>
     </v-card>
@@ -28,8 +30,6 @@ export default {
 .propriete {
 width: 200px;
 height: 300px;
-justify-content: center;
-text-align: center;
 border: solid 2px;
 border-radius: 5px;
 }
@@ -43,10 +43,14 @@ height: 20%;
  font-weight: bold;
 }
 
-.info-propriete {
+.sous-nom-propriete {
 text-align: center;
-justify-content: end;
-
+justify-content: center;
 }
 
+.prix-propriete {
+text-align: center;
+width: 100%;
+margin-top: 80%;
+}
 </style>
