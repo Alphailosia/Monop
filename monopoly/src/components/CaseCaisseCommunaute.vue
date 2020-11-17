@@ -1,17 +1,17 @@
 <template>
-    <v-card class="caisseCommunaute">
-        <div class="color-caisseCommunaute" :style="{backgroundColor:white}">
+    <v-card class="communaute">
+        <div class="color-communaute" :style="{backgroundColor:white}">
         </div>
-        <v-card-title class="title-caisseCommunaute">
+        <v-card-title class="title-communaute">
             {{nom}}
         </v-card-title>
-        <div class="label-caisseCommunaute">
-             {{label}}
+        <div class="label-communaute">
+            {{label}}
         </div>
-        <div class="image-caisseCommunaute">
-             <img src="../assets/images/coffre.png" /> 
+        <div class="image-communaute">
+            <img src="../assets/images/coffre.png" /> 
         </div>
-        <div class="description-caisseCommunaute">
+        <div class="description-communaute">
             Description : {{descritpion}} 
         </div>
     </v-card>
@@ -19,38 +19,38 @@
 
 <script>
 export default {
-   props: {
+props: {
         nom: String,
         label: String,
         description: String,
-   } 
+        } 
 }
 </script>
 
 <style scoped>
 
-.caisseCommunaute {
+.communaute {
 width: 300px;
 height: 200px;
 border: solid 2px;
 border-radius: 5px;
 }
 
-.color-caisseCommunaute{
+.color-communaute{
 height: 20%;
 }
 
-.title-caisseCommunaute {
- text-align: center;
- font-weight: bold;
+.title-communaute {
+text-align: center;
+font-weight: bold;
 }
 
-.label-caisseCommunaute {
+.label-communaute {
 text-align: center;
 justify-content: center;
 }
 
-.description-caisseCommunaute {
+.description-communaute {
 text-align: center;
 width: 100%;
 margin-top: 80%;
