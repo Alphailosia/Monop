@@ -1,10 +1,10 @@
 [
     [
         [
-            "Rose",
             {
                 "nom": "RUE ROSSETTI",
-                "sous nom": "",
+                "sous_nom": "",
+                "Color": "#ff69b4",
                 "loyer": [
                     2,
                     10,
@@ -21,7 +21,8 @@
             },
             {
                 "nom": "RUE SMOLETT",
-                "sous nom": "petit futé",
+                "sous_nom": "petit futé",
+                "Color": "#ff69b4",
                 "loyer": [
                     4,
                     20,
@@ -38,10 +39,10 @@
             }
         ],
         [
-            "Bleu_clair",
             {
                 "nom": "BOULEVARD RENE CASSIN",
-                "sous nom": "aux fleurs de la riviera",
+                "sous_nom": "aux fleurs de la riviera",
+                "Color": "#87cefa",
                 "loyer": [
                     6,
                     30,
@@ -58,7 +59,8 @@
             },
             {
                 "nom": "BOULEVARD RISSO",
-                "sous nom": "",
+                "sous_nom": "",
+                "Color": "#87cefa",
                 "loyer": [
                     6,
                     30,
@@ -75,7 +77,8 @@
             },
             {
                 "nom": "QUAI PAPACINO",
-                "sous nom": "confiserie florian",
+                "sous_nom": "confiserie florian",
+                "Color": "#87cefa",
                 "loyer": [
                     8,
                     40,
@@ -92,10 +95,10 @@
             }
         ],
         [
-            "Violet",
             {
                 "nom": "RUE BARLA",
-                "sous nom": "",
+                "sous_nom": "",
+                "Color": "#ba55d3",
                 "loyer": [
                     10,
                     50,
@@ -112,7 +115,8 @@
             },
             {
                 "nom": "AVENUE VALROSE",
-                "sous nom": "",
+                "sous_nom": "",
+                "Color": "#ba55d3",
                 "loyer": [
                     10,
                     50,
@@ -129,7 +133,8 @@
             },
             {
                 "nom": "AVENUE SAINT JEAN BAPTISTE",
-                "sous nom": "",
+                "sous_nom": "",
+                "Color": "#ba55d3",
                 "loyer": [
                     10,
                     60,
@@ -146,10 +151,10 @@
             }
         ],
         [
-            "Orange",
             {
                 "nom": "PLACE GARIBALDI",
-                "sous nom": "café de turin",
+                "sous_nom": "café de turin",
+                "Color": "#ff8c00",
                 "loyer": [
                     14,
                     70,
@@ -166,7 +171,8 @@
             },
             {
                 "nom": "AVENUE DE LA CALIFORNIE",
-                "sous nom": "",
+                "sous_nom": "",
+                "Color": "#ff8c00",
                 "loyer": [
                     14,
                     70,
@@ -183,7 +189,8 @@
             },
             {
                 "nom": "RUE ST FRANCOIS DE PAULE",
-                "sous nom": "auer",
+                "sous_nom": "auer",
+                "Color": "#ff8c00",
                 "loyer": [
                     16,
                     80,
@@ -200,10 +207,10 @@
             }
         ],
         [
-            "Rouge",
             {
                 "nom": "RUE GIOFFREDO",
-                "sous nom": "la maison du rideau",
+                "sous_nom": "la maison du rideau",
+                "Color": "#ff0000",
                 "loyer": [
                     18,
                     90,
@@ -220,7 +227,8 @@
             },
             {
                 "nom": "COURS SALEYA",
-                "sous nom": "brasserie les pochettes",
+                "sous_nom": "brasserie les pochettes",
+                "Color": "#ff0000",
                 "loyer": [
                     18,
                     90,
@@ -237,7 +245,8 @@
             },
             {
                 "nom": "AVENUE JEAN MEDECIN",
-                "sous nom": "nice etoile",
+                "sous_nom": "nice etoile",
+                "Color": "#ff0000",
                 "loyer": [
                     20,
                     100,
@@ -254,10 +263,10 @@
             }
         ],
         [
-            "Jaune",
             {
                 "nom": "BOULEVARD DUBOUCHAGE",
-                "sous nom": "cote",
+                "sous_nom": "cote",
+                "Color": "#ffd700",
                 "loyer": [
                     22,
                     110,
@@ -274,7 +283,8 @@
             },
             {
                 "nom": "BOULEVARD CARABACEL",
-                "sous nom": "costamagna",
+                "sous_nom": "costamagna",
+                "Color": "#ffd700",
                 "loyer": [
                     22,
                     110,
@@ -291,7 +301,8 @@
             },
             {
                 "nom": "BOULEVARD TZAREWITCH",
-                "sous nom": "",
+                "sous_nom": "",
+                "Color": "#ffd700",
                 "loyer": [
                     24,
                     120,
@@ -308,10 +319,10 @@
             }
         ],
         [
-            "Vert",
             {
                 "nom": "BOULEVARD DE CIMIEZ",
-                "sous nom": "",
+                "sous_nom": "",
+                "Color": "#2e8b57",
                 "loyer": [
                     26,
                     130,
@@ -328,7 +339,8 @@
             },
             {
                 "nom": "PLACE MASSENA",
-                "sous nom": "tmc monte carlo",
+                "sous_nom": "tmc monte carlo",
+                "Color": "#2e8b57",
                 "loyer": [
                     26,
                     130,
@@ -345,7 +357,8 @@
             },
             {
                 "nom": "BD MAURICE MAETERLINCK",
-                "sous nom": "palais maeterlinck",
+                "sous_nom": "palais maeterlinck",
+                "Color": "#2e8b57",
                 "loyer": [
                     28,
                     150,
@@ -362,10 +375,10 @@
             }
         ],
         [
-            "Bleu_foncé",
             {
                 "nom": "AVENUE DE VERDUN",
-                "sous nom": "barichella",
+                "sous_nom": "barichella",
+                "Color": "#00008b",
                 "loyer": [
                     35,
                     175,
@@ -382,7 +395,8 @@
             },
             {
                 "nom": "PROMENADE DES ANGLAIS",
-                "sous nom": "",
+                "sous_nom": "",
+                "Color": "#00008b",
                 "loyer": [
                     50,
                     200,
