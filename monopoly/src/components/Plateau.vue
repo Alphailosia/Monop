@@ -10,8 +10,7 @@
     <CaseGare
             :image="gares[0][0].image"
             :nom="gares[0][0].nom"
-            :loyer="gares[0][0].loyer"
-            :hypothèque="gares[0][0].hypothèque"></CaseGare>
+            :prixAchat="gares[0][0].prixAchat"></CaseGare>
 
   </div>
 

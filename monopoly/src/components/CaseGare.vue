@@ -1,23 +1,13 @@
 <template>
     <v-card class="gare">
-        <img v-if="afficheimage()" :src="imagefinal"/>
         <v-card-title class="title-gare">
             {{nom}}
         </v-card-title>
+        <img v-if="afficheimage()" :src="imagefinal"/>
 
-        <div class="prix-gare">
-            LOYER € {{loyer[0]}}
-            <br>
-            LOYER si vous avez 2 gares {{loyer[1]}}
-            <br>
-            LOYER si vous avez 2 gares {{loyer[2]}}
-            <br>
-            LOYER si vous avez 2 gares {{loyer[3]}}
-        </div>
         <br>
-        <div class="hypothèque">
-            Valeur Hypothécaire <br>
-            € {{hypothèque}}
+        <div class="prixAchat">
+            € {{prixAchat}}
         </div>
     </v-card>
 </template>
@@ -27,8 +17,7 @@
         props: {
             image: Number,
             nom: String,
-            loyer: Array,
-            hypothèque: Number
+            prixAchat: Number
         },
         data: () => ({
             imagefinal: null
@@ -60,8 +49,9 @@
 
     img{
         width: 60%;
+        height: 35.7%;
         margin-left: 20%;
-        margin-top: 5%;
+        margin-top: 25%;
 
     }
 
@@ -71,17 +61,12 @@
         font-weight: bold;
     }
 
-
-    .prix-gare{
-        font-size: small;
-        width: 100%;
-        margin-top: 20%;
-    }
-    .hypothèque{
-        font-size: small;
+    .prixAchat{
         text-align: center;
         width: 100%;
-        margin-top:0;
+        margin-top:30%;
+        font-weight: bold;
+        font-size: large;
     }
 
 </style>

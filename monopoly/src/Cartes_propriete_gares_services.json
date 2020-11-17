@@ -423,7 +423,8 @@
                     100,
                     200
                 ],
-                "hypothèque": 100
+                "hypothèque": 100,
+                "prixAchat": 200
             },
             {"image": 1,
                 "nom": "PORT LYMPIA",
@@ -433,7 +434,8 @@
                     100,
                     200
                 ],
-                "hypothèque": 100
+                "hypothèque": 100,
+                "prixAchat": 200
             },
             {"image": 2,
                 "nom": "GARE DE NICE VILLE",
@@ -443,7 +445,8 @@
                     100,
                     200
                 ],
-                "hypothèque": 100
+                "hypothèque": 100,
+                "prixAchat": 200
             },
             {"image": 2,
                 "nom": "GARE DU SUD",
@@ -453,7 +456,8 @@
                     100,
                     200
                 ],
-                "hypothèque": 100
+                "hypothèque": 100,
+                "prixAchat": 200
             }
         ]
     ],
