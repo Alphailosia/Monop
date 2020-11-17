@@ -61,12 +61,12 @@ export default {
     desactif:false,
     affichedes:"",
     des: [
-      [1,require("../assets/images/De1.jpg")],
-      [2,require("../assets/images/De2.jpg")],
-      [3,require("../assets/images/De3.jpg")],
-      [4,require("../assets/images/De4.jpg")],
-      [5,require("../assets/images/De5.jpg")],
-      [6,require("../assets/images/De6.jpg")]
+      [1,require("../assets/images/De1.png")],
+      [2,require("../assets/images/De2.png")],
+      [3,require("../assets/images/De3.png")],
+      [4,require("../assets/images/De4.png")],
+      [5,require("../assets/images/De5.png")],
+      [6,require("../assets/images/De6.png")]
     ],
     banque: {
       proprietes:{},
