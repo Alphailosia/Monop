@@ -3,8 +3,8 @@
     <h1>Propriétés</h1>
     <v-card v-for="(monopole, index) in banque.proprietes" :key="index">
         <v-card v-for="(item,j) in monopole" :key="j">
-          <v-card-title v-if="j=== 0">{{ item }}</v-card-title>
-          <v-card-text v-if="j!== 0">{{ item.nom }} </v-card-text>
+          <v-card-title v-if="j===0" :style="{backgroundColor:item.Color}"></v-card-title>
+          <v-card-text>{{ item.nom }} </v-card-text>
         </v-card> 
     </v-card>
     <h1>Gares</h1>

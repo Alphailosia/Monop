@@ -13,8 +13,8 @@
              color="deep-black"
              elevation="5"
     >
-      <img :src="affichedes[2]"/>
-      <img :src="affichedes[3]"/>
+      <img :src="affichedes[2]" alt="dé 1"/>
+      <img :src="affichedes[3]" alt="dé 2"/>
       <br>
       Voici vos dés.
     </v-alert>
@@ -27,23 +27,23 @@
     <br>
 
     <p v-if="partie">Tour numéro : {{ partieTerminer}}</p>
-    <Banque
+    <!--<Banque
     v-if="partie"
     :banque="banque"
-    />
+    />-->
   </div>
 </template>
 
 
 <script>
 import Plateau from "./Plateau";
-import Banque from "./Banque";
+//import Banque from "./Banque";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
 
 export default {
   components: {
     Plateau,
-    Banque
+    //Banque
   },
   data: () => ({
     partie: false,
