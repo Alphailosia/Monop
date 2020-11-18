@@ -10,6 +10,18 @@
     <v-card-title class="prix-taxe"> Prix : {{ prix }} euros </v-card-title>
   </v-card>
 </template>
+<template>
+  <v-card class="impots">
+    <v-card-title class="title-impots">
+      {{ nom }}
+    </v-card-title>
+
+
+      <img class="image-impots" src="../assets/images/losange.png" alt="départ" />
+
+    <v-card-title class="prix-taxe"> Prix : {{ prix }} euros </v-card-title>
+  </v-card>
+</template>
 
 
 
@@ -30,9 +42,16 @@ export default {
   text-align: center;
   font-weight: bold;
   margin-bottom: 15px;
-  font-size: 40px;
+  font-size: 40px ;
 }
 
+.title-impots {
+  width:200px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+  font-size: 30px;
+}
 
 
 .taxe {
@@ -42,6 +61,13 @@ export default {
   border-radius: 5px;
 }
 
+
+.impots {
+  width: 204px;
+  height: 300px;
+  border: solid 2px;
+  border-radius: 5px;
+}
 
 .prix-taxe {
   text-align: center;
@@ -55,6 +81,11 @@ export default {
   margin-bottom: 40px;
   margin-left: 25px;
   margin-right: 75px;
+}
+
+.image-impots {
+  width : 50px;
+  margin-left:70px;
 }
 
 </style>
