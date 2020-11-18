@@ -1,18 +1,14 @@
 [
-      [      {
-                "nom": "TAXE DE LUXE",
-
-                "prix":
-                    100
-
-            }],[
-             {
-                 "nom": "IMPÔTS SUR LE REVENU",
-
-                 "prix":
-                     200
-
-
-              }
+    [
+        {
+            "nom": "TAXE DE LUXE",
+            "prix": 100
+        }
+    ],
+    [
+        {
+            "nom": "IMPÔTS SUR LE REVENU",
+            "prix": 200
+        }
     ]
-  ]
+]
