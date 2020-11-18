@@ -16,9 +16,9 @@
             :nom="gares[0][0].nom"
             :prixAchat="gares[0][0].prixAchat"></CaseGare>
  
- <CaseServicePublic 
+<CaseServicePublic 
     :nom="services[0][1].nom" 
-    :monopole="services[0][0]"
+    :loyer="services[0][2].loyer[0]"
     />
   </div>
 
@@ -35,7 +35,7 @@ import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.
 
 export default {
   components: {
-    CaseDepart
+    CaseDepart,
     CasePropriete,
     CaseGare,
     CaseServicePublic,
