@@ -13,16 +13,11 @@
 </script>
 
 <style scoped>
-
 .chance {
 width: 200px;
 height: 300px;
 border: solid 2px;
 border-radius: 5px;
-}
-
-.color-chance{
-height: 20%;
 }
 
 .title-chance {
@@ -39,5 +34,4 @@ margin-top: 5%;
 margin-left: auto;
 margin-right: auto;
 }
-
 </style>

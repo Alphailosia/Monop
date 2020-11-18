@@ -10,20 +10,14 @@
 </template>
 
 <script>
-
 </script>
 
 <style scoped>
-
 .communaute {
 width: 200px;
 height: 300px;
 border: solid 2px;
 border-radius: 5px;
-}
-
-.color-communaute{
-height: 20%;
 }
 
 .title-communaute {
@@ -40,5 +34,4 @@ margin-top: 5%;
 margin-left: auto;
 margin-right: auto;
 }
-
 </style>
