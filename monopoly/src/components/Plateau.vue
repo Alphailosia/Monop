@@ -3,6 +3,8 @@
     <p>C'est le plateau</p>
     <!-- Permet d'afficher la première case propriété sur le plateau pour tester-->
 
+
+    <CaseDepart/>
     <CasePropriete
         :nom="proprietes[0][1].nom"
         :sous_nom="proprietes[0][1].sous_nom"
@@ -18,19 +20,22 @@
     :nom="services[0][1].nom" 
     :monopole="services[0][0]"
     />
-
   </div>
 
 </template>
 
 <script>
+
+import CaseDepart  from "./CaseDepart";
 import CasePropriete from "./CasePropriete";
 import CaseGare from "./CaseGare";
 import CaseServicePublic  from "./CaseServicePublic";
+
 import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
 
 export default {
   components: {
+    CaseDepart
     CasePropriete,
     CaseGare,
     CaseServicePublic,
