@@ -3,13 +3,6 @@
   <div>
     <p>C'est le plateau</p>
     <!-- Permet d'afficher la première case propriété sur le plateau pour tester-->
-    <CasePropriete 
-    :nom="proprietes[0][1].nom" 
-    :sous_nom="proprietes[0][1].sous_nom" 
-    :monopole="proprietes[0][1].Color"
-    :loyer="proprietes[0][1].loyer[0]"
-    />
-
 
     <CaseDepart/>
     <CasePropriete
