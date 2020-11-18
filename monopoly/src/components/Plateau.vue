@@ -2,8 +2,7 @@
 
   <div>
     <p>C'est le plateau</p>
-    <!-- Permet d'afficher la première case propriété sur le plateau pour tester-->
-
+    
     <CaseDepart/>
     <CasePropriete
         :nom="proprietes[0][1].nom"
@@ -30,6 +29,8 @@
     />
 
     <CaseCaisseCommunaute
+    <CaseParcGratuit 
+
     />
   </div>
 </template>
@@ -41,6 +42,7 @@ import CaseGare from "./CaseGare";
 import CaseServicePublic  from "./CaseServicePublic";
 import Taxe from "./Taxe.vue";
 import TaxeJson from "../Taxe.json";
+import CaseParcGratuit  from "./CaseParcGratuit";
 import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
 import CaseChance from "./CaseChance";
 import CaseCaisseCommunaute from "./CaseCaisseCommunaute";
@@ -55,6 +57,8 @@ export default {
     Taxe,
     CaseChance,
     CaseCaisseCommunaute,
+    CaseParcGratuit,
+
   },
   data: () => ({
     proprietes: [],
