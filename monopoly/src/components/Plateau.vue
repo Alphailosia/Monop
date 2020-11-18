@@ -3,7 +3,7 @@
   <div>
     <p>C'est le plateau</p>
     
-    <!--<CaseDepart/>
+    <CaseDepart/>
     <CasePropriete
         :nom="proprietes[0][1].nom"
         :sous_nom="proprietes[0][1].sous_nom"
@@ -31,35 +31,35 @@
     <CaseCaisseCommunaute/>
     <CaseParcGratuit 
 
-    />-->
+    />
     <CaseSimpleVisite/>
   </div>
 </template>
 
 <script>
-/*import CaseDepart  from "./CaseDepart";
+import CaseDepart  from "./CaseDepart";
 import CasePropriete from "./CasePropriete";
 import CaseGare from "./CaseGare";
 import CaseServicePublic  from "./CaseServicePublic";
-import Taxe from "./Taxe.vue";*/
+import Taxe from "./Taxe.vue";
 import TaxeJson from "../Taxe.json";
-//import CaseParcGratuit  from "./CaseParcGratuit";
+import CaseParcGratuit  from "./CaseParcGratuit";
 import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
-//import CaseChance from "./CaseChance";
-//import CaseCaisseCommunaute from "./CaseCaisseCommunaute";
+import CaseChance from "./CaseChance";
+import CaseCaisseCommunaute from "./CaseCaisseCommunaute";
 import Cartes_chances_communautes from "../Cartes_chances_communautes.json";
 import CaseSimpleVisite from "./CaseSimpleVisite";
 
 export default {
   components: {
-    /*CaseDepart,
+    CaseDepart,
     CasePropriete,
     CaseGare,
     CaseServicePublic,
     Taxe,
     CaseChance,
     CaseCaisseCommunaute,
-    CaseParcGratuit,*/
+    CaseParcGratuit,
     CaseSimpleVisite
   },
   data: () => ({
