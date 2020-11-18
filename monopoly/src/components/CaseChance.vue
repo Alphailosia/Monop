@@ -9,7 +9,7 @@
             {{label}}
         </div>
         <div class="image-chance">
-            <img src="../assets/images/coffre.png" /> 
+            <img src="../assets/images/chance.png" /> 
         </div>
         <div class="description-chance">
             Description : {{descritpion}} 

@@ -6,30 +6,42 @@
     :nom="proprietes[0][1].nom" 
     :monopole="proprietes[0][0]"
     />
- 
+
     :sous_nom="proprietes[0][1].sous_nom" 
     :monopole="proprietes[0][1].Color"
     :loyer="proprietes[0][1].loyer[0]"
-    />-->
-
-
+    />
 
     <CaseServicePublic 
     :nom="services[0][1].nom" 
     :monopole="services[0][0]"
+    />-->
+
+    <CaseCommunaute
+    :nom="communaute[0][1].nom" 
+    :label="communaute[0][0]"
     />
+
+    <!--<CaseChance 
+    :nom="chance[0][1].nom" 
+    :label="chance[0][0]"
+    />-->
   </div>
 </template>
 
 <script>
+/*import CasePropriete from "./CasePropriete";
 import CaseServicePublic  from "./CaseServicePublic";
-/*import CasePropriete from "./CasePropriete";*/
-import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
+import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";*/
 
-export default {
+import CaseCaisseCommunaute from "./CaseCaisseCommunaute";
+//import CaseChance from "./CaseChance";
+import Cartes_chances_communautes from "../Cartes_chances_communautes.json";
+
+/*export default {
   components: {
+    //CasePropriete,
     CaseServicePublic
-    /*CasePropriete,*/
   },
   data: () => ({
     proprietes: [],
@@ -49,5 +61,47 @@ export default {
 
     },
   },
+};*/
+
+export default {
+  components: {
+    CaseCaisseCommunaute,
+  },
+  data: () => ({
+    communaute: [],
+    jsonCommunautes: [],
+  }),
+  mounted() {
+    this.jsonCommunautes = Cartes_chances_communautes;
+    this.init();
+  },
+  methods: {
+    init: function () {
+        this.communaute = this.jsonCommunautes[0];
+        console.log(this.communaute[0][1]);
+        console.log(this.caisseCommunaute);
+    },
+  },
 };
+
+/*export default {
+  components: {
+    CaseChance,
+  },
+  data: () => ({
+    chance: [],
+    jsonChance: [],
+  }),
+  mounted() {
+    this.jsonChance = Cartes_chances_communautes;
+    this.init();
+  },
+  methods: {
+    init: function () {
+        this.chance = this.jsonChance[0];
+        console.log(this.chance[0][1]);
+        console.log(this.chance);
+    },
+  },
+};*/
 </script>
