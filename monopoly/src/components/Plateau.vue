@@ -14,21 +14,18 @@
 
 
 
-    <CaseServicePublic 
-    :nom="services[0][1].nom" 
-    :monopole="services[0][0]"
-    />
+    <CaseDepart/>
   </div>
 </template>
 
 <script>
-import CaseServicePublic  from "./CaseServicePublic";
+import CaseDepart  from "./CaseDepart";
 /*import CasePropriete from "./CasePropriete";*/
 import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
 
 export default {
   components: {
-    CaseServicePublic
+    CaseDepart
     /*CasePropriete,*/
   },
   data: () => ({
