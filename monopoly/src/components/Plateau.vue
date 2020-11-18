@@ -62,28 +62,4 @@ export default {
     },
   },
 };
-
-/*export default {
-  components: {
-    CaseChance,
-    CaseCaisseCommunaute,
-  },
-  data: () => ({
-    chance: [],
-    communaute: [],
-    jsonChance: [],
-  }),
-  created() {
-    this.jsonChance = Cartes_chances_communautes;
-    this.init();
-  },
-  methods: {
-    init: function () {
-        this.chance = this.jsonChance[0];
-        this.communaute = this.jsonChance[1];
-        console.log(this.chance[0][1]);
-        console.log(this.chance);
-    },
-  },
-};*/
 </script>
