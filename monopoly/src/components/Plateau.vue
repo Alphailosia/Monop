@@ -28,7 +28,7 @@
     <CaseChance
     />
 
-    <CaseCaisseCommunaute
+    <CaseCaisseCommunaute/>
     <CaseParcGratuit 
 
     />

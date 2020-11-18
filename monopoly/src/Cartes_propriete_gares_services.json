@@ -466,23 +466,15 @@
             "Services Public",
             {
                 "nom": "COMPAGNIE DE DISTRIBUTION DE L'ELECTRICITE",
-                "sous nom": "",
                 "loyer": [
-                    15
-                ],
-                "Bâtiments": [
-                    
+                    1
                 ],
                 "hypothèque": 7.5
             },
             {
                 "nom": "COMPAGNIE DE DISTRIBUTION DES EAUX",
-                "sous nom": "",
                 "loyer": [
                     15
-                ],
-                "Bâtiments": [
-    
                 ],
                 "hypothèque": 7.5
             }
