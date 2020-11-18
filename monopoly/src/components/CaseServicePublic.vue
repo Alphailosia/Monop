@@ -6,10 +6,10 @@
             {{nom}}
         </v-card-title>
         <div class="sous-nom-services">
-             {{sous_nom}}
+            {{sous_nom}}
         </div>
         <div class="image-services">
-             <img src="../assets/images/ampoule.png" /> 
+            <img src="../assets/images/ampoule.png" /> 
         </div>
         <div class="prix-services">
             Prix : {{loyer}} euros
@@ -19,12 +19,12 @@
 
 <script>
 export default {
-   props: {
-       monopole: String,
-       nom: String,
-       sous_nom: String,
-       loyer: Number,
-   } 
+props: {
+    monopole: String,
+    nom: String,
+    sous_nom: String,
+    loyer: Number,
+    } 
 }
 </script>
 
@@ -39,8 +39,8 @@ border-radius: 5px;
 height: 20%;
 }
 .title-services {
- text-align: center;
- font-weight: bold;
+text-align: center;
+font-weight: bold;
 }
 .sous-nom-services {
 text-align: center;
@@ -48,11 +48,11 @@ justify-content: center;
 }
 
 .image-services{
-    height: 1px;
-    width: 100px;
-    margin-top: 5px;
-    margin-left: auto;
-    margin-right: auto;
+height: 1px;
+width: 100px;
+margin-top: 5px;
+margin-left: auto;
+margin-right: auto;
 }
 
 .prix-services {

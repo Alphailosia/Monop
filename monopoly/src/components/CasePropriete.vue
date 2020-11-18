@@ -6,7 +6,7 @@
             {{nom}}
         </v-card-title>
         <div class="sous-nom-propriete">
-             {{sous_nom}}
+            {{sous_nom}}
         </div>
         <div class="prix-propriete">
             Prix : {{loyer}} euros
@@ -16,12 +16,12 @@
 
 <script>
 export default {
-   props: {
-       monopole: String,
-       nom: String,
-       sous_nom: String,
-       loyer: Number,
-   } 
+props: {
+    monopole: String,
+    nom: String,
+    sous_nom: String,
+    loyer: Number,
+    } 
 }
 </script>
 
@@ -39,8 +39,8 @@ height: 20%;
 }
 
 .title-propriete {
- text-align: center;
- font-weight: bold;
+text-align: center;
+font-weight: bold;
 }
 
 .sous-nom-propriete {
