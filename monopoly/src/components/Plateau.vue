@@ -33,6 +33,7 @@
 
     />
     <CaseSimpleVisite/>
+    <CasePrison />
   </div>
 </template>
 
@@ -49,6 +50,7 @@ import CaseChance from "./CaseChance";
 import CaseCaisseCommunaute from "./CaseCaisseCommunaute";
 import Cartes_chances_communautes from "../Cartes_chances_communautes.json";
 import CaseSimpleVisite from "./CaseSimpleVisite";
+import CasePrison from "./CasePrison";
 
 export default {
   components: {
@@ -61,6 +63,7 @@ export default {
     CaseCaisseCommunaute,
     CaseParcGratuit,
     CaseSimpleVisite
+    CasePrison,
   },
   data: () => ({
     proprietes: [],

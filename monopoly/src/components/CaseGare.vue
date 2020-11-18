@@ -25,10 +25,10 @@
         methods:{
             afficheimage() {
                 if (this.image == 0) {
-                    this.imagefinal = require("../assets/images/Avion.png");
+                    this.imagefinal = require("../assets/images/avion.png");
 
                 } else if (this.image == 1) {
-                    this.imagefinal = require("../assets/images/Bateau.png");
+                    this.imagefinal = require("../assets/images/bateau.png");
                 } else {
                     this.imagefinal = require("../assets/images/Gare.png");
                 }
