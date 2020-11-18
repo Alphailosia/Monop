@@ -1,14 +1,17 @@
 <template>
-    <v-card class="propriete">
-        <div class="color-propriete" :style="{backgroundColor:monopole}">
+    <v-card class="services">
+        <div class="color-services" :style="{backgroundColor:monopole}">
         </div>
-        <v-card-title class="title-propriete">
+        <v-card-title class="title-services">
             {{nom}}
         </v-card-title>
-        <div class="sous-nom-propriete">
+        <div class="sous-nom-services">
              {{sous_nom}}
         </div>
-        <div class="prix-propriete">
+        <div class="image-services">
+             <img src="../assets/images/ampoule.png" /> 
+        </div>
+        <div class="prix-services">
             Prix : {{loyer}} euros
         </div>
     </v-card>
@@ -26,31 +29,36 @@ export default {
 </script>
 
 <style scoped>
-
-.propriete {
+.services {
 width: 200px;
 height: 300px;
 border: solid 2px;
 border-radius: 5px;
 }
-
-.color-propriete{
+.color-services{
 height: 20%;
 }
-
-.title-propriete {
+.title-services {
  text-align: center;
  font-weight: bold;
 }
-
-.sous-nom-propriete {
+.sous-nom-services {
 text-align: center;
 justify-content: center;
 }
 
-.prix-propriete {
+.image-services{
+    height: 1px;
+    width: 100px;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prix-services {
 text-align: center;
 width: 100%;
 margin-top: 80%;
 }
 </style>
+
