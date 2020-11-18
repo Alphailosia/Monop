@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <p>C'est le plateau</p>
-    <!-- Permet d'afficher la première case propriété sur le plateau pour tester-->
-
+    <div>
+        <p>C'est le plateau</p>
 
     <CaseDepart/>
     <CasePropriete
@@ -12,54 +10,63 @@
     :loyer="proprietes[0][1].loyer[0]"></CasePropriete>
     
     <CaseGare
-            :image="gares[0][0].image"
-            :nom="gares[0][0].nom"
-            :prixAchat="gares[0][0].prixAchat"></CaseGare>
+    :image="gares[0][0].image"
+    :nom="gares[0][0].nom"
+    :prixAchat="gares[0][0].prixAchat"></CaseGare>
  
-<CaseServicePublic 
+    <CaseServicePublic 
     :nom="services[0][1].nom" 
     :loyer="services[0][2].loyer[0]"
     />
-  </div>
 
+    <Taxe
+    :nom="Taxe[0].nom"
+    :prix="Taxe[0].prix"
+    />
+
+    </div>
 </template>
 
 <script>
+    import CaseDepart  from "./CaseDepart";
+    import CasePropriete from "./CasePropriete";
+    import CaseGare from "./CaseGare";
+    import CaseServicePublic  from "./CaseServicePublic";
+    import Taxe from "./Taxe.vue";
+    import TaxeJson from "../Taxe.json";
+    import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
 
-import CaseDepart  from "./CaseDepart";
-import CasePropriete from "./CasePropriete";
-import CaseGare from "./CaseGare";
-import CaseServicePublic  from "./CaseServicePublic";
+    export default {
+        components: {
+            CaseDepart,
+            CasePropriete,
+            CaseGare,
+            CaseServicePublic,
+            Taxe,
+        },
+        data: () => ({
+            proprietes: [],
+            gares:[],
+            services: [],
+            jsonProprietes: [],
+            Taxe: [],
+            jsonTaxe: [],
+        }),
+        created() {
+            this.jsonTaxe = TaxeJson;
+            this.jsonProprietes = Cartes_propriete_gares_services;
+            this.init();
+        },
+        methods: {
+            init: function () {
+                this.proprietes = this.jsonProprietes[0];
+                this.gares = this.jsonProprietes[1];
+               this.services = this.jsonProprietes[2];
+                console.log(this.proprietes[0][1]);
+                console.log(this.proprietes);
+                this.Taxe = this.jsonTaxe[0];
+            },
+        },
+    };
 
-import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
-
-export default {
-  components: {
-    CaseDepart,
-    CasePropriete,
-    CaseGare,
-    CaseServicePublic,
-  },
-  data: () => ({
-    proprietes: [],
-    gares:[],
-    services: [],
-
-    jsonProprietes: [],
-  }),
-  created() {
-    this.jsonProprietes = Cartes_propriete_gares_services;
-    this.init();
-  },
-  methods: {
-    init: function () {
-      this.proprietes = this.jsonProprietes[0];
-      this.gares = this.jsonProprietes[1];
-      this.services = this.jsonProprietes[2];
-        console.log(this.proprietes[0][1]);
-        console.log(this.proprietes);
-
-    },
-  },
-};
 </script>
