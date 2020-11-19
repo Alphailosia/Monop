@@ -68,7 +68,7 @@ margin-top: 80%;
     transform: rotate(90deg);
 }
 .right {
-    transform: rotate(270deg);
+    transform: rotate(270deg) translate(50px,50px);
 }
 </style>
 

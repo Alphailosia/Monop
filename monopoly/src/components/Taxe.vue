@@ -5,23 +5,11 @@
     </v-card-title>
 
     <div class="image-taxes">
-      <img src="../assets/images/bague.png" alt="départ" />
+      <img :src="srcImg" alt="départ" />
     </div>
     <v-card-title class="prix-taxe"> Prix : {{ prix }} euros </v-card-title>
   </v-card>
 </template>
-<!--<template>
-  <v-card class="impots">
-    <v-card-title class="title-impots">
-      {{ nom }}
-    </v-card-title>
-
-
-      <img class="image-impots" src="../assets/images/losange.png" alt="départ" />
-
-    <v-card-title class="prix-taxe"> Prix : {{ prix }} euros </v-card-title>
-  </v-card>
-</template>-->
 
 
 
@@ -32,6 +20,22 @@ export default {
     prix: Number,
     position: String,
   },
+  data:()=>({
+    srcImg:""
+  }),
+  mounted(){
+    this.getImg();
+  },
+  methods:{
+    getImg:function(){
+      if(this.nom==="IMPOTS"){
+        this.srcImg=require('../assets/images/losange.png');
+      }
+      else{
+        this.srcImg=require('../assets/images/bague.png');
+      }
+    }
+  }
 };
 </script>
 
@@ -56,7 +60,7 @@ export default {
 
 
 .taxe {
-  width: 204px;
+  width: 200px;
   height: 300px;
   border: solid 2px;
   border-radius: 5px;
@@ -92,9 +96,10 @@ export default {
     transform: rotate(180deg);
 }
 .left {
-    transform: rotate(90deg);
+    transform: rotate(90deg) translate(-50px,-50px);
+    margin-right: 100px;
 }
 .right {
-    transform: rotate(270deg);
+    transform: rotate(270deg) translate(50px,50px);
 }
 </style>

@@ -43,7 +43,7 @@ props: {
 .image-services {
   height: 1px;
   width: 100px;
-  margin-top: 110px;
+  margin-top: 100px;
   margin-left: 75px;
   margin-right: 75px;
 }

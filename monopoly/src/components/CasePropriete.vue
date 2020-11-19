@@ -58,9 +58,10 @@ margin-top: 80%;
     transform: rotate(180deg);
 }
 .left {
-    transform: rotate(90deg);
+    transform: rotate(90deg) translate(-50px,-50px);
+    margin-right: 100px;
 }
 .right {
-    transform: rotate(270deg);
+    transform: rotate(270deg) translate(50px,50px);
 }
 </style>

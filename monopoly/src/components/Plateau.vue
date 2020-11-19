@@ -2,10 +2,11 @@
 
   <div>
     <p>C'est le plateau</p>
-    
-    <table class="plateau">
-      <tr v-for="(row, indexRow) in cases" :key="indexRow" >
-        <td v-for="(c, indexCase) in row" :key="indexCase" > 
+    <v-btn @click="setDepl()">depl</v-btn>
+    <div class="plateau">
+      <div class="pion" :style="`left:${this.deplLeft}px;top:125px;`"></div>
+      <div v-for="(row, indexRow) in cases" :key="indexRow" :class="(indexRow<cases.length-1 && indexRow>0)?'ligne':''">
+        <div v-for="(c, indexCase) in row" :key="indexCase" > 
           <CasePropriete
             v-if="c.type === 'propriete'"
             :nom="c.nom"
@@ -57,10 +58,10 @@
             v-else-if="c.type === 'visite'"
             :position="getCasePosition(indexRow, indexCase)"
           />
-          <div v-else-if="c.type === null" class="empty-case" />
-        </td>
-      </tr>
-    </table>
+          <div v-else-if="c.type === 'null'" class="empty-case"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -104,6 +105,8 @@ export default {
     communaute: [],
     jsonChance: [],
     cases: cases,
+    deplacement:'left:125px;top:125px;',
+    deplLeft:125
   }),
   created() {
     this.jsonProprietes = Cartes_propriete_gares_services;
@@ -131,7 +134,38 @@ export default {
         return "right";
       }
     },
+    setDepl: function(){
+      this.deplLeft+=125;
+    }
   },
 };
-
 </script>
+<style scoped>
+
+  .plateau{
+    position: relative;
+  }
+
+  .pion{
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    transition: all ease-in-out 1s;
+    z-index: 10000000000;
+  }
+
+  .plateau>div{
+    display: flex;
+  }
+
+  .ligne{
+    height: 200px;
+  }
+
+  .empty-case{
+    width: 200px;
+    height: 200px;
+  }
+
+</style>
