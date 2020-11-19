@@ -10,7 +10,7 @@
     <v-card-title class="prix-taxe"> Prix : {{ prix }} euros </v-card-title>
   </v-card>
 </template>
-<template>
+<!--<template>
   <v-card class="impots">
     <v-card-title class="title-impots">
       {{ nom }}
@@ -21,7 +21,7 @@
 
     <v-card-title class="prix-taxe"> Prix : {{ prix }} euros </v-card-title>
   </v-card>
-</template>
+</template>-->
 
 
 
