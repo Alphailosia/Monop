@@ -1,5 +1,5 @@
 <template>
-  <v-card class="services">
+  <v-card class="services" v-bind:class="[position]">
     <v-card-title class="title-services"> Départ </v-card-title>
     <div class="sous-nom-services">
         Recevez 200€ chaque fois<br> que vous passez ici
@@ -11,7 +11,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+props: {
+    position: String,
+    } 
+}
 </script>
 
 <style scoped>
@@ -42,5 +46,14 @@ export default {};
   margin-top: 110px;
   margin-left: 75px;
   margin-right: 75px;
+}
+.top {
+    transform: rotate(180deg);
+}
+.left {
+    transform: rotate(90deg);
+}
+.right {
+    transform: rotate(270deg);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="taxe">
+  <v-card class="taxe" v-bind:class="[position]">
     <v-card-title class="title-taxe">
       {{ nom }}
     </v-card-title>
@@ -30,6 +30,7 @@ export default {
   props: {
     nom: String,
     prix: Number,
+    position: String,
   },
 };
 </script>
@@ -87,5 +88,13 @@ export default {
   width : 50px;
   margin-left:70px;
 }
-
+.top {
+    transform: rotate(180deg);
+}
+.left {
+    transform: rotate(90deg);
+}
+.right {
+    transform: rotate(270deg);
+}
 </style>

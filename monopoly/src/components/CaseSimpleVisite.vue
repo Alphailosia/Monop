@@ -1,5 +1,5 @@
 <template>
-  <v-card class="services">
+  <v-card class="services" v-bind:class="[position]">
     <div class="simple-prison">
       <div class="simple">SIMPLE</div>
       <div class="prison">
@@ -15,7 +15,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+props: {
+    position: String,
+    } 
+}
 </script>
 
 <style scoped>
@@ -64,5 +68,14 @@ export default {};
   font-size: 20px;
   font-weight:bold;
   text-align: center;
+}
+.top {
+    transform: rotate(180deg);
+}
+.left {
+    transform: rotate(90deg);
+}
+.right {
+    transform: rotate(270deg);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <v-card class="propriete">
+    <v-card class="propriete" v-bind:class="[position]">
         <div class="color-propriete" :style="{backgroundColor:monopole}">
         </div>
         <v-card-title class="title-propriete">
@@ -21,6 +21,7 @@ props: {
     nom: String,
     sous_nom: String,
     loyer: Number,
+    position: String,
     } 
 }
 </script>
@@ -52,5 +53,14 @@ justify-content: center;
 text-align: center;
 width: 100%;
 margin-top: 80%;
+}
+.top {
+    transform: rotate(180deg);
+}
+.left {
+    transform: rotate(90deg);
+}
+.right {
+    transform: rotate(270deg);
 }
 </style>

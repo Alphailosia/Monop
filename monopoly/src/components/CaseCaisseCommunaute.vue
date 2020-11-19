@@ -1,5 +1,5 @@
 <template>
-    <v-card class="communaute">
+    <v-card class="communaute" v-bind:class="[position]">
         <v-card-title class="title-communaute">
             CAISSE DE COMMUNAUTÉ
         </v-card-title>
@@ -10,6 +10,11 @@
 </template>
 
 <script>
+export default {
+props: {
+    position: String,
+    } 
+}
 </script>
 
 <style scoped>
@@ -33,5 +38,14 @@ width: 100px;
 margin-top: 5%;
 margin-left: auto;
 margin-right: auto;
+}
+.top {
+    transform: rotate(180deg);
+}
+.left {
+    transform: rotate(90deg);
+}
+.right {
+    transform: rotate(270deg);
 }
 </style>

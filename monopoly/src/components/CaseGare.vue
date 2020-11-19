@@ -1,5 +1,5 @@
 <template>
-    <v-card class="gare">
+    <v-card class="gare" v-bind:class="[position]">
         <v-card-title class="title-gare">
             {{nom}}
         </v-card-title>
@@ -17,7 +17,8 @@
         props: {
             image: Number,
             nom: String,
-            prixAchat: Number
+            prixAchat: Number,
+            position: String,
         },
         data: () => ({
             imagefinal: null
@@ -69,4 +70,13 @@
         font-size: large;
     }
 
+.top {
+    transform: rotate(180deg);
+}
+.left {
+    transform: rotate(90deg);
+}
+.right {
+    transform: rotate(270deg);
+}
 </style>
