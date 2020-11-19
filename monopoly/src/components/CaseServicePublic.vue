@@ -1,80 +1,80 @@
 <template>
-    <v-card class="services" v-bind:class="[position]">
-        <div class="color-services" :style="{backgroundColor:monopole}">
-        </div>
-        <v-card-title class="title-services">
-            {{nom}}
-        </v-card-title>
-        <div class="sous-nom-services">
-            {{sous_nom}}
-        </div>
-        <div class="image-services">
-            <img src="../assets/images/ampoule.png" /> 
-        </div>
-        <div class="prix-services">
-            Prix : {{loyer}} euros
-        </div>
-    </v-card>
+  <v-card class="services" v-bind:class="[position]">
+    <div class="color-services" :style="{ backgroundColor: monopole }"></div>
+    <v-card-title class="title-services">
+      {{ nom }}
+    </v-card-title>
+    <div class="sous-nom-services">
+      {{ sous_nom }}
+    </div>
+    <div class="image-services">
+      <img src="../assets/images/ampoule.png" />
+    </div>
+    <div class="prix-services">€ {{ loyer }}</div>
+  </v-card>
 </template>
 
 <script>
 export default {
-props: {
+  props: {
     monopole: String,
     nom: String,
     sous_nom: String,
     loyer: Number,
     position: String,
-    } 
-}
+  },
+};
 </script>
 
 <style scoped>
 .services {
-width: 200px;
-height: 300px;
-border: solid 2px;
-border-radius: 5px;
-position: relative;
+  width: 200px;
+  height: 300px;
+  border: solid 2px;
+  border-radius: 5px;
+  position: relative;
 }
-.color-services{
-height: 20%;
+.color-services {
+  height: 20%;
 }
 .title-services {
-text-align: center;
-font-weight: bold;
-position: absolute;
-top: 0;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  word-break: break-word;
 }
 .sous-nom-services {
-text-align: center;
-justify-content: center;
+  text-align: center;
+  justify-content: center;
 }
 
-.image-services{
-height: 1px;
-width: 100px;
-margin-top: 5px;
-margin-left: auto;
-margin-right: auto;
-margin-top: 60px;
+.image-services {
+  height: 1px;
+  width: 100px;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
 }
 
 .prix-services {
-text-align: center;
-width: 100%;
-margin-top: 80%;
-position: absolute;
-bottom: 0;
+  text-align: center;
+  width: 100%;
+  margin-top: 80%;
+  position: absolute;
+  bottom: 0;
+  font-weight: bold;
+  font-size: large;
 }
 .top {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .left {
-    transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 .right {
-    transform: rotate(270deg) translate(50px,50px);
+  transform: rotate(270deg) translate(50px, 50px);
 }
 </style>
 

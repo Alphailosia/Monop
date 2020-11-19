@@ -467,16 +467,16 @@
             {
                 "nom": "COMPAGNIE DE DISTRIBUTION DE L'ELECTRICITE",
                 "loyer": [
-                    1
+                    150
                 ],
-                "hypothèque": 7.5
+                "hypothèque": 75
             },
             {
                 "nom": "COMPAGNIE DE DISTRIBUTION DES EAUX",
                 "loyer": [
-                    15
+                    150
                 ],
-                "hypothèque": 7.5
+                "hypothèque": 75
             }
         ]
     ]

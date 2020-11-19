@@ -46,7 +46,8 @@
         },
         {
             "type": "taxe",
-            "nom": "IMPOTS"
+            "nom": "IMPOTS",
+            "prix": 200
         },
         {
             "type": "gare",
@@ -195,7 +196,8 @@
     [
         {
             "type": "taxe",
-            "nom": "TAXES"
+            "nom": "TAXES",
+            "prix": 100
         },
         {
             "type": "null"
@@ -228,9 +230,9 @@
             "type": "service",
             "nom": "COMPAGNIE DE DISTRIBUTION DE L'ELECTRICITE",
             "loyer": [
-                1
+                150
             ],
-            "hypothèque": 7.5
+            "hypothèque": 75
         }
     ],
     [
@@ -670,9 +672,9 @@
             "type": "service",
             "nom": "COMPAGNIE DE DISTRIBUTION DES EAUX",
             "loyer": [
-                15
+                150
             ],
-            "hypothèque": 7.5
+            "hypothèque": 75
         },
         {
             "type": "propriete",

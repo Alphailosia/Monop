@@ -7,7 +7,7 @@
     <div class="image-taxes">
       <img :src="srcImg" alt="départ" />
     </div>
-    <v-card-title class="prix-taxe"> Prix : {{ prix }} euros </v-card-title>
+    <v-card-title class="prix-taxe"> € {{ prix }} </v-card-title>
   </v-card>
 </template>
 
@@ -20,44 +20,40 @@ export default {
     prix: Number,
     position: String,
   },
-  data:()=>({
-    srcImg:""
+  data: () => ({
+    srcImg: "",
   }),
-  mounted(){
+  mounted() {
     this.getImg();
   },
-  methods:{
-    getImg:function(){
-      if(this.nom==="IMPOTS"){
-        this.srcImg=require('../assets/images/losange.png');
+  methods: {
+    getImg: function () {
+      if (this.nom === "IMPOTS") {
+        this.srcImg = require("../assets/images/losange.png");
+      } else {
+        this.srcImg = require("../assets/images/bague.png");
       }
-      else{
-        this.srcImg=require('../assets/images/bague.png');
-      }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-
-
 .title-taxe {
-  width:200px;
+  width: 200px;
   text-align: center;
   font-weight: bold;
   margin-bottom: 15px;
-  font-size: 40px ;
+  font-size: 40px;
 }
 
 .title-impots {
-  width:200px;
+  width: 200px;
   text-align: center;
   font-weight: bold;
   margin-bottom: 15px;
   font-size: 30px;
 }
-
 
 .taxe {
   width: 200px;
@@ -65,7 +61,6 @@ export default {
   border: solid 2px;
   border-radius: 5px;
 }
-
 
 .impots {
   width: 204px;
@@ -78,6 +73,8 @@ export default {
   text-align: center;
   justify-content: center;
   margin-top: 170px;
+  font-weight: bold;
+  font-size: large;
 }
 
 .image-taxes {
@@ -89,17 +86,17 @@ export default {
 }
 
 .image-impots {
-  width : 50px;
-  margin-left:70px;
+  width: 50px;
+  margin-left: 70px;
 }
 .top {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .left {
-    transform: rotate(90deg) translate(-50px,-50px);
-    margin-right: 100px;
+  transform: rotate(90deg) translate(-50px, -50px);
+  margin-right: 100px;
 }
 .right {
-    transform: rotate(270deg) translate(50px,50px);
+  transform: rotate(270deg) translate(50px, 50px);
 }
 </style>
