@@ -1,8 +1,8 @@
 <template >
   <div id="base">
-    <v-btn @click="lancerPartie()" :disabled="partie">Lancer Partie</v-btn>
-    <Plateau v-if="partie" :joueurs="joueurs" />
-
+    <v-btn v-if="!partie" @click="lancerPartie()" :disabled="partie"
+      >Lancer Partie</v-btn
+    >
     <div v-if="partie">
       <v-btn @click="jouer" :disabled="desactif">Lancer</v-btn>
       <p>{{ joueurs[numJoueur].nom }} doit lancer les dés</p>
@@ -21,6 +21,14 @@
     </v-alert>
 
     <p v-if="partie">Tour numéro : {{ partieTerminer }}</p>
+    <div
+      v-if="partie"
+      class="pion"
+      :style="`left:${this.joueurs[this.numJoueur].deplLeft}px;top:${
+        this.joueurs[this.numJoueur].deplTop
+      }px;`"
+    ></div>
+    <Plateau v-if="partie" :joueurs="joueurs" />
   </div>
 </template>
 
@@ -38,9 +46,9 @@ export default {
     joueurs: [
       {
         nom: "joueur1",
-      },
-      {
-        nom: "joueur2",
+        deplLeft: 150,
+        deplTop: 200,
+        caseVisitees: 0,
       },
     ],
     partieTerminer: 0,
@@ -63,6 +71,7 @@ export default {
       hypotheque: {},
     },
     jsonPropriete: [],
+    depl:0
   }),
   mounted() {
     this.jsonPropriete = CartesProprieteGareService;
@@ -82,11 +91,12 @@ export default {
       let de1 = Math.floor(Math.random() * this.des.length);
       let de2 = Math.floor(Math.random() * this.des.length);
       this.affichedes = [
-        [this.des[de1][0]],
-        [this.des[de2][0]],
-        [this.des[de1][1]],
-        [this.des[de2][1]],
+        this.des[de1][0],
+        this.des[de2][0],
+        this.des[de1][1],
+        this.des[de2][1],
       ];
+      this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
       this.desactif = true;
       this.destime = setTimeout(this.desTime, 3000);
       if (de1 == de2) {
@@ -129,6 +139,40 @@ export default {
         }
       }
     },
+    deplacerJoueur: function (de1, de2) {
+      this.depl = de1 + de2;
+      console.log(this.depl)
+      while (this.depl != 0) {
+        if(this.joueurs[this.numJoueur].caseVisitees===0 || this.joueurs[this.numJoueur].caseVisitees===8){
+          this.joueurs[this.numJoueur].deplLeft += 223;
+        }
+        else if (this.joueurs[this.numJoueur].caseVisitees >= 1 && this.joueurs[this.numJoueur].caseVisitees < 9) {
+          this.joueurs[this.numJoueur].deplLeft += 200;
+        }
+        else if (this.joueurs[this.numJoueur].caseVisitees=== 9){
+          this.joueurs[this.numJoueur].deplTop += 223;
+        } 
+        else if (this.joueurs[this.numJoueur].caseVisitees >= 10 && this.joueurs[this.numJoueur].caseVisitees < 18) {
+          this.joueurs[this.numJoueur].deplTop += 180;
+        } 
+        else if (this.joueurs[this.numJoueur].caseVisitees=== 19 || this.joueurs[this.numJoueur].caseVisitees=== 28){
+          this.joueurs[this.numJoueur].deplTop += 223;
+        } 
+        else if (this.joueurs[this.numJoueur].caseVisitees >= 20 && this.joueurs[this.numJoueur].caseVisitees < 28) {
+          this.joueurs[this.numJoueur].deplLeft -= 200;
+        } 
+        else if (this.joueurs[this.numJoueur].caseVisitees >= 30 && this.joueurs[this.numJoueur].caseVisitees <= 40) {
+          this.joueurs[this.numJoueur].deplTop -= 200;
+        } 
+        else {
+          this.joueurs[this.numJoueur].caseVisitees=0
+        }
+        this.joueurs[this.numJoueur].caseVisitees++;
+        this.depl--;
+      }
+      console.log(this.joueurs[this.numJoueur].deplTop)
+      console.log(this.joueurs[this.numJoueur].deplLeft)
+    },
   },
 };
 </script>
@@ -137,10 +181,22 @@ template {
   width: 100%;
   height: 100%;
 }
+
 #base {
+  position: relative;
   width: 100%;
   height: 100%;
 }
+
+.pion {
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  position: absolute;
+  transition: all ease-in-out 3s;
+  z-index: 10000000000;
+}
+
 #des {
   position: absolute;
   text-align: center;
