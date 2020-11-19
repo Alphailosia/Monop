@@ -35,6 +35,7 @@ width: 200px;
 height: 300px;
 border: solid 2px;
 border-radius: 5px;
+position: relative;
 }
 .color-services{
 height: 20%;
@@ -42,6 +43,8 @@ height: 20%;
 .title-services {
 text-align: center;
 font-weight: bold;
+position: absolute;
+top: 0;
 }
 .sous-nom-services {
 text-align: center;
@@ -54,12 +57,15 @@ width: 100px;
 margin-top: 5px;
 margin-left: auto;
 margin-right: auto;
+margin-top: 60px;
 }
 
 .prix-services {
 text-align: center;
 width: 100%;
 margin-top: 80%;
+position: absolute;
+bottom: 0;
 }
 .top {
     transform: rotate(180deg);

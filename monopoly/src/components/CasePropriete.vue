@@ -33,6 +33,7 @@ width: 200px;
 height: 300px;
 border: solid 2px;
 border-radius: 5px;
+position: relative;
 }
 
 .color-propriete{
@@ -42,17 +43,22 @@ height: 20%;
 .title-propriete {
 text-align: center;
 font-weight: bold;
+word-break: break-word;
+justify-content: center;
 }
 
 .sous-nom-propriete {
 text-align: center;
 justify-content: center;
+margin-top: -20px;
 }
 
 .prix-propriete {
 text-align: center;
 width: 100%;
 margin-top: 80%;
+position: absolute;
+bottom: 0;
 }
 .top {
     transform: rotate(180deg);

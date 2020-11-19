@@ -46,13 +46,14 @@
         height: 300px;
         border: solid 2px;
         border-radius: 5px;
+        position: relative;
     }
 
     img{
         width: 60%;
         height: 35.7%;
         margin-left: 20%;
-        margin-top: 25%;
+        margin-top: 10%;
 
     }
 
@@ -60,6 +61,8 @@
         text-align: center;
         margin-top: 10%;
         font-weight: bold;
+        justify-content: center;
+        
     }
 
     .prixAchat{
@@ -68,6 +71,8 @@
         margin-top:30%;
         font-weight: bold;
         font-size: large;
+        position: absolute;
+        bottom: 0;
     }
 
 .top {
