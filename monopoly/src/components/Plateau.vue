@@ -62,7 +62,7 @@ export default {
     CaseChance,
     CaseCaisseCommunaute,
     CaseParcGratuit,
-    CaseSimpleVisite
+    CaseSimpleVisite,
     CasePrison,
   },
   data: () => ({
