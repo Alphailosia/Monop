@@ -414,11 +414,70 @@
         ]
     ],
     [
-        "Gares",
-        {}
+        [
+            {"image": 0,
+                "nom": "AEROPORT NICE COTE D'AZUR",
+                "loyer": [
+                    25,
+                    50,
+                    100,
+                    200
+                ],
+                "hypothèque": 100,
+                "prixAchat": 200
+            },
+            {"image": 1,
+                "nom": "PORT LYMPIA",
+                "loyer": [
+                    25,
+                    50,
+                    100,
+                    200
+                ],
+                "hypothèque": 100,
+                "prixAchat": 200
+            },
+            {"image": 2,
+                "nom": "GARE DE NICE VILLE",
+                "loyer": [
+                    25,
+                    50,
+                    100,
+                    200
+                ],
+                "hypothèque": 100,
+                "prixAchat": 200
+            },
+            {"image": 2,
+                "nom": "GARE DU SUD",
+                "loyer": [
+                    25,
+                    50,
+                    100,
+                    200
+                ],
+                "hypothèque": 100,
+                "prixAchat": 200
+            }
+        ]
     ],
     [
-        "Services",
-        {}
+        [
+            "Services Public",
+            {
+                "nom": "COMPAGNIE DE DISTRIBUTION DE L'ELECTRICITE",
+                "loyer": [
+                    1
+                ],
+                "hypothèque": 7.5
+            },
+            {
+                "nom": "COMPAGNIE DE DISTRIBUTION DES EAUX",
+                "loyer": [
+                    15
+                ],
+                "hypothèque": 7.5
+            }
+        ]
     ]
 ]
