@@ -16,8 +16,16 @@ export default {
     Server,
   },
 
+<<<<<<< HEAD
   data: () => ({
     //
   }),
 };
 </script>
+=======
+<style>
+*{
+  box-sizing: border-box;
+}
+</style>
+>>>>>>> e8ceac77fa663e324629a5aa77dbc06a2857b0a6
