@@ -30,6 +30,9 @@ text-align: center;
 font-weight: bold;
 margin-top: 30%;
 font-size: 20px;
+position: absolute;
+margin-top: 10px;
+
 }
 
 .image-communaute{
@@ -38,6 +41,7 @@ width: 100px;
 margin-top: 5%;
 margin-left: auto;
 margin-right: auto;
+margin-top: 120px;
 }
 .top {
     transform: rotate(180deg);

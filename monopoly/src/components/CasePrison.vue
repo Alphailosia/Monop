@@ -37,6 +37,7 @@ border-radius: 5px;
  font-weight: bold;
  font-size: 30px;
  margin-top: 15%;
+ justify-content: center;
 }
 
 .image-prison{
@@ -53,6 +54,7 @@ border-radius: 5px;
  font-weight: bold;
  font-size: 30px;
  margin-top: 40%;
+ justify-content: center;
 }
 .top {
     transform: rotate(180deg);

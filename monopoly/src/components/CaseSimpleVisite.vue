@@ -1,5 +1,5 @@
 <template>
-  <v-card class="services" v-bind:class="[position]">
+  <v-card class="visiter" v-bind:class="[position]">
     <div class="simple-prison">
       <div class="simple">SIMPLE</div>
       <div class="prison">
@@ -23,7 +23,7 @@ props: {
 </script>
 
 <style scoped>
-.services {
+.visiter {
   width: 300px;
   height: 300px;
   border: solid 2px;
@@ -35,13 +35,14 @@ props: {
 }
 
 .simple {
-  width: 20%;
+  width: 30%;
   height: 75px;
-  margin-top:75px;
+  margin-top:70px;
   margin-right: 10%;
   font-size: 20px;
   font-weight:bold;
   transform: rotate(90deg);
+  word-break: break-word;
 }
 
 .prison {
@@ -55,10 +56,10 @@ props: {
 .image-prison {
   text-align: center;
   margin-left: 10px;
-  margin-top: 10px;
   transform: rotate(45deg);
   font-weight: bold;
   font-size: 25px;
+
 }
 
 .visite{

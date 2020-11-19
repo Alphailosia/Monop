@@ -1,10 +1,10 @@
 <template>
-  <v-card class="services" v-bind:class="[position]">
-    <v-card-title class="title-services"> Départ </v-card-title>
-    <div class="sous-nom-services">
+  <v-card class="depart" v-bind:class="[position]">
+    <v-card-title class="title-depart"> Départ </v-card-title>
+    <div class="sous-nom-depart">
         Recevez 200€ chaque fois<br> que vous passez ici
     </div>
-    <div class="image-services">
+    <div class="image-depart">
       <img src="../assets/images/fleche.png" alt="départ" />
     </div>
   </v-card>
@@ -19,31 +19,30 @@ props: {
 </script>
 
 <style scoped>
-.services {
+.depart {
   width: 300px;
   height: 300px;
   border: solid 2px;
   border-radius: 5px;
 }
-.color-services {
-  height: 20%;
-}
-.title-services {
+
+.title-depart {
   text-align: center;
   font-weight: bold;
   margin-top:20px;
   font-size: 40px;
+  justify-content: center;
 }
-.sous-nom-services {
+.sous-nom-depart {
   text-align: center;
   justify-content: center;
   margin-top: 20px;
 }
 
-.image-services {
+.image-depart {
   height: 1px;
   width: 100px;
-  margin-top: 100px;
+  margin-top: 60px;
   margin-left: 75px;
   margin-right: 75px;
 }

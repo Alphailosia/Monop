@@ -1,20 +1,26 @@
 <template>
-  <div id="app">
-    <Plateau/>
-  </div>
+  <v-app>
+    <v-main>
+      <Server/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import Plateau from './components/Plateau.vue'
+import Server from './components/Server';
 
 export default {
   name: 'App',
-  components: {
-    Plateau
-  }
-}
-</script>
 
+  components: {
+    Server,
+  },
+
+  data: () => ({
+    //
+  }),
+};
+</script>
 <style>
 *{
   box-sizing: border-box;
