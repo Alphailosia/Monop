@@ -44,6 +44,7 @@ export default {
   },
   data: () => ({
     partie: false,
+    comptdouble: 0,
     joueurs: [
       {
         nom: "joueur1",
@@ -200,7 +201,7 @@ export default {
         this.joueurs[this.numJoueur].deplTop -= 235;
         this.joueurs[this.numJoueur].retDepl = this.memoire;
         this.joueurs[this.numJoueur].caseVisitees = 0;
-        this.partie=false;
+        this.partie = false;
       }
       if (
         this.joueurs[this.numJoueur].retDepl ===
@@ -214,6 +215,22 @@ export default {
             this.numJoueur = 0;
             this.partieTerminer += 1;
             console.log(this.numJoueur);
+          }
+        } else {
+          this.comptdouble++;
+          if (this.comptdouble === 3) {
+            this.joueurs[this.numJoueur].deplLeft = 2170;
+            this.joueurs[this.numJoueur].deplTop = 250;
+            if (this.numJoueur < this.joueurs.length - 1) {
+              this.numJoueur++;
+              console.log(this.numJoueur);
+        
+            } else {
+              this.numJoueur = 0;
+              this.partieTerminer += 1;
+              console.log(this.numJoueur);
+            }
+            this.comptdouble = 0 ;
           }
         }
       }
