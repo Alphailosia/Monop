@@ -21,13 +21,14 @@
     </v-alert>
 
     <p v-if="partie">Tour numéro : {{ partieTerminer }}</p>
-    <div
-      v-if="partie"
-      class="pion"
-      :style="`left:${this.joueurs[this.numJoueur].deplLeft}px;top:${
-        this.joueurs[this.numJoueur].deplTop
-      }px;`"
-    ></div>
+    <div v-if="partie">
+      <div
+        v-for="(joueur, index) in joueurs"
+        :key="index"
+        :class="`pion${index}`"
+        :style="`left:${joueur.deplLeft}px;top:${joueur.deplTop}px;`"
+      ></div>
+    </div>
     <Plateau v-if="partie" :joueurs="joueurs" />
   </div>
 </template>
@@ -49,6 +50,14 @@ export default {
         deplLeft: 150,
         deplTop: 200,
         caseVisitees: 0,
+        retDepl: 0,
+      },
+      {
+        nom: "joueur2",
+        deplLeft: 120,
+        deplTop: 200,
+        caseVisitees: 0,
+        retDepl: 0,
       },
     ],
     partieTerminer: 0,
@@ -71,7 +80,8 @@ export default {
       hypotheque: {},
     },
     jsonPropriete: [],
-    depl:0
+    depl: 0,
+    retDepl: 0,
   }),
   mounted() {
     this.jsonPropriete = CartesProprieteGareService;
@@ -81,6 +91,12 @@ export default {
       this.partie = true;
       this.partieTerminer = 1;
       this.numJoueur = 0;
+      for (let i = 0; i < this.joueurs.length; i++) {
+        this.joueurs[i].deplLeft = 125;
+        this.joueurs[i].deplTop = 200;
+        this.joueurs[i].retDepl = 0;
+        this.joueurs[i].caseVisitees = 0;
+      }
       this.initBanque();
     },
     desTime() {
@@ -96,36 +112,17 @@ export default {
         this.des[de1][1],
         this.des[de2][1],
       ];
-      this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
       this.desactif = true;
       this.destime = setTimeout(this.desTime, 3000);
-      if (de1 == de2) {
-        return false;
-      }
-      return true;
     },
-
     jouer: function () {
-      if (this.numJoueur < this.joueurs.length - 1) {
-        if (this.lancerDes()) {
-          this.deplacementJoueur();
-          this.numJoueur++;
-        }
-        if (this.partieTerminer == 6) {
-          this.partie = false;
-          this.desactif = false;
-          console.log("partie terminer");
-        }
+      if (this.partieTerminer == 8) {
+        this.partie = false;
+        this.desactif = false;
+        console.log("partie terminer");
       } else {
-        if (this.lancerDes()) {
-          this.numJoueur = 0;
-          this.partieTerminer += 1;
-        }
-        if (this.partieTerminer == 6) {
-          this.partie = false;
-          this.desactif = false;
-          console.log("partie terminer");
-        }
+        this.lancerDes();
+        this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
       }
     },
     initBanque: function () {
@@ -141,37 +138,85 @@ export default {
     },
     deplacerJoueur: function (de1, de2) {
       this.depl = de1 + de2;
-      console.log(this.depl)
+      this.memoire = this.depl;
+      this.joueurs[this.numJoueur].retDepl += this.depl;
+      console.log(this.depl);
       while (this.depl != 0) {
-        if(this.joueurs[this.numJoueur].caseVisitees===0 || this.joueurs[this.numJoueur].caseVisitees===8){
-          this.joueurs[this.numJoueur].deplLeft += 223;
+        if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 39) {
+          this.memoire =
+            this.joueurs[this.numJoueur].caseVisitees + this.memoire - 39;
         }
-        else if (this.joueurs[this.numJoueur].caseVisitees >= 1 && this.joueurs[this.numJoueur].caseVisitees < 9) {
-          this.joueurs[this.numJoueur].deplLeft += 200;
-        }
-        else if (this.joueurs[this.numJoueur].caseVisitees=== 9){
-          this.joueurs[this.numJoueur].deplTop += 223;
-        } 
-        else if (this.joueurs[this.numJoueur].caseVisitees >= 10 && this.joueurs[this.numJoueur].caseVisitees < 18) {
-          this.joueurs[this.numJoueur].deplTop += 180;
-        } 
-        else if (this.joueurs[this.numJoueur].caseVisitees=== 19 || this.joueurs[this.numJoueur].caseVisitees=== 28){
-          this.joueurs[this.numJoueur].deplTop += 223;
-        } 
-        else if (this.joueurs[this.numJoueur].caseVisitees >= 20 && this.joueurs[this.numJoueur].caseVisitees < 28) {
-          this.joueurs[this.numJoueur].deplLeft -= 200;
-        } 
-        else if (this.joueurs[this.numJoueur].caseVisitees >= 30 && this.joueurs[this.numJoueur].caseVisitees <= 40) {
-          this.joueurs[this.numJoueur].deplTop -= 200;
-        } 
-        else {
-          this.joueurs[this.numJoueur].caseVisitees=0
-        }
-        this.joueurs[this.numJoueur].caseVisitees++;
+        setTimeout(this.animation, 1000 * (de1 + de2 - this.depl));
         this.depl--;
       }
-      console.log(this.joueurs[this.numJoueur].deplTop)
-      console.log(this.joueurs[this.numJoueur].deplLeft)
+    },
+    animation: function () {
+      if (
+        this.joueurs[this.numJoueur].caseVisitees === 0 ||
+        this.joueurs[this.numJoueur].caseVisitees === 9
+      ) {
+        this.joueurs[this.numJoueur].deplLeft += 223;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees >= 1 &&
+        this.joueurs[this.numJoueur].caseVisitees < 9
+      ) {
+        this.joueurs[this.numJoueur].deplLeft += 200;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees === 10 ||
+        this.joueurs[this.numJoueur].caseVisitees === 19
+      ) {
+        this.joueurs[this.numJoueur].deplTop += 235;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees >= 11 &&
+        this.joueurs[this.numJoueur].caseVisitees < 19
+      ) {
+        this.joueurs[this.numJoueur].deplTop += 200;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees === 20 ||
+        this.joueurs[this.numJoueur].caseVisitees === 29
+      ) {
+        this.joueurs[this.numJoueur].deplLeft -= 223;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees >= 20 &&
+        this.joueurs[this.numJoueur].caseVisitees < 29
+      ) {
+        this.joueurs[this.numJoueur].deplLeft -= 200;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (this.joueurs[this.numJoueur].caseVisitees === 20) {
+        this.joueurs[this.numJoueur].deplTop -= 223;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees >= 30 &&
+        this.joueurs[this.numJoueur].caseVisitees < 39
+      ) {
+        this.joueurs[this.numJoueur].deplTop -= 200;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (this.joueurs[this.numJoueur].caseVisitees === 39) {
+        this.joueurs[this.numJoueur].deplTop -= 235;
+        this.joueurs[this.numJoueur].retDepl = this.memoire;
+        this.joueurs[this.numJoueur].caseVisitees = 0;
+        this.partie=false;
+      }
+      if (
+        this.joueurs[this.numJoueur].retDepl ===
+        this.joueurs[this.numJoueur].caseVisitees
+      ) {
+        if (this.affichedes[0] != this.affichedes[1]) {
+          if (this.numJoueur < this.joueurs.length - 1) {
+            this.numJoueur++;
+            console.log(this.numJoueur);
+          } else {
+            this.numJoueur = 0;
+            this.partieTerminer += 1;
+            console.log(this.numJoueur);
+          }
+        }
+      }
     },
   },
 };
@@ -188,12 +233,25 @@ template {
   height: 100%;
 }
 
-.pion {
+.pion0 {
   width: 50px;
   height: 50px;
+  border: solid 1px;
+  border-radius: 25px;
   background-color: red;
   position: absolute;
-  transition: all ease-in-out 3s;
+  transition: all ease-in-out 1s;
+  z-index: 10000000000;
+}
+
+.pion1 {
+  width: 50px;
+  height: 50px;
+  border: solid 1px;
+  border-radius: 25px;
+  background-color: blue;
+  position: absolute;
+  transition: all ease-in-out 1s;
   z-index: 10000000000;
 }
 
@@ -202,7 +260,8 @@ template {
   text-align: center;
   width: 20%;
   height: 7%;
-  margin-left: 40%;
-  margin-top: 0;
+  top: 500px;
+  left: 900px;
+  z-index: 10000000000;
 }
 </style>
