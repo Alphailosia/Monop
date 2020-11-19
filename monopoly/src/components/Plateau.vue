@@ -2,38 +2,66 @@
 
   <div>
     <p>C'est le plateau</p>
-    
-    <CaseDepart/>
-    <CasePropriete
-        :nom="proprietes[0][1].nom"
-        :sous_nom="proprietes[0][1].sous_nom"
-    :monopole="proprietes[0][1].Color"
-    :loyer="proprietes[0][1].loyer[0]"></CasePropriete>
-    
-    <CaseGare
-    :image="gares[0][0].image"
-    :nom="gares[0][0].nom"
-    :prixAchat="gares[0][0].prixAchat"></CaseGare>
- 
-    <CaseServicePublic 
-    :nom="services[0][1].nom" 
-    :loyer="services[0][2].loyer[0]"
-    />
-    
-    <Taxe
-    :nom="Taxe[0].nom"
-    :prix="Taxe[0].prix"
-    />
-
-    <CaseChance
-    />
-
-    <CaseCaisseCommunaute/>
-    <CaseParcGratuit 
-
-    />
-    <CaseSimpleVisite/>
-    <CasePrison />
+    <v-btn @click="setDepl()">depl</v-btn>
+    <div class="plateau">
+      <div class="pion" :style="`left:${this.deplLeft}px;top:125px;`"></div>
+      <div v-for="(row, indexRow) in cases" :key="indexRow" :class="(indexRow<cases.length-1 && indexRow>0)?'ligne':''">
+        <div v-for="(c, indexCase) in row" :key="indexCase" > 
+          <CasePropriete
+            v-if="c.type === 'propriete'"
+            :nom="c.nom"
+            :sous_nom="c.sous_nom"
+            :monopole="c.Color"
+            :loyer="c.loyer[0]"
+            :position="getCasePosition(indexRow, indexCase)"
+          />
+          <CaseDepart
+            v-else-if="c.type === 'Départ'"
+            :position="getCasePosition(indexRow, indexCase)"
+          />
+          <CaseGare
+            v-else-if="c.type === 'gare'"
+            :image="c.image"
+            :nom="c.nom"
+            :prixAchat="c.prixAchat"
+            :position="getCasePosition(indexRow, indexCase)"
+          ></CaseGare>
+          <CaseChance
+            v-else-if="c.type === 'chance'"
+            :position="getCasePosition(indexRow, indexCase)"
+          />
+          <CaseCaisseCommunaute
+            v-else-if="c.type === 'caisse'"
+            :position="getCasePosition(indexRow, indexCase)"
+          />
+          <CaseParcGratuit
+            v-else-if="c.type === 'parc'"
+            :position="getCasePosition(indexRow, indexCase)"
+          />
+          <CaseServicePublic
+            v-else-if="c.type === 'service'"
+            :nom="c.nom"
+            :loyer="c.loyer[0]"
+            :position="getCasePosition(indexRow, indexCase)"
+          />
+          <Taxe
+            v-else-if="c.type === 'taxe'"
+            :nom="c.nom"
+            :prix="c.prix"
+            :position="getCasePosition(indexRow, indexCase)"
+          />
+          <CasePrison
+            v-else-if="c.type === 'prison'"
+            :position="getCasePosition(indexRow, indexCase)"
+          />
+          <CaseSimpleVisite
+            v-else-if="c.type === 'visite'"
+            :position="getCasePosition(indexRow, indexCase)"
+          />
+          <div v-else-if="c.type === 'null'" class="empty-case"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -51,6 +79,7 @@ import CaseCaisseCommunaute from "./CaseCaisseCommunaute";
 import Cartes_chances_communautes from "../Cartes_chances_communautes.json";
 import CaseSimpleVisite from "./CaseSimpleVisite";
 import CasePrison from "./CasePrison";
+import cases from "../cases.json";
 
 export default {
   components: {
@@ -75,6 +104,9 @@ export default {
     chance: [],
     communaute: [],
     jsonChance: [],
+    cases: cases,
+    deplacement:'left:125px;top:125px;',
+    deplLeft:125
   }),
   created() {
     this.jsonProprietes = Cartes_propriete_gares_services;
@@ -93,7 +125,47 @@ export default {
         console.log(this.proprietes[0][1]);
         console.log(this.proprietes);
     },
+    getCasePosition: function (indexRow, indexCase) {
+      if (indexRow === 0) {
+        return "top";
+      } else if (indexRow > 0 && indexRow < 11 && indexCase === 0) {
+        return "left";
+      } else if (indexRow > 0 && indexRow < 11 && indexCase === 10) {
+        return "right";
+      }
+    },
+    setDepl: function(){
+      this.deplLeft+=125;
+    }
   },
 };
-
 </script>
+<style scoped>
+
+  .plateau{
+    position: relative;
+  }
+
+  .pion{
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    transition: all ease-in-out 1s;
+    z-index: 10000000000;
+  }
+
+  .plateau>div{
+    display: flex;
+  }
+
+  .ligne{
+    height: 200px;
+  }
+
+  .empty-case{
+    width: 200px;
+    height: 200px;
+  }
+
+</style>

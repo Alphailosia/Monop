@@ -1,5 +1,5 @@
 <template>
-    <v-card class="prison">
+    <v-card class="prison" v-bind:class="[position]">
         <v-card-title class="title-allez">
             ALLEZ EN
         </v-card-title>
@@ -19,6 +19,7 @@ export default {
        nom: String,
        sous_nom: String,
        loyer: Number,
+       position: String,
    } 
 }
 </script>
@@ -52,6 +53,15 @@ border-radius: 5px;
  font-weight: bold;
  font-size: 30px;
  margin-top: 40%;
+}
+.top {
+    transform: rotate(180deg);
+}
+.left {
+    transform: rotate(90deg);
+}
+.right {
+    transform: rotate(270deg);
 }
 </style>
 
