@@ -52,6 +52,10 @@ export default {
         deplTop: 200,
         caseVisitees: 0,
         retDepl: 0,
+        inventaire:{
+          argent:0,
+          proprietes:[],
+        }
       },
       {
         nom: "joueur2",
@@ -59,6 +63,10 @@ export default {
         deplTop: 200,
         caseVisitees: 0,
         retDepl: 0,
+        inventaire:{
+          argent:0,
+          proprietes:[],
+        }
       },
     ],
     partieTerminer: 0,
