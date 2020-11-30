@@ -1,10 +1,11 @@
 <template >
   <div id="base">
-    <v-btn v-if="!partie" @click="lancerPartie()" :disabled="partie"
-      >Lancer Partie</v-btn
-    >
+     <div v-if="!partie">
+         <input type="text" placeholder="nom ..." v-model="nom">
+         <v-btn @click="envoiNom()">envoyer</v-btn>
+     </div>
     <div v-if="partie">
-      <v-btn @click="jouer" :disabled="desactif">Lancer</v-btn>
+      <v-btn @click="jouer" :disabled="desactif || nom!==joueurs[numJoueur].nom">Lancer</v-btn>
       <p>{{ joueurs[numJoueur].nom }} doit lancer les dés</p>
     </div>
     <v-alert
@@ -38,11 +39,30 @@
 import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
 
+
 export default {
   components: {
     Plateau,
   },
+  sockets : {
+    connection: function () {
+            console.log('socket connected');
+    },
+    start: function(data){
+      this.joueurs = data;
+      this.partie = true;
+      this.lancerPartie();
+    },
+    deplacement: function(data){
+      if(data.nom!==this.nom){
+        this.affichedes[0]=data.de1;
+        this.affichedes[1]=data.de2;
+        this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+      }
+    }
+  },
   data: () => ({
+    nom: "",
     partie: false,
     comptdouble: 0,
     joueurs: [
@@ -96,6 +116,9 @@ export default {
     this.jsonPropriete = CartesProprieteGareService;
   },
   methods: {
+    envoiNom: function(){
+      this.$socket.emit('nom',this.nom)
+    },
     lancerPartie: function () {
       this.partie = true;
       this.partieTerminer = 1;
@@ -131,7 +154,14 @@ export default {
         console.log("partie terminer");
       } else {
         this.lancerDes();
+        let data = {
+          nom: this.nom,
+          de1: this.affichedes[0],
+          de2: this.affichedes[1]
+        }
+        this.$socket.emit('jouer',data)
         this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+        
       }
     },
     initBanque: function () {
