@@ -30,17 +30,22 @@
       ></div>
     </div>
     <Plateau v-if="partie" :joueurs="joueurs" />
-  </div>
+      <CartesPropriete
+    :carte="proprietes[0][0]"
+    />
+  </div>   
 </template>
 
 
 <script>
 import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
+import CartesPropriete from "./CartesPropriete.vue";
 
 export default {
   components: {
     Plateau,
+    CartesPropriete,
   },
   data: () => ({
     partie: false,
@@ -83,11 +88,16 @@ export default {
     jsonPropriete: [],
     depl: 0,
     retDepl: 0,
+    proprietes: [],
   }),
-  mounted() {
+  created() {
     this.jsonPropriete = CartesProprieteGareService;
+    this.afficheCarte();
   },
   methods: {
+    afficheCarte: function () {
+      this.proprietes = this.jsonPropriete[0];
+    },
     lancerPartie: function () {
       this.partie = true;
       this.partieTerminer = 1;
@@ -224,13 +234,12 @@ export default {
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
               console.log(this.numJoueur);
-        
             } else {
               this.numJoueur = 0;
               this.partieTerminer += 1;
               console.log(this.numJoueur);
             }
-            this.comptdouble = 0 ;
+            this.comptdouble = 0;
           }
         }
       }

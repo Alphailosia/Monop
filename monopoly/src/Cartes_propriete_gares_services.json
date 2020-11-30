@@ -13,11 +13,11 @@
                     160,
                     250
                 ],
-                "Bâtiments": [
+                "batiment": [
                     50,
                     50
                 ],
-                "hypothèque": 30
+                "hypotheque": 30
             },
             {
                 "nom": "RUE SMOLETT",
@@ -31,11 +31,11 @@
                     320,
                     450
                 ],
-                "Bâtiments": [
+                "batiment": [
                     50,
                     50
                 ],
-                "hypothèque": 30
+                "hypotheque": 30
             }
         ],
         [
@@ -51,11 +51,11 @@
                     400,
                     550
                 ],
-                "Bâtiments": [
+                "batiment": [
                     50,
                     50
                 ],
-                "hypothèque": 50
+                "hypotheque": 50
             },
             {
                 "nom": "BOULEVARD RISSO",
@@ -69,11 +69,11 @@
                     400,
                     550
                 ],
-                "Bâtiments": [
+                "batiment": [
                     50,
                     50
                 ],
-                "hypothèque": 50
+                "hypotheque": 50
             },
             {
                 "nom": "QUAI PAPACINO",
@@ -87,11 +87,11 @@
                     450,
                     600
                 ],
-                "Bâtiments": [
+                "batiment": [
                     50,
                     50
                 ],
-                "hypothèque": 60
+                "hypotheque": 60
             }
         ],
         [
@@ -107,11 +107,11 @@
                     625,
                     750
                 ],
-                "Bâtiments": [
+                "batiment": [
                     100,
                     100
                 ],
-                "hypothèque": 70
+                "hypotheque": 70
             },
             {
                 "nom": "AVENUE VALROSE",
@@ -125,11 +125,11 @@
                     625,
                     750
                 ],
-                "Bâtiments": [
+                "batiment": [
                     100,
                     100
                 ],
-                "hypothèque": 70
+                "hypotheque": 70
             },
             {
                 "nom": "AVENUE SAINT JEAN BAPTISTE",
@@ -143,11 +143,11 @@
                     700,
                     900
                 ],
-                "Bâtiments": [
+                "batiment": [
                     100,
                     100
                 ],
-                "hypothèque": 80
+                "hypotheque": 80
             }
         ],
         [
@@ -163,11 +163,11 @@
                     750,
                     950
                 ],
-                "Bâtiments": [
+                "batiment": [
                     100,
                     100
                 ],
-                "hypothèque": 90
+                "hypotheque": 90
             },
             {
                 "nom": "AVENUE DE LA CALIFORNIE",
@@ -181,11 +181,11 @@
                     750,
                     950
                 ],
-                "Bâtiments": [
+                "batiment": [
                     100,
                     100
                 ],
-                "hypothèque": 90
+                "hypotheque": 90
             },
             {
                 "nom": "RUE ST FRANCOIS DE PAULE",
@@ -199,11 +199,11 @@
                     800,
                     1000
                 ],
-                "Bâtiments": [
+                "batiment": [
                     100,
                     100
                 ],
-                "hypothèque": 100
+                "hypotheque": 100
             }
         ],
         [
@@ -219,11 +219,11 @@
                     875,
                     1050
                 ],
-                "Bâtiments": [
+                "batiment": [
                     150,
                     150
                 ],
-                "hypothèque": 110
+                "hypotheque": 110
             },
             {
                 "nom": "COURS SALEYA",
@@ -237,11 +237,11 @@
                     875,
                     1050
                 ],
-                "Bâtiments": [
+                "batiment": [
                     150,
                     150
                 ],
-                "hypothèque": 110
+                "hypotheque": 110
             },
             {
                 "nom": "AVENUE JEAN MEDECIN",
@@ -255,11 +255,11 @@
                     925,
                     1100
                 ],
-                "Bâtiments": [
+                "batiment": [
                     150,
                     150
                 ],
-                "hypothèque": 120
+                "hypotheque": 120
             }
         ],
         [
@@ -275,11 +275,11 @@
                     975,
                     1150
                 ],
-                "Bâtiments": [
+                "batiment": [
                     150,
                     150
                 ],
-                "hypothèque": 130
+                "hypotheque": 130
             },
             {
                 "nom": "BOULEVARD CARABACEL",
@@ -293,11 +293,11 @@
                     975,
                     1150
                 ],
-                "Bâtiments": [
+                "batiment": [
                     150,
                     150
                 ],
-                "hypothèque": 130
+                "hypotheque": 130
             },
             {
                 "nom": "BOULEVARD TZAREWITCH",
@@ -311,11 +311,11 @@
                     1025,
                     1200
                 ],
-                "Bâtiments": [
+                "batiment": [
                     150,
                     150
                 ],
-                "hypothèque": 140
+                "hypotheque": 140
             }
         ],
         [
@@ -331,11 +331,11 @@
                     1100,
                     1275
                 ],
-                "Bâtiments": [
+                "batiment": [
                     200,
                     200
                 ],
-                "hypothèque": 150
+                "hypotheque": 150
             },
             {
                 "nom": "PLACE MASSENA",
@@ -349,11 +349,11 @@
                     1100,
                     1275
                 ],
-                "Bâtiments": [
+                "batiment": [
                     200,
                     200
                 ],
-                "hypothèque": 150
+                "hypotheque": 150
             },
             {
                 "nom": "BD MAURICE MAETERLINCK",
@@ -367,11 +367,11 @@
                     1200,
                     1400
                 ],
-                "Bâtiments": [
+                "batiment": [
                     200,
                     200
                 ],
-                "hypothèque": 160
+                "hypotheque": 160
             }
         ],
         [
@@ -387,11 +387,11 @@
                     1300,
                     1500
                 ],
-                "Bâtiments": [
+                "batiment": [
                     200,
                     200
                 ],
-                "hypothèque": 175
+                "hypotheque": 175
             },
             {
                 "nom": "PROMENADE DES ANGLAIS",
@@ -405,11 +405,11 @@
                     1700,
                     2000
                 ],
-                "Bâtiments": [
+                "batiment": [
                     200,
                     200
                 ],
-                "hypothèque": 200
+                "hypotheque": 200
             }
         ]
     ],
@@ -423,7 +423,7 @@
                     100,
                     200
                 ],
-                "hypothèque": 100,
+                "hypotheque": 100,
                 "prixAchat": 200
             },
             {"image": 1,
@@ -434,7 +434,7 @@
                     100,
                     200
                 ],
-                "hypothèque": 100,
+                "hypotheque": 100,
                 "prixAchat": 200
             },
             {"image": 2,
@@ -445,7 +445,7 @@
                     100,
                     200
                 ],
-                "hypothèque": 100,
+                "hypotheque": 100,
                 "prixAchat": 200
             },
             {"image": 2,
@@ -456,7 +456,7 @@
                     100,
                     200
                 ],
-                "hypothèque": 100,
+                "hypotheque": 100,
                 "prixAchat": 200
             }
         ]
@@ -469,14 +469,14 @@
                 "loyer": [
                     150
                 ],
-                "hypothèque": 75
+                "hypotheque": 75
             },
             {
                 "nom": "COMPAGNIE DE DISTRIBUTION DES EAUX",
                 "loyer": [
                     150
                 ],
-                "hypothèque": 75
+                "hypotheque": 75
             }
         ]
     ]
