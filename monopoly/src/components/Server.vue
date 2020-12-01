@@ -1,8 +1,21 @@
 <template >
   <div id="base">
      <div v-if="!partie">
-         <input type="text" placeholder="nom ..." v-model="nom">
-         <v-btn @click="envoiNom()">envoyer</v-btn>
+         <div v-if="connected">
+            <div v-if="!nomEnvoyer"> 
+            <p>Entrez votre nom : </p>
+              <input type="text" placeholder="nom ..." v-model="nom">
+              <v-btn @click="envoiNom()">envoyer</v-btn>
+            </div>
+            <p> Joueurs présent :</p>
+            <ul>
+            <li v-for="(joueur,index) in joueurs" :key="index">
+              <div v-if="nom===joueur.nom">{{joueur.nom}} (vous)</div>
+              <div v-if="nom!==joueur.nom">{{joueur.nom}}</div>
+            </li>
+            </ul>
+            <v-btn @click="launch()" :disabled="joueurs.length <2">Lancer</v-btn>
+         </div>
      </div>
     <div v-if="partie">
       <v-btn @click="jouer" :disabled="desactif || nom!==joueurs[numJoueur].nom">Lancer</v-btn>
@@ -46,10 +59,13 @@ export default {
   },
   sockets : {
     connection: function () {
+            this.connected=true;
             console.log('socket connected');
     },
-    start: function(data){
-      this.joueurs = data;
+    envoiNom: function(data){
+      this.joueurs=data;
+    },
+    start: function(){
       this.partie = true;
       this.lancerPartie();
     },
@@ -62,33 +78,12 @@ export default {
     }
   },
   data: () => ({
+    nomEnvoyer:false,
+    connected:false,
     nom: "",
     partie: false,
     comptdouble: 0,
-    joueurs: [
-      {
-        nom: "joueur1",
-        deplLeft: 150,
-        deplTop: 200,
-        caseVisitees: 0,
-        retDepl: 0,
-        inventaire:{
-          argent:0,
-          proprietes:[],
-        }
-      },
-      {
-        nom: "joueur2",
-        deplLeft: 120,
-        deplTop: 200,
-        caseVisitees: 0,
-        retDepl: 0,
-        inventaire:{
-          argent:0,
-          proprietes:[],
-        }
-      },
-    ],
+    joueurs: [],
     partieTerminer: 0,
     numJoueur: 0,
     destime: "",
@@ -116,7 +111,11 @@ export default {
     this.jsonPropriete = CartesProprieteGareService;
   },
   methods: {
+    launch: function(){
+      this.$socket.emit('launch');
+    }, 
     envoiNom: function(){
+      this.nomEnvoyer=true;
       this.$socket.emit('nom',this.nom)
     },
     lancerPartie: function () {

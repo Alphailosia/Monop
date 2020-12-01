@@ -19,13 +19,13 @@ var index = 0;
 
 // établissement de la connexion
 io.on('connection', (socket) =>{
-   console.log(`Connecté au client ${socket.id}`)
-   socket.emit("connection")
+   console.log(`Connecté au client ${socket.id}`);
+   socket.emit("connection");
 
    
    // ecoute du nom  
    socket.on('nom', data =>{
-      console.log("nom recu %s",data)
+      console.log("nom recu %s",data);
       joueurs[index]={
          nom: data,
          deplLeft: 150,
@@ -38,16 +38,19 @@ io.on('connection', (socket) =>{
         }
       }
       index++;
-      if(index===2){
-         io.emit("start",joueurs)
-      }
-   })
+      io.emit("envoiNom",joueurs);
+   });
+
+   // lancement de la partie
+   socket.on('launch', () => {
+      io.emit('start');
+   });
 
    // deplacement du joueur
    socket.on('jouer', data=> {
-      io.emit('deplacement',data)
-   })
-})
+      io.emit('deplacement',data);
+   });
+});
 
 
 
