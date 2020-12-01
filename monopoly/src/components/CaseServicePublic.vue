@@ -1,5 +1,5 @@
 <template>
-  <v-card class="services" v-bind:class="[position]">
+  <v-card class="services" v-bind:class="[position]" @click="affichageService()">
     <div class="color-services" :style="{ backgroundColor: monopole }"></div>
     <v-card-title class="title-services">
       {{ nom }}
@@ -23,6 +23,11 @@ export default {
     loyer: Number,
     position: String,
   },
+  methods: {
+  affichageService: function() {
+    console.log("props");
+  }
+  }
 };
 </script>
 
