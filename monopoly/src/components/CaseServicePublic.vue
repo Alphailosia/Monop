@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
 export default {
   props: {
     monopole: String,
@@ -23,9 +24,17 @@ export default {
     loyer: Number,
     position: String,
   },
+  data: () => ({
+    carte: {},
+    services: [],
+    
+  }),
+  created(){
+    this.proprietes = Cartes_propriete_gares_services[2];
+  },
   methods: {
   affichageService: function() {
-    console.log("props");
+    this.$emit("service");
   }
   }
 };

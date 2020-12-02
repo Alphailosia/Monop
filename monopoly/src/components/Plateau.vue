@@ -66,6 +66,12 @@
     <v-dialog v-model="dialog" max-width="500px">
       <CartesPropriete :carte="carte" />
     </v-dialog>
+    <v-dialog v-model="dialog2" max-width="500px">
+      <CartesGare :carte="carte" />
+    </v-dialog>
+    <v-dialog v-model="dialog3" max-width="500px">
+      <CartesService :carte="carte" />
+    </v-dialog>
   </div>
 </template>
 
@@ -85,6 +91,9 @@ import CaseSimpleVisite from "./CaseSimpleVisite";
 import CasePrison from "./CasePrison";
 import cases from "../cases.json";
 import CartesPropriete from "./CartesPropriete.vue";
+import CartesGare from "./CartesGare.vue";
+import CartesService from "./CartesService.vue";
+
 
 export default {
   components: {
@@ -99,6 +108,8 @@ export default {
     CaseSimpleVisite,
     CasePrison,
     CartesPropriete,
+    CartesGare,
+    CartesService,
   },
   data: () => ({
     proprietes: [],
@@ -112,6 +123,8 @@ export default {
     jsonChance: [],
     cases: cases,
     dialog: false,
+    dialog2: false,
+    dialog3: false,
     carte: {},
   }),
   created() {
@@ -148,6 +161,7 @@ export default {
             this.carte = this.gares[i];
           }
         }
+        this.dialog2 = true;
       }
       else {
         for (let i = 0; i < this.services.length; i++) {
@@ -155,8 +169,9 @@ export default {
             this.carte = this.services[i];
           }
         }
+        this.dialog3 = true;
       }
-      this.dialog = true;
+      
     },
     getCasePosition: function (indexRow, indexCase) {
       if (indexRow === 0) {
