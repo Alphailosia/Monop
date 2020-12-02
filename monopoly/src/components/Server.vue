@@ -5,7 +5,7 @@
     >
     <div v-if="partie">
       <v-btn @click="jouer" :disabled="desactif">Lancer</v-btn>
-      <p>{{ joueurs[numJoueur].nom }} doit lancer les dés</p>
+      <p>{{ joueurs[numJoueur].nom }} doit jouer.</p>
     </div>
     <v-alert
       id="des"
@@ -18,6 +18,26 @@
       <p>Voici vos dés.</p>
       <img :src="affichedes[2]" alt="dé 1" />
       <img :src="affichedes[3]" alt="dé 2" />
+    </v-alert>
+
+
+    <v-alert v-if="joueurs[numJoueur].prison"
+        id="prison"
+        colored-border
+        color="deep-black"
+        elevation="2"
+    >
+      <h1 style="text-align: center">Vous êtes en prison.</h1>
+      <h2 style="text-align: center">Que voulez vous faire?</h2>
+      <div>
+      <v-btn @click="prison(1)" text>Essayer de faire un double.</v-btn>
+      </div>
+      <div>
+        <v-btn @click="prison(2)" :disabled="joueurs[numJoueur].inventaire.argent<50" text>Payer 50 pour pouvoir sortir.</v-btn>
+      </div>
+      <div>
+        <v-btn @click="prison(3)" :disabled="joueurs[numJoueur].cartePrison.length==0" text>Utiliser une carte "Vous êtes libéré de prison".</v-btn>
+      </div>
     </v-alert>
 
     <p v-if="partie">Tour numéro : {{ partieTerminer }}</p>
@@ -48,6 +68,9 @@ export default {
     joueurs: [
       {
         nom: "joueur1",
+        prison: false,
+        tourPrison:0,
+        cartePrison: [],
         deplLeft: 150,
         deplTop: 200,
         caseVisitees: 0,
@@ -59,6 +82,9 @@ export default {
       },
       {
         nom: "joueur2",
+        prison: false,
+        tourPrison:0,
+        cartePrison: [],
         deplLeft: 120,
         deplTop: 200,
         caseVisitees: 0,
@@ -130,8 +156,10 @@ export default {
         this.desactif = false;
         console.log("partie terminer");
       } else {
-        this.lancerDes();
-        this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+        if(this.joueurs[this.numJoueur].prison == false) {
+          this.lancerDes();
+          this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+        }
       }
     },
     initBanque: function () {
@@ -143,6 +171,55 @@ export default {
         } else {
           this.banque.services = this.jsonPropriete[i];
         }
+      }
+    },
+    prison: function(cpt){
+      this.joueurs[this.numJoueur].tourPrison +=1;
+      if(cpt ==1){
+        this.lancerDes();
+        if(this.affichedes[0] == this.affichedes[1]){
+          this.joueurs[this.numJoueur].caseVisitees =10;
+          this.joueurs[this.numJoueur].retDepl =10;
+          this.joueurs[this.numJoueur].tourPrison =0;
+          this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+        }
+        else{
+          if(this.joueurs[this.numJoueur].tourPrison ==3){
+            this.joueurs[this.numJoueur].inventaire.argent -=50;
+            this.joueurs[this.numJoueur].caseVisitees =10;
+            this.joueurs[this.numJoueur].retDepl =10;
+            this.joueurs[this.numJoueur].tourPrison =0;
+            this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+          }
+          else{
+            if (this.numJoueur < this.joueurs.length - 1) {
+              this.numJoueur++;
+              console.log(this.numJoueur);
+
+            }
+            else {
+              this.numJoueur = 0;
+              this.partieTerminer += 1;
+              console.log(this.numJoueur);
+            }
+          }
+        }
+      }
+      else if(cpt ==2){
+          this.joueurs[this.numJoueur].inventaire.argent-=50;
+          this.lancerDes();
+          this.joueurs[this.numJoueur].caseVisitees=10;
+          this.joueurs[this.numJoueur].retDepl =10;
+          this.joueurs[this.numJoueur].tourPrison =0;
+          this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+      }
+      else if(cpt ==3){
+          this.joueurs[this.numJoueur].cartePrison.remove(0);
+          this.lancerDes();
+          this.joueurs[this.numJoueur].caseVisitees =10;
+          this.joueurs[this.numJoueur].retDepl =10;
+          this.joueurs[this.numJoueur].tourPrison =0;
+          this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
       }
     },
     deplacerJoueur: function (de1, de2) {
@@ -215,7 +292,25 @@ export default {
         this.joueurs[this.numJoueur].retDepl ===
         this.joueurs[this.numJoueur].caseVisitees
       ) {
-        if (this.affichedes[0] != this.affichedes[1]) {
+        console.log(this.joueurs[this.numJoueur].caseVisitees)
+        if(this.joueurs[this.numJoueur].caseVisitees ===30){
+          this.joueurs[this.numJoueur].prison = true;
+          this.joueurs[this.numJoueur].deplLeft = 2170;
+          this.joueurs[this.numJoueur].deplTop = 250;
+          if (this.numJoueur < this.joueurs.length - 1) {
+            this.numJoueur++;
+            console.log(this.numJoueur);
+
+          } else {
+            this.numJoueur = 0;
+            this.partieTerminer += 1;
+            console.log(this.numJoueur);
+          }
+          this.comptdouble = 0 ;
+        }
+        else if ((this.joueurs[this.numJoueur].prison)||(this.affichedes[0] != this.affichedes[1])) {
+          this.comptdouble = 0;
+          this.joueurs[this.numJoueur].prison = false;
           if (this.numJoueur < this.joueurs.length - 1) {
             this.numJoueur++;
             console.log(this.numJoueur);
@@ -224,9 +319,11 @@ export default {
             this.partieTerminer += 1;
             console.log(this.numJoueur);
           }
-        } else {
+        }
+        else {
           this.comptdouble++;
           if (this.comptdouble === 3) {
+            this.joueurs[this.numJoueur].prison = true;
             this.joueurs[this.numJoueur].deplLeft = 2170;
             this.joueurs[this.numJoueur].deplTop = 250;
             if (this.numJoueur < this.joueurs.length - 1) {
@@ -274,7 +371,7 @@ template {
   height: 50px;
   border: solid 1px;
   border-radius: 25px;
-  background-color: blue;
+  background-color: #0000ff;
   position: absolute;
   transition: all ease-in-out 1s;
   z-index: 10000000000;
@@ -287,6 +384,15 @@ template {
   height: 7%;
   top: 500px;
   left: 900px;
+  z-index: 10000000000;
+}
+#prison{
+  position: absolute;
+  text-align: center;
+  width: 500px;
+  height: 220px;
+  top: 700px;
+  left: 940px;
   z-index: 10000000000;
 }
 </style>
