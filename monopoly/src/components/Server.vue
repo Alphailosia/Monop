@@ -29,7 +29,7 @@
         :style="`left:${joueur.deplLeft}px;top:${joueur.deplTop}px;`"
       ></div>
     </div>
-    <Plateau v-if="partie" :joueurs="joueurs" />
+    <Plateau v-if="partie" :joueurs="joueurs" class="plateau" />
   </div>
 </template>
 
@@ -91,6 +91,7 @@ export default {
     jsonPropriete: [],
     depl: 0,
     retDepl: 0,
+    memoire: 0,
   }),
   mounted() {
     this.jsonPropriete = CartesProprieteGareService;
@@ -149,17 +150,30 @@ export default {
       this.depl = de1 + de2;
       this.memoire = this.depl;
       this.joueurs[this.numJoueur].retDepl += this.depl;
-      console.log(this.depl);
+      console.log("dep1 = " + this.depl);
+      console.log("retDep1 = "+ this.joueurs[this.numJoueur].retDepl);
+      if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 40){
+        this.memoire = this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40 ;
+      }
       while (this.depl != 0) {
-        if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 39) {
-          this.memoire =
-            this.joueurs[this.numJoueur].caseVisitees + this.memoire - 39;
-        }
+        //if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 39) {
+          //this.memoire =
+            //this.joueurs[this.numJoueur].caseVisitees + this.memoire - 39;
+        //}
         setTimeout(this.animation, 1000 * (de1 + de2 - this.depl));
         this.depl--;
       }
+
+      
+      
     },
     animation: function () {
+      if(this.joueurs[this.numJoueur].caseVisitees === 0||
+        this.joueurs[this.numJoueur].caseVisitees === 40){
+          this.joueurs[this.numJoueur].inventaire.argent += 200;
+          console.log("Inventaire du joueur " + this.numJoueur + " : " + this.joueurs[this.numJoueur].inventaire.argent);
+        }
+      
       if (
         this.joueurs[this.numJoueur].caseVisitees === 0 ||
         this.joueurs[this.numJoueur].caseVisitees === 9
@@ -207,10 +221,20 @@ export default {
         this.joueurs[this.numJoueur].caseVisitees++;
       } else if (this.joueurs[this.numJoueur].caseVisitees === 39) {
         this.joueurs[this.numJoueur].deplTop -= 235;
-        this.joueurs[this.numJoueur].retDepl = this.memoire;
-        this.joueurs[this.numJoueur].caseVisitees = 0;
-        this.partie = false;
+        this.joueurs[this.numJoueur].caseVisitees++;
       }
+        else if(this.joueurs[this.numJoueur].caseVisitees === 40){
+          this.joueurs[this.numJoueur].deplLeft += 223;
+          this.joueurs[this.numJoueur].caseVisitees = 1;
+          this.joueurs[this.numJoueur].retDepl = this.memoire;
+          console.log("retDep1 = "+ this.joueurs[this.numJoueur].retDepl);
+          console.log("CaseVisitees = "+ this.joueurs[this.numJoueur].caseVisitees);
+          
+
+        }
+
+        
+      
       if (
         this.joueurs[this.numJoueur].retDepl ===
         this.joueurs[this.numJoueur].caseVisitees
@@ -226,9 +250,10 @@ export default {
           }
         } else {
           this.comptdouble++;
-          if (this.comptdouble === 3) {
+          if (this.comptdouble === 2) {                      // GO TO PRISON
             this.joueurs[this.numJoueur].deplLeft = 2170;
             this.joueurs[this.numJoueur].deplTop = 250;
+            this.joueurs[this.numJoueur].caseVisitees = 10 ; // mise a jour case visitées
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
               console.log(this.numJoueur);
@@ -289,4 +314,5 @@ template {
   left: 900px;
   z-index: 10000000000;
 }
+
 </style>
