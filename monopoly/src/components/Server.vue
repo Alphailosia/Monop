@@ -91,9 +91,13 @@ export default {
     jsonPropriete: [],
     depl: 0,
     retDepl: 0,
+    proprietes: [],
+    gares: [],
+    services: [],
     memoire: 0,
+
   }),
-  mounted() {
+  created() {
     this.jsonPropriete = CartesProprieteGareService;
   },
   methods: {
@@ -257,13 +261,12 @@ export default {
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
               console.log(this.numJoueur);
-        
             } else {
               this.numJoueur = 0;
               this.partieTerminer += 1;
               console.log(this.numJoueur);
             }
-            this.comptdouble = 0 ;
+            this.comptdouble = 0;
           }
         }
       }
