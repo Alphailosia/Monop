@@ -29,7 +29,10 @@
         :style="`left:${joueur.deplLeft}px;top:${joueur.deplTop}px;`"
       ></div>
     </div>
+    <div class="organisation">
     <Plateau v-if="partie" :joueurs="joueurs" class="plateau" />
+    <Inventaire v-if="partie" :joueurs="joueurs"/>
+    </div>
   </div>
 </template>
 
@@ -37,10 +40,12 @@
 <script>
 import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
+import Inventaire from './Inventaire.vue';
 
 export default {
   components: {
     Plateau,
+    Inventaire,
   },
   data: () => ({
     partie: false,
@@ -318,4 +323,7 @@ template {
   z-index: 10000000000;
 }
 
+.organisation{
+  display:flex;
+}
 </style>
