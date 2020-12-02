@@ -168,7 +168,12 @@ export default {
       
     },
     animation: function () {
-      console.log("caseVisitees = " + this.joueurs[this.numJoueur].caseVisitees);
+      if(this.joueurs[this.numJoueur].caseVisitees === 0||
+        this.joueurs[this.numJoueur].caseVisitees === 40){
+          this.joueurs[this.numJoueur].inventaire.argent += 200;
+          console.log("Inventaire du joueur " + this.numJoueur + " : " + this.joueurs[this.numJoueur].inventaire.argent);
+        }
+      
       if (
         this.joueurs[this.numJoueur].caseVisitees === 0 ||
         this.joueurs[this.numJoueur].caseVisitees === 9
@@ -216,7 +221,6 @@ export default {
         this.joueurs[this.numJoueur].caseVisitees++;
       } else if (this.joueurs[this.numJoueur].caseVisitees === 39) {
         this.joueurs[this.numJoueur].deplTop -= 235;
-        //this.joueurs[this.numJoueur].retDepl = this.memoire;
         this.joueurs[this.numJoueur].caseVisitees++;
       }
         else if(this.joueurs[this.numJoueur].caseVisitees === 40){
@@ -246,9 +250,10 @@ export default {
           }
         } else {
           this.comptdouble++;
-          if (this.comptdouble === 3) {
+          if (this.comptdouble === 2) {                      // GO TO PRISON
             this.joueurs[this.numJoueur].deplLeft = 2170;
             this.joueurs[this.numJoueur].deplTop = 250;
+            this.joueurs[this.numJoueur].caseVisitees = 10 ; // mise a jour case visitées
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
               console.log(this.numJoueur);
