@@ -1,5 +1,9 @@
 <template>
-  <v-card class="propriete" v-bind:class="[position]">
+  <v-card
+    class="propriete"
+    v-bind:class="[position]"
+    @click="affichagePropriete()"
+  >
     <div class="color-propriete" :style="{ backgroundColor: monopole }"></div>
     <v-card-title class="title-propriete">
       {{ nom }}
@@ -8,17 +12,43 @@
       {{ sous_nom }}
     </div>
     <div class="prix-propriete">€ {{ loyer }}</div>
+   
   </v-card>
 </template>
 
 <script>
+import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
 export default {
+  components: {
+  },
+  data: () => ({
+    carte: {},
+    proprietes: [],
+    
+  }),
   props: {
     monopole: String,
     nom: String,
     sous_nom: String,
     loyer: Number,
     position: String,
+  },
+  created() {
+    this.proprietes = Cartes_propriete_gares_services[0];
+    for (let i = 0; i < this.proprietes.length; i++) {
+      if (this.monopole === this.proprietes[i][0].Color) {
+        for (let j = 0; j < this.proprietes[i].length; j++) {
+          if (this.nom === this.proprietes[i][j].nom) {
+            this.carte = this.proprietes[i][j];
+          }
+        }
+      }
+    }
+  },
+  methods: {
+    affichagePropriete: function () {
+      this.$emit("propriete");
+    },
   },
 };
 </script>
@@ -67,5 +97,10 @@ export default {
 }
 .right {
   transform: rotate(270deg) translate(50px, 50px);
+}
+.dialog {
+  position: relative;
+  width: 500;
+  height: 800;
 }
 </style>
