@@ -163,12 +163,89 @@ export default {
         }
       }
     },
+    EtatVente : function() {
+
+    },
+
+    PositionToPropriete : function(){
+     let numCase = this.joueurs[this.numJoueur].caseVisitees +this.memoire;
+
+     console.log("case :" + this.joueurs[this.numJoueur].caseVisitees);
+     if(this.depl>1){
+       return "en deplacement";
+
+     }
+switch(numCase) {
+  case 1 :
+    return "RUE ROSSETTI";
+
+  case 3 :
+    return "RUE SMOLETT";
+
+  case 4 :
+    return "inachetable";
+
+  case 6 :
+    return "BOULEVARD RENE CASSIN";
+
+  case 8 :
+    return "BOULEVARD RISSO";
+
+  case 9 :
+    return "QUAI PAPACINO";
+  case 11 :
+    return "RUE BARLA";
+  case 13 :
+    return "AVENUE VALROSE";
+  case 14 :
+    return "AVENUE SAINT JEAN BAPTISTE";
+  case 16 :
+    return "PLACE GARIBALDI";
+  case 18 :
+    return "AVENUE DE LA CALIFORNIE";
+  case 19 :
+    return "RUE ST FRANCOIS DE PAULE";
+  case 21 :
+    return "RUE GIOFFREDO";
+  case 23 :
+    return "COURS SALEYA";
+  case 24 :
+    return "AVENUE JEAN MEDECIN\"";
+  case 26 :
+    return "BOULEVARD DUBOUCHAGE";
+  case 27 :
+    return "BOULEVARD CARABACEL";
+  case 29 :
+    return "BOULEVARD TZAREWITCH";
+  case 30 :
+    return "BOULEVARD DE CIMIEZ";
+  case 31 :
+    return "PLACE MASSENA";
+  case 33 :
+    return "BD MAURICE MAETERLINCK";
+  case 35 :
+    return "AVENUE DE VERDUN";
+  case 36 :
+    return "PROMENADE DES ANGLAIS";
+
+  default :
+    return "inachetable";
+
+  }
+    },
     deplacerJoueur: function (de1, de2) {
+
       this.depl = de1 + de2;
       this.memoire = this.depl;
       this.joueurs[this.numJoueur].retDepl += this.depl;
-      console.log(this.depl);
+
       while (this.depl != 0) {
+
+        console.log(this.PositionToPropriete());
+        if(this.PositionToPropriete()!="inachetable" && this.PositionToPropriete()!="en deplacement"){
+          this.EtatVente(this.PositionToPropriete());
+        }
+
         if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 39) {
           this.memoire =
             this.joueurs[this.numJoueur].caseVisitees + this.memoire - 39;
@@ -176,6 +253,7 @@ export default {
         setTimeout(this.animation, 1000 * (de1 + de2 - this.depl));
         this.depl--;
       }
+
     },
     animation: function () {
       if (
@@ -229,6 +307,7 @@ export default {
         this.joueurs[this.numJoueur].caseVisitees = 0;
         this.partie = false;
       }
+
       if (
         this.joueurs[this.numJoueur].retDepl ===
         this.joueurs[this.numJoueur].caseVisitees
@@ -261,7 +340,8 @@ export default {
       }
     },
   },
-};
+}
+;
 </script>
 <style scoped>
 template {
