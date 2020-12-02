@@ -1,14 +1,11 @@
 <template>
   <v-card class="services" v-bind:class="[position]" @click="affichageService()">
-    <div class="color-services" :style="{ backgroundColor: monopole }"></div>
+    <div class="color-services"></div>
     <v-card-title class="title-services">
       {{ nom }}
     </v-card-title>
-    <div class="sous-nom-services">
-      {{ sous_nom }}
-    </div>
     <div class="image-services">
-      <img src="../assets/images/ampoule.png" />
+      <img v-if="afficheimage()" :src="imagefinal" />
     </div>
     <div class="prix-services">€ {{ loyer }}</div>
   </v-card>
@@ -18,13 +15,13 @@
 import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
 export default {
   props: {
-    monopole: String,
+    image: Number,
     nom: String,
-    sous_nom: String,
     loyer: Number,
     position: String,
   },
   data: () => ({
+    imagefinal: null,
     carte: {},
     services: [],
     
@@ -33,6 +30,14 @@ export default {
     this.proprietes = Cartes_propriete_gares_services[2];
   },
   methods: {
+    afficheimage() {
+      if (this.image == 1) {
+        this.imagefinal = require("../assets/images/ampoule.png");
+      } else {
+        this.imagefinal = require("../assets/images/robinet.png");
+      }
+      return true;
+    },
   affichageService: function() {
     this.$emit("service");
   }
@@ -71,6 +76,7 @@ export default {
   margin-right: auto;
   margin-top: 60px;
 }
+
 
 .prix-services {
   text-align: center;

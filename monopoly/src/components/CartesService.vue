@@ -1,7 +1,7 @@
 <template>
   <v-card class="services">
       <div class="image-services">
-      <img src="../assets/images/ampoule.png" />
+      <img v-if="afficheimage()" :src="imagefinal" />
     </div>
     <v-card-title class="title-services">
       {{ carte.nom }}
@@ -21,8 +21,21 @@ export default {
   props: {
     carte: Object,
   },
+  data: () =>({
+     imagefinal: null,
+  }),
   mounted() {
       console.log(this.carte);
+  },
+  methods: {
+    afficheimage() {
+      if (this.carte.image == 1) {
+        this.imagefinal = require("../assets/images/ampoule.png");
+      } else {
+        this.imagefinal = require("../assets/images/robinet.png");
+      }
+      return true;
+    },
   },
 };
 </script>
@@ -33,16 +46,14 @@ export default {
   height: 800px;
   border: solid 2px;
   border-radius: 5px;
-  position: relative;
 }
 
 .image-services {
-  height: 100px;
-  width: 100px;
-  margin-top: 5px;
+  height: 20%;
+  width: 20%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 
 .title-services {
@@ -51,7 +62,7 @@ export default {
   word-break: break-word;
   justify-content: center;
   font-size: 230%;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .explications {
@@ -67,4 +78,5 @@ export default {
   font-size: 150%;
   margin-top: 50px;
 }
+
 </style>

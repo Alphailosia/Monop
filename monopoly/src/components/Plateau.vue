@@ -42,6 +42,7 @@
         <CaseServicePublic
           v-else-if="c.type === 'service'"
           :nom="c.nom"
+          :image="c.image"
           :loyer="c.loyer[0]"
           :position="getCasePosition(indexRow, indexCase)"
           @service="affichageClick2(c.nom, c.type)"
