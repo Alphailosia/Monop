@@ -13,6 +13,7 @@
           :monopole="c.Color"
           :loyer="c.loyer[0]"
           :position="getCasePosition(indexRow, indexCase)"
+          @propriete="affichageClick(c.nom, c.Color)"
         />
         <CaseDepart
           v-else-if="c.type === 'Départ'"
@@ -24,6 +25,7 @@
           :nom="c.nom"
           :prixAchat="c.prixAchat"
           :position="getCasePosition(indexRow, indexCase)"
+          @gare="affichageClick2(c.nom, c.type)"
         ></CaseGare>
         <CaseChance
           v-else-if="c.type === 'chance'"
@@ -42,6 +44,7 @@
           :nom="c.nom"
           :loyer="c.loyer[0]"
           :position="getCasePosition(indexRow, indexCase)"
+          @service="affichageClick2(c.nom, c.type)"
         />
         <Taxe
           v-else-if="c.type === 'taxe'"
@@ -60,6 +63,9 @@
         <div v-else-if="c.type === 'null'" class="empty-case"></div>
       </div>
     </div>
+    <v-dialog v-model="dialog" max-width="500px">
+      <CartesPropriete :carte="carte" />
+    </v-dialog>
   </div>
 </template>
 
@@ -78,6 +84,7 @@ import Cartes_chances_communautes from "../Cartes_chances_communautes.json";
 import CaseSimpleVisite from "./CaseSimpleVisite";
 import CasePrison from "./CasePrison";
 import cases from "../cases.json";
+import CartesPropriete from "./CartesPropriete.vue";
 
 export default {
   components: {
@@ -91,6 +98,7 @@ export default {
     CaseParcGratuit,
     CaseSimpleVisite,
     CasePrison,
+    CartesPropriete,
   },
   data: () => ({
     proprietes: [],
@@ -102,7 +110,9 @@ export default {
     chance: [],
     communaute: [],
     jsonChance: [],
-    cases: cases
+    cases: cases,
+    dialog: false,
+    carte: {},
   }),
   created() {
     this.jsonProprietes = Cartes_propriete_gares_services;
@@ -118,6 +128,35 @@ export default {
       this.chance = this.jsonChance[0];
       this.communaute = this.jsonChance[1];
       this.Taxe = this.jsonTaxe[0];
+    },
+    affichageClick: function (nom, Color) {
+      for (let i = 0; i < this.proprietes.length; i++) {
+        if (Color === this.proprietes[i][0].Color) {
+          for (let j = 0; j < this.proprietes[i].length; j++) {
+            if (nom === this.proprietes[i][j].nom) {
+              this.carte = this.proprietes[i][j];
+            }
+          }
+        }
+      }
+      this.dialog = true;
+    },
+    affichageClick2: function (nom, type) {
+      if (type === "gare") {
+        for (let i = 0; i < this.gares.length; i++) {
+          if (nom === this.gares[i].nom) {
+            this.carte = this.gares[i];
+          }
+        }
+      }
+      else {
+        for (let i = 0; i < this.services.length; i++) {
+          if (nom === this.services[i].nom) {
+            this.carte = this.services[i];
+          }
+        }
+      }
+      this.dialog = true;
     },
     getCasePosition: function (indexRow, indexCase) {
       if (indexRow === 0) {
@@ -135,7 +174,6 @@ export default {
 };
 </script>
 <style scoped>
-
 .plateau > div {
   display: flex;
 }
