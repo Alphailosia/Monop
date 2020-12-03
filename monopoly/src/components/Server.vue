@@ -191,12 +191,8 @@ export default {
     },
     jouer: function () {
       this.lancerDes();
-      let data = {
-        nom: this.nom,
-        de1: this.affichedes[0],
-        de2: this.affichedes[1],
-      };
-      this.$socket.emit("jouer", data);
+     
+
       this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
     },
     initBanque: function () {
