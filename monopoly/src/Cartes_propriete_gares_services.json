@@ -4,6 +4,7 @@
             {
                 "nom": "RUE ROSSETTI",
                 "sous_nom": "",
+                "proprietaire": "",
                 "Color": "#ff69b4",
                 "loyer": [
                     2,
@@ -22,6 +23,7 @@
             {
                 "nom": "RUE SMOLETT",
                 "sous_nom": "petit futé",
+                "proprietaire": "",
                 "Color": "#ff69b4",
                 "loyer": [
                     4,
@@ -42,6 +44,7 @@
             {
                 "nom": "BOULEVARD RENE CASSIN",
                 "sous_nom": "aux fleurs de la riviera",
+                "proprietaire": "",
                 "Color": "#87cefa",
                 "loyer": [
                     6,
@@ -60,6 +63,7 @@
             {
                 "nom": "BOULEVARD RISSO",
                 "sous_nom": "",
+                "proprietaire": "",
                 "Color": "#87cefa",
                 "loyer": [
                     6,
@@ -78,6 +82,7 @@
             {
                 "nom": "QUAI PAPACINO",
                 "sous_nom": "confiserie florian",
+                "proprietaire": "",
                 "Color": "#87cefa",
                 "loyer": [
                     8,
@@ -98,6 +103,7 @@
             {
                 "nom": "RUE BARLA",
                 "sous_nom": "",
+                "proprietaire": "",
                 "Color": "#ba55d3",
                 "loyer": [
                     10,
@@ -116,6 +122,7 @@
             {
                 "nom": "AVENUE VALROSE",
                 "sous_nom": "",
+                "proprietaire": "",
                 "Color": "#ba55d3",
                 "loyer": [
                     10,
@@ -134,6 +141,7 @@
             {
                 "nom": "AVENUE SAINT JEAN BAPTISTE",
                 "sous_nom": "",
+                "proprietaire": "",
                 "Color": "#ba55d3",
                 "loyer": [
                     10,
@@ -154,6 +162,7 @@
             {
                 "nom": "PLACE GARIBALDI",
                 "sous_nom": "café de turin",
+                "proprietaire": "",
                 "Color": "#ff8c00",
                 "loyer": [
                     14,
@@ -172,6 +181,7 @@
             {
                 "nom": "AVENUE DE LA CALIFORNIE",
                 "sous_nom": "",
+                "proprietaire": "",
                 "Color": "#ff8c00",
                 "loyer": [
                     14,
@@ -190,6 +200,7 @@
             {
                 "nom": "RUE ST FRANCOIS DE PAULE",
                 "sous_nom": "auer",
+                "proprietaire": "",
                 "Color": "#ff8c00",
                 "loyer": [
                     16,
@@ -210,6 +221,7 @@
             {
                 "nom": "RUE GIOFFREDO",
                 "sous_nom": "la maison du rideau",
+                "proprietaire": "",
                 "Color": "#ff0000",
                 "loyer": [
                     18,
@@ -228,6 +240,7 @@
             {
                 "nom": "COURS SALEYA",
                 "sous_nom": "brasserie les pochettes",
+                "proprietaire": "",
                 "Color": "#ff0000",
                 "loyer": [
                     18,
@@ -246,6 +259,7 @@
             {
                 "nom": "AVENUE JEAN MEDECIN",
                 "sous_nom": "nice etoile",
+                "proprietaire": "",
                 "Color": "#ff0000",
                 "loyer": [
                     20,
@@ -266,6 +280,7 @@
             {
                 "nom": "BOULEVARD DUBOUCHAGE",
                 "sous_nom": "cote",
+                "proprietaire": "",
                 "Color": "#ffd700",
                 "loyer": [
                     22,
@@ -284,6 +299,7 @@
             {
                 "nom": "BOULEVARD CARABACEL",
                 "sous_nom": "costamagna",
+                "proprietaire": "",
                 "Color": "#ffd700",
                 "loyer": [
                     22,
@@ -302,6 +318,7 @@
             {
                 "nom": "BOULEVARD TZAREWITCH",
                 "sous_nom": "",
+                "proprietaire": "",
                 "Color": "#ffd700",
                 "loyer": [
                     24,
@@ -322,6 +339,7 @@
             {
                 "nom": "BOULEVARD DE CIMIEZ",
                 "sous_nom": "",
+                "proprietaire": "",
                 "Color": "#2e8b57",
                 "loyer": [
                     26,
@@ -340,6 +358,7 @@
             {
                 "nom": "PLACE MASSENA",
                 "sous_nom": "tmc monte carlo",
+                "proprietaire": "",
                 "Color": "#2e8b57",
                 "loyer": [
                     26,
@@ -358,6 +377,7 @@
             {
                 "nom": "BD MAURICE MAETERLINCK",
                 "sous_nom": "palais maeterlinck",
+                "proprietaire": "",
                 "Color": "#2e8b57",
                 "loyer": [
                     28,
@@ -378,6 +398,7 @@
             {
                 "nom": "AVENUE DE VERDUN",
                 "sous_nom": "barichella",
+                "proprietaire": "",
                 "Color": "#00008b",
                 "loyer": [
                     35,
@@ -396,6 +417,7 @@
             {
                 "nom": "PROMENADE DES ANGLAIS",
                 "sous_nom": "",
+                "proprietaire": "",
                 "Color": "#00008b",
                 "loyer": [
                     50,
@@ -417,6 +439,7 @@
         {
             "image": 0,
             "nom": "AEROPORT NICE COTE D'AZUR",
+            "proprietaire": "",
             "loyer": [
                 25,
                 50,
@@ -429,6 +452,7 @@
         {
             "image": 1,
             "nom": "PORT LYMPIA",
+            "proprietaire": "",
             "loyer": [
                 25,
                 50,
@@ -441,6 +465,7 @@
         {
             "image": 2,
             "nom": "GARE DE NICE VILLE",
+            "proprietaire": "",
             "loyer": [
                 25,
                 50,
@@ -453,6 +478,7 @@
         {
             "image": 2,
             "nom": "GARE DU SUD",
+            "proprietaire": "",
             "loyer": [
                 25,
                 50,
@@ -467,6 +493,7 @@
         {
             "image": 1,
             "nom": "COMPAGNIE DE DISTRIBUTION DE L'ELECTRICITE",
+            "proprietaire": "",
             "loyer": [
                 150
             ],
@@ -475,6 +502,7 @@
         {
             "image": 2,
             "nom": "COMPAGNIE DE DISTRIBUTION DES EAUX",
+            "proprietaire": "",
             "loyer": [
                 150
             ],
