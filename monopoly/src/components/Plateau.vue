@@ -95,7 +95,6 @@ import CartesPropriete from "./CartesPropriete.vue";
 import CartesGare from "./CartesGare.vue";
 import CartesService from "./CartesService.vue";
 
-
 export default {
   components: {
     CaseDepart,
