@@ -16,8 +16,7 @@ export default {
 
   }),
     props:{
-        joueurs:Array,
-        
+        joueurs:Array, 
     },
     methods: {
     affichageInventaire: function (joueur) {

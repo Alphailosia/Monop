@@ -51,11 +51,10 @@
     </div>
     <div class="organisation">
     <Plateau v-if="partie" :joueurs="joueurs" class="plateau" />
-    <Inventaire v-if="partie" :joueurs="joueurs"
-    @inventaire="affichageClick($event)"/>
+    <Inventaire v-if="partie" :joueurs="joueurs" v-on:inventaire="affichageClick($event)"/>
     </div>
-    <v-dialog v-model="dialog" max-width="500px">
-      <CartesInventaire :carteInventaire="carteInventaire"/>
+    <v-dialog v-model="dialog" max-width="700px">
+    <CartesInventaire :carteInventaire="carteInventaire"/>
     </v-dialog>
   </div>
 </template>

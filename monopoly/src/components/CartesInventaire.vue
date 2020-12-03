@@ -1,5 +1,11 @@
 <template>
+<div > 
   <v-card class="inventaire">
+    <v-card-title class="title-inventaire">  <span :class="card.nom">{{ card.nom }} </span>
+            <div class="argent"> {{ card.inventaire.argent }} €</div>
+    </v-card-title>
+    <div class="separation">
+    <div class="organisation">
     <h1>Propriétés</h1>
     <v-card class="carte" v-for="(monopole, index) in jsonPropriete[0]" :key="index">
       <v-card v-for="(item, j) in monopole" :key="j">
@@ -10,31 +16,41 @@
         <v-card-text>{{ item.nom }} </v-card-text>
       </v-card>
     </v-card>
+    </div>  
+        <div class="organisation">
     <h1>Gares</h1>
     <v-card class="carte" v-for="(gare, index) in jsonPropriete[1]" :key="index">
       <v-card-text>{{ gare.nom }} </v-card-text>
     </v-card>
+    </div>  
+        <div class="organisation">
     <h1>Services</h1>
     <v-card class="carte" v-for="(service, index) in jsonPropriete[2]" :key="index">
       <v-card-text>{{ service.nom }} </v-card-text>
     </v-card>
+    </div>  
+    </div>
   </v-card>
+</div>  
 </template>
 
 <script>
 import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
 export default {
   data: () => ({
-    tabTest: [],
     jsonPropriete:[],
+    card:{}
   }),
   props: {
     carteInventaire: Object,
-    
   },
   created() {
       this.jsonPropriete = Cartes_propriete_gares_services;
+      this.card=this.carteInventaire;
   },
+  updated(){
+    this.card=this.carteInventaire;
+  }
 };
 </script>
 
@@ -52,5 +68,37 @@ export default {
   font-weight: bold;
   word-break: break-word;
   justify-content: center;
+}
+
+.title-inventaire{
+  font-weight: bold;
+  font-size: 250%;
+  justify-content: center;
+}
+
+.argent{
+  margin-left: 10%;
+}
+
+.Joueur1 {
+    color: red;
+}
+.Joueur2 {
+    Color: blue;
+}
+
+.separation {
+width: auto;
+  height: auto;
+  position: relative;
+  display: flex;
+}
+
+.organisation{
+  margin-left:10px;
+}
+
+.inventaire{
+  z-index: 20000000000;
 }
 </style>
