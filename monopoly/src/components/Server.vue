@@ -26,12 +26,12 @@
       <p>{{ joueurs[numJoueur].nom }} doit lancer les dés</p>
     </div>
     <v-alert
-      id="des"
-      v-if="desactif"
-      border="top"
-      colored-border
-      color="deep-black"
-      elevation="2"
+            id="des"
+            v-if="desactif"
+            border="top"
+            colored-border
+            color="deep-black"
+            elevation="2"
     >
       <p>Voici vos dés.</p>
       <img :src="affichedes[2]" alt="dé 1" />
@@ -72,24 +72,35 @@
     <p v-if="partie">Tour numéro : {{ partieTerminer }}</p>
     <div v-if="partie">
       <div
-        v-for="(joueur, index) in joueurs"
-        :key="index"
-        :class="`pion${index}`"
-        :style="`left:${joueur.deplLeft}px;top:${joueur.deplTop}px;`"
+              v-for="(joueur, index) in joueurs"
+              :key="index"
+              :class="`pion${index}`"
+              :style="`left:${joueur.deplLeft}px;top:${joueur.deplTop}px;`"
       ></div>
     </div>
+    <div class="organisation">
     <Plateau v-if="partie" :joueurs="joueurs" class="plateau" />
+    <Inventaire v-if="partie" :joueurs="joueurs" v-on:inventaire="affichageClick($event)"/>
+    </div>
+    <v-dialog v-model="dialog" max-width="700px">
+    <CartesInventaire :carteInventaire="carteInventaire"/>
+    </v-dialog>
   </div>
 </template>
+
 
 
 <script>
 import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
+import Inventaire from './Inventaire.vue';
+import CartesInventaire from './CartesInventaire.vue';
 
 export default {
   components: {
     Plateau,
+    Inventaire,
+    CartesInventaire,
   },
   sockets: {
     connection: function () {
@@ -151,9 +162,42 @@ export default {
     gares: [],
     services: [],
     memoire: 0,
+    carteInventaire: {},
+    dialog: false,
+
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
+    this.joueurs=[
+      {
+        nom: "Joueur1",
+        prison: false,
+        tourPrison: 0,
+        cartePrison: [],
+        deplLeft: 150,
+        deplTop: 200,
+        caseVisitees: 0,
+        retDepl: 0,
+        inventaire: {
+          argent: 1500,
+          proprietes: [],
+        },
+      },
+      {
+        nom: "Joueur2",
+        prison: false,
+        tourPrison: 0,
+        cartePrison: [],
+        deplLeft: 120,
+        deplTop: 200,
+        caseVisitees: 0,
+        retDepl: 0,
+        inventaire: {
+          argent: 1500,
+          proprietes: [],
+        },
+      },
+    ]
   },
   methods: {
     launch: function () {
@@ -162,6 +206,13 @@ export default {
     envoiNom: function () {
       this.nomEnvoyer = true;
       this.$socket.emit("nom", this.nom);
+    },
+    afficheCarte: function () {
+      this.proprietes = this.jsonPropriete[0];
+      this.gares = this.jsonPropriete[1];
+      this.services = this.jsonPropriete[2];
+      // console.log(this.gares);
+      // console.log(this.services);
     },
     lancerPartie: function () {
       this.partie = true;
@@ -217,6 +268,93 @@ export default {
         }
       }
     },
+    ProposerAchat: function (proprieteEnVente) {
+      this.joueurs[this.numJoueur].inventaire.proprietes.push(proprieteEnVente) ;
+      this.joueurs[this.numJoueur].inventaire.argent -= proprieteEnVente.loyer[0] ; 
+      console.log(this.joueurs[this.numJoueur].inventaire);
+    },
+
+
+    PositionToPropriete: function () {
+      let numCase = this.joueurs[this.numJoueur].caseVisitees + this.memoire;
+      if(numCase > 40){
+        numCase = numCase - 40 ;
+      } 
+
+      //console.log("case :" + this.joueurs[this.numJoueur].caseVisitees);
+      
+      switch (numCase) {
+        case 1:
+          // return "RUE ROSSETTI";
+          return "0,0,0";
+        case 3:
+          // return "RUE SMOLETT";
+          return "0,0,1";
+        case 6:
+          //  return "BOULEVARD RENE CASSIN";
+          return "0,1,0";
+        case 8:
+          //  return "BOULEVARD RISSO";
+          return "0,1,1";
+        case 9:
+          //  return "QUAI PAPACINO";
+          return "0,1,2";
+        case 11:
+          // return "RUE BARLA";
+          return "0,2,0";
+        case 13:
+          //  return "AVENUE VALROSE";
+          return "0,2,1";
+        case 14:
+          //  return "AVENUE SAINT JEAN BAPTISTE";
+          return "0,2,2";
+        case 16:
+          //  return "PLACE GARIBALDI";
+          return "0,3,0";
+        case 18:
+          //  return "AVENUE DE LA CALIFORNIE";
+          return "0,3,1";
+        case 19:
+          // return "RUE ST FRANCOIS DE PAULE";
+          return "0,3,2";
+        case 21:
+          // return "RUE GIOFFREDO";
+          return "0,4,0";
+        case 23:
+          // return "COURS SALEYA";
+          return "0,4,1";
+        case 24:
+          //  return "AVENUE JEAN MEDECIN\"";
+          return "0,4,2";
+        case 26:
+          // return "BOULEVARD DUBOUCHAGE";
+          return "0,5,0";
+        case 27:
+          // return "BOULEVARD CARABACEL";
+          return "0,5,1";
+        case 29:
+          //  return "BOULEVARD TZAREWITCH";
+          return "0,5,2";
+        case 31:
+          //  return "BOULEVARD DE CIMIEZ";
+          return "0,6,0";
+        case 32:
+          // return "PLACE MASSENA";
+          return "0,6,1";
+        case 34:
+          // return "BD MAURICE MAETERLINCK";
+          return "0,6,2";
+        case 37:
+          //   return "AVENUE DE VERDUN";
+          return "0,7,0";
+        case 39:
+          //  return "PROMENADE DES ANGLAIS";
+          return "0,7,1";
+
+        default:
+          return "inachetable";
+      }
+    },
     prison: function (cpt) {
       this.joueurs[this.numJoueur].tourPrison += 1;
       if (cpt == 1) {
@@ -268,28 +406,74 @@ export default {
       this.depl = de1 + de2;
       this.memoire = this.depl;
       this.joueurs[this.numJoueur].retDepl += this.depl;
-      console.log("dep1 = " + this.depl);
-      console.log("retDep1 = " + this.joueurs[this.numJoueur].retDepl);
-      if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 40) {
-        this.memoire =
-          this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40;
-      }
       while (this.depl != 0) {
-        //if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 39) {
-        //this.memoire =
-        //this.joueurs[this.numJoueur].caseVisitees + this.memoire - 39;
-        //}
-        setTimeout(this.animation, 1000 * (de1 + de2 - this.depl));
-        this.depl--;
+        if (
+          this.PositionToPropriete() != "inachetable" 
+        ) {
+          
+          let positions = this.PositionToPropriete();
+          //console.log(
+            //this.banque.proprietes[positions.substring(2, 3)][
+              //positions.substring(4, 5)].nom);
+          
+          // on vérifie que l'objet carte ne contient pas déjà un propriétaire
+          if (
+            this.banque.proprietes[positions.substring(2, 3)][
+              positions.substring(4, 5)
+            ].proprietaire == ""
+          ) {
+            //joueur achete toujours la propriété
+              this.ProposerAchat(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)]);
+              this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire = this.joueurs[this.numJoueur].nom
+          } else {
+            // faire payer
+            
+            let loyer = this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].loyer[0]
+            if(this.joueurs[this.numJoueur].nom != this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire){
+              this.joueurs[this.numJoueur].inventaire.argent -= loyer ;
+              if(this.numJoueur === 0){
+                this.joueurs[1].inventaire.argent += loyer ;
+              }
+              else{
+                this.joueurs[0].inventaire.argent += loyer
+              }
+              
+            }
+            
+            
+          }
+        }
+        
+
+        console.log("dep1 = " + this.depl);
+        console.log("retDep1 = " + this.joueurs[this.numJoueur].retDepl);
+        console.log("numCase : " + (this.joueurs[this.numJoueur].caseVisitees + this.memoire))
+        if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 40) {
+          this.memoire =
+            this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40;
+        }
+        while (this.depl != 0) {
+          setTimeout(this.animation, 1000 * (de1 + de2 - this.depl));
+          this.depl--;
+        }
       }
+    },
+    affichageClick: function (joueur) {
+      this.carteInventaire=joueur;
+      this.dialog = true;
     },
     animation: function () {
       if (
-        this.joueurs[this.numJoueur].caseVisitees === 0 ||
+        //this.joueurs[this.numJoueur].caseVisitees === 0 ||
         this.joueurs[this.numJoueur].caseVisitees === 40
       ) {
         this.joueurs[this.numJoueur].inventaire.argent += 200;
-        this.$emit('tour',joueurs);
+        console.log(
+          "Inventaire du joueur " +
+            this.numJoueur +
+            " : " +
+            this.joueurs[this.numJoueur].inventaire.argent
+        );
       }
 
       if (
@@ -344,6 +528,10 @@ export default {
         this.joueurs[this.numJoueur].deplLeft += 223;
         this.joueurs[this.numJoueur].caseVisitees = 1;
         this.joueurs[this.numJoueur].retDepl = this.memoire;
+        console.log("retDep1 = " + this.joueurs[this.numJoueur].retDepl);
+        console.log(
+          "CaseVisitees = " + this.joueurs[this.numJoueur].caseVisitees
+        );
       }
 
       if (
@@ -360,7 +548,7 @@ export default {
           } else {
             this.numJoueur = 0;
             this.partieTerminer += 1;
-            console.log(this.numJoueur);
+            //  console.log(this.numJoueur);
           }
           this.comptdouble = 0;
           this.$emit("prison", joueurs);
@@ -390,11 +578,11 @@ export default {
             this.joueurs[this.numJoueur].caseVisitees = 10; // mise a jour case visitées
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
-              console.log(this.numJoueur);
+              // console.log(this.numJoueur);
             } else {
               this.numJoueur = 0;
               this.partieTerminer += 1;
-              console.log(this.numJoueur);
+              //  console.log(this.numJoueur);
             }
             this.comptdouble = 0;
             this.$emit("prison", joueurs);
@@ -458,4 +646,8 @@ template {
   left: 940px;
   z-index: 10000000000;
 }
+.organisation {
+  display: flex;
+}
+
 </style>
