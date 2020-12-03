@@ -229,6 +229,8 @@ export default {
         case 6:
           //  return "BOULEVARD RENE CASSIN";
           return "0,1,0";
+        case 5:
+          return "1,0,0";
         case 8:
           //  return "BOULEVARD RISSO";
           return "0,1,1";
@@ -238,12 +240,18 @@ export default {
         case 11:
           // return "RUE BARLA";
           return "0,2,0";
+        case 12:
+          // return "RUE BARLA";
+          return "3,0,0";
         case 13:
           //  return "AVENUE VALROSE";
           return "0,2,1";
         case 14:
           //  return "AVENUE SAINT JEAN BAPTISTE";
           return "0,2,2";
+        case 15:
+          return "1,0,1";
+          //gare
         case 16:
           //  return "PLACE GARIBALDI";
           return "0,3,0";
@@ -262,12 +270,18 @@ export default {
         case 24:
           //  return "AVENUE JEAN MEDECIN\"";
           return "0,4,2";
+        case 25:
+          return "1,0,2";
+          //gare
         case 26:
           // return "BOULEVARD DUBOUCHAGE";
           return "0,5,0";
         case 27:
           // return "BOULEVARD CARABACEL";
           return "0,5,1";
+        case 28:
+          // return "RUE BARLA";
+          return "3,0,1";
         case 29:
           //  return "BOULEVARD TZAREWITCH";
           return "0,5,2";
@@ -281,7 +295,7 @@ export default {
           // return "BD MAURICE MAETERLINCK";
           return "0,6,2";
         case 35:
-          //   return "AVENUE DE VERDUN";
+          //   gare
           return "0,7,0";
         case 36:
           //  return "PROMENADE DES ANGLAIS";
