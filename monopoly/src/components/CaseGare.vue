@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import Cartes_propriete_gares_services from "../Cartes_propriete_gares_services.json";
 export default {
   props: {
     image: Number,
@@ -20,7 +21,12 @@ export default {
   },
   data: () => ({
     imagefinal: null,
+    gares: [],
+    carte: {},
   }),
+  created(){
+    this.gares = Cartes_propriete_gares_services[1];
+  },
   methods: {
     afficheimage() {
       if (this.image == 0) {
@@ -33,7 +39,7 @@ export default {
       return true;
     },
     affichageGare: function () {
-      console.log("props");
+      this.$emit("gare");
     },
   },
 };
