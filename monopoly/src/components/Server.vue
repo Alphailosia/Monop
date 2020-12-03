@@ -342,21 +342,13 @@ switch(numCase) {
           }
         }
 
-        if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 39) {
-          this.memoire =
-            this.joueurs[this.numJoueur].caseVisitees + this.memoire - 39;
-        }
-       console.log("dep1 = " + this.depl);
+    
+      console.log("dep1 = " + this.depl);
       console.log("retDep1 = "+ this.joueurs[this.numJoueur].retDepl);
       if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 40){
         this.memoire = this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40 ;
       }
       while (this.depl != 0) {
-        //if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 39) {
-          //this.memoire =
-            //this.joueurs[this.numJoueur].caseVisitees + this.memoire - 39;
-        //}
-
         setTimeout(this.animation, 1000 * (de1 + de2 - this.depl));
         this.depl--;
       }
