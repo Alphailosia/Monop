@@ -269,7 +269,7 @@ switch(numCase) {
   default :
     return "inachetable";
 
-  }
+  }},
     prison: function(cpt){
       this.joueurs[this.numJoueur].tourPrison +=1;
       if(cpt ==1){
@@ -360,7 +360,7 @@ switch(numCase) {
         setTimeout(this.animation, 1000 * (de1 + de2 - this.depl));
         this.depl--;
       }
-    },
+    }},
     animation: function () {
       if(this.joueurs[this.numJoueur].caseVisitees === 0||
         this.joueurs[this.numJoueur].caseVisitees === 40){
