@@ -168,36 +168,6 @@ export default {
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
-    this.joueurs=[
-      {
-        nom: "Joueur1",
-        prison: false,
-        tourPrison: 0,
-        cartePrison: [],
-        deplLeft: 150,
-        deplTop: 200,
-        caseVisitees: 0,
-        retDepl: 0,
-        inventaire: {
-          argent: 1500,
-          proprietes: [],
-        },
-      },
-      {
-        nom: "Joueur2",
-        prison: false,
-        tourPrison: 0,
-        cartePrison: [],
-        deplLeft: 120,
-        deplTop: 200,
-        caseVisitees: 0,
-        retDepl: 0,
-        inventaire: {
-          argent: 1500,
-          proprietes: [],
-        },
-      },
-    ]
   },
   methods: {
     launch: function () {
@@ -364,7 +334,7 @@ export default {
           this.joueurs[this.numJoueur].retDepl = 10;
           this.joueurs[this.numJoueur].tourPrison = 0;
           this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
-          this.$socket.emit("sortiPrison", data);
+          this.$socket.emit("sortiPrison", this.joueurs);
         } else {
           if (this.joueurs[this.numJoueur].tourPrison == 3) {
             this.joueurs[this.numJoueur].inventaire.argent -= 50;
@@ -372,7 +342,7 @@ export default {
             this.joueurs[this.numJoueur].retDepl = 10;
             this.joueurs[this.numJoueur].tourPrison = 0;
             this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
-            this.$socket.emit("sortiPrison", data);
+            this.$socket.emit("sortiPrison", this.joueurs);
           } else {
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
@@ -391,7 +361,7 @@ export default {
         this.joueurs[this.numJoueur].retDepl = 10;
         this.joueurs[this.numJoueur].tourPrison = 0;
         this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
-        this.$socket.emit("sortiPrison", data);
+        this.$socket.emit("sortiPrison", this.joueurs);
       } else if (cpt == 3) {
         this.joueurs[this.numJoueur].cartePrison.remove(0);
         this.lancerDes();
@@ -399,7 +369,7 @@ export default {
         this.joueurs[this.numJoueur].retDepl = 10;
         this.joueurs[this.numJoueur].tourPrison = 0;
         this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
-        this.$socket.emit("sortiPrison", data);
+        this.$socket.emit("sortiPrison", this.joueurs);
       }
     },
     deplacerJoueur: function (de1, de2) {
@@ -551,7 +521,7 @@ export default {
             //  console.log(this.numJoueur);
           }
           this.comptdouble = 0;
-          this.$emit("prison", joueurs);
+          this.$emit("prison", this.joueurs);
         } else if (
           this.joueurs[this.numJoueur].prison ||
           this.affichedes[0] != this.affichedes[1]
@@ -567,7 +537,7 @@ export default {
               this.$emit("end");
             }
           }
-          this.$emit("sortiPrison", joueurs);
+          this.$emit("sortiPrison", this.joueurs);
         } else {
           this.comptdouble++;
 
@@ -585,7 +555,7 @@ export default {
               //  console.log(this.numJoueur);
             }
             this.comptdouble = 0;
-            this.$emit("prison", joueurs);
+            this.$emit("prison", this.joueurs);
           }
         }
       }

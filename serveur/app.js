@@ -31,15 +31,15 @@ io.on('connection', (socket) => {
          nom: data,
          prison: false,
          tourPrison: 0,
+         cartePrison: [],
          deplLeft: 150,
          deplTop: 200,
          caseVisitees: 0,
          retDepl: 0,
          inventaire: {
-            argent: 0,
+            argent: 1500,
             proprietes: [],
-            cartePrison: []
-         }
+         },
       }
       index++;
       io.emit("envoiNom", joueurs);
