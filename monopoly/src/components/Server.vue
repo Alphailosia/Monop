@@ -191,7 +191,7 @@ export default {
     },
     jouer: function () {
       this.lancerDes();
-     
+
 
       this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
     },
@@ -212,9 +212,7 @@ export default {
     PositionToPropriete: function () {
       let numCase = this.joueurs[this.numJoueur].caseVisitees + this.memoire;
       //console.log("case :" + this.joueurs[this.numJoueur].caseVisitees);
-      if (this.depl > 1) {
-        return "en deplacement";
-      }
+
       switch (numCase) {
         case 1:
           // return "RUE ROSSETTI";
@@ -349,18 +347,20 @@ export default {
       this.joueurs[this.numJoueur].retDepl += this.depl;
       while (this.depl != 0) {
         if (
-          this.PositionToPropriete() != "inachetable" &&
-          this.PositionToPropriete() != "en deplacement"
+          this.PositionToPropriete() != "inachetable"
+
         ) {
           let positions = this.PositionToPropriete();
           //  console.log(this.banque.proprietes[2][1]);
           //console.log(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].nom);
           // on vérifie que l'objet carte ne contient pas déjà un propriétaire
+          console.log(this.banque.proprietes[positions.substring(2, 3)][positions.substring(4, 5)].proprietaire);
           if (
             this.banque.proprietes[positions.substring(2, 3)][
               positions.substring(4, 5)
             ].proprietaire == ""
           ) {
+            console.log("in");
             //  this.ProposerAchat(this.joueur,this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)]);
             this.banque.proprietes[positions.substring(2, 3)][
               positions.substring(4, 5)
@@ -370,6 +370,11 @@ export default {
                 positions.substring(4, 5)
               ]
             );
+           console.log( this.banque.proprietes[positions.substring(2, 3)][
+                    positions.substring(4, 5)
+                    ].proprietaire);
+            console.log(this.joueurs[this.numJoueur].proprietes);
+
             let newtab = [];
             //trier monopoles
             for (let j = 0; j < 8; j++) {
