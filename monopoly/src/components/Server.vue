@@ -59,7 +59,13 @@
               :style="`left:${joueur.deplLeft}px;top:${joueur.deplTop}px;`"
       ></div>
     </div>
+    <div class="organisation">
     <Plateau v-if="partie" :joueurs="joueurs" class="plateau" />
+    <Inventaire v-if="partie" :joueurs="joueurs" v-on:inventaire="affichageClick($event)"/>
+    </div>
+    <v-dialog v-model="dialog" max-width="700px">
+    <CartesInventaire :carteInventaire="carteInventaire"/>
+    </v-dialog>
   </div>
 </template>
 
@@ -68,44 +74,21 @@
 <script>
 import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
+import Inventaire from './Inventaire.vue';
+import CartesInventaire from './CartesInventaire.vue';
 
 export default {
   components: {
     Plateau,
-  },
-  sockets: {
-    connection: function () {
-      this.connected = true;
-      console.log("socket connected");
-    },
-    envoiNom: function (data) {
-      this.joueurs = data;
-    },
-    start: function () {
-      this.partie = true;
-      this.lancerPartie();
-    },
-    deplacement: function (data) {
-      if (data.nom !== this.nom) {
-        this.affichedes[0] = data.de1;
-        this.affichedes[1] = data.de2;
-        this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
-      }
-    },
-    etatJoueur: function (data) {
-      this.joueurs = data;
-    },
-    finPartie: function () {
-      this.partie = false;
-      this.desactif = false;
-    },
+    Inventaire,
+    CartesInventaire,
   },
   data: () => ({
     partie: false,
     comptdouble: 0,
     joueurs: [
       {
-        nom: "joueur1",
+        nom: "Joueur1",
         prison: false,
         tourPrison: 0,
         cartePrison: [],
@@ -119,7 +102,7 @@ export default {
         },
       },
       {
-        nom: "joueur2",
+        nom: "Joueur2",
         prison: false,
         tourPrison: 0,
         cartePrison: [],
@@ -159,9 +142,42 @@ export default {
     gares: [],
     services: [],
     memoire: 0,
+    carteInventaire: {},
+    dialog: false,
+
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
+    this.joueurs=[
+      {
+        nom: "Joueur1",
+        prison: false,
+        tourPrison: 0,
+        cartePrison: [],
+        deplLeft: 150,
+        deplTop: 200,
+        caseVisitees: 0,
+        retDepl: 0,
+        inventaire: {
+          argent: 1500,
+          proprietes: [],
+        },
+      },
+      {
+        nom: "Joueur2",
+        prison: false,
+        tourPrison: 0,
+        cartePrison: [],
+        deplLeft: 120,
+        deplTop: 200,
+        caseVisitees: 0,
+        retDepl: 0,
+        inventaire: {
+          argent: 1500,
+          proprietes: [],
+        },
+      },
+    ]
   },
   methods: {
     afficheCarte: function () {
@@ -415,6 +431,10 @@ export default {
         }
       }
     },
+    affichageClick: function (joueur) {
+      this.carteInventaire=joueur;
+      this.dialog = true;
+    },
     animation: function () {
       if (
         //this.joueurs[this.numJoueur].caseVisitees === 0 ||
@@ -593,4 +613,8 @@ template {
   left: 940px;
   z-index: 10000000000;
 }
+.organisation {
+  display: flex;
+}
+
 </style>
