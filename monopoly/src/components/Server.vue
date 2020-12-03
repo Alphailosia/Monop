@@ -63,6 +63,7 @@ export default {
     joueurs: [
       {
         nom: "joueur1",
+        proprietes:[],
         deplLeft: 150,
         deplTop: 200,
         caseVisitees: 0,
@@ -261,12 +262,26 @@ switch(numCase) {
 
            let positions = this.PositionToPropriete();
 
+        //  console.log(this.banque.proprietes[2][1]);
 
-          console.log(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].nom);
+          //console.log(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].nom);
       // on vérifie que l'objet carte ne contient pas déjà un propriétaire
           if(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire==""){
           //  this.ProposerAchat(this.joueur,this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)]);
-            
+            this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire = this.joueurs[this.numJoueur];
+            this.joueurs[this.numJoueur].proprietes.push(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)]);
+            let newtab = [];
+            //trier monopoles
+            for(let j=0;j<this.joueurs[this.numJoueur].proprietes.length;j++) {
+              for (let i = 0; i < this.joueurs[this.numJoueur].proprietes.length; i++) {
+
+                if (j==0 && this.joueurs[this.numJoueur].proprietes[i].nom == "RUE ROSSETTI") {
+                  newtab.push(this.joueurs[this.numJoueur].proprietes[i]);
+                }
+                // moche maais fonctionnel   - A FINIR
+              }
+            }
+
           }else{
             // faire payer
           }
