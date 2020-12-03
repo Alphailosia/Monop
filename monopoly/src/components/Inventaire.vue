@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-card v-for="(joueur,index) in joueurs" :key="index" class="inventaire">
+    <v-card v-for="(joueur,index) in joueurs" :key="index" class="inventaire" @click="affichageInventaire(joueur)">
         <v-card-title class="title-inventaire">  <span :class="`J${index+1}`">{{ joueur.nom }} </span>
             <div class="argent"> {{ joueur.inventaire.argent }} €</div>
         </v-card-title>
@@ -11,10 +11,19 @@
 
 <script>
 export default {
+    data: () => ({
+    carteInventaire: {},
+
+  }),
     props:{
         joueurs:Array,
         
-    }
+    },
+    methods: {
+    affichageInventaire: function (joueur) {
+      this.$emit("inventaire", joueur);
+    },
+  },
 }
 </script>
 

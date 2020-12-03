@@ -51,8 +51,12 @@
     </div>
     <div class="organisation">
     <Plateau v-if="partie" :joueurs="joueurs" class="plateau" />
-    <Inventaire v-if="partie" :joueurs="joueurs"/>
+    <Inventaire v-if="partie" :joueurs="joueurs"
+    @inventaire="affichageClick($event)"/>
     </div>
+    <v-dialog v-model="dialog" max-width="500px">
+      <CartesInventaire :carteInventaire="carteInventaire"/>
+    </v-dialog>
   </div>
 </template>
 
@@ -61,11 +65,13 @@
 import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
 import Inventaire from './Inventaire.vue';
+import CartesInventaire from './CartesInventaire.vue';
 
 export default {
   components: {
     Plateau,
     Inventaire,
+    CartesInventaire,
   },
   data: () => ({
     partie: false,
@@ -126,6 +132,8 @@ export default {
     gares: [],
     services: [],
     memoire: 0,
+    carteInventaire: {},
+    dialog: false,
 
   }),
   created() {
@@ -252,6 +260,10 @@ export default {
 
       
       
+    },
+    affichageClick: function (joueur) {
+      this.carteInventaire=joueur;
+      this.dialog = true;
     },
     animation: function () {
       if(this.joueurs[this.numJoueur].caseVisitees === 0||
