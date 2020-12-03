@@ -1,8 +1,8 @@
 <template>
 <div > 
   <v-card class="inventaire">
-    <v-card-title class="title-inventaire">  <span :class="card.nom">{{ card.nom }} </span>
-            <div class="argent"> {{ card.inventaire.argent }} €</div>
+    <v-card-title class="title-inventaire">  <span :class="this.carteInventaire.nom">{{ this.carteInventaire.nom }} </span>
+            <div class="argent"> {{ this.carteInventaire.inventaire.argent }} €</div>
     </v-card-title>
     <div class="separation">
     <div class="organisation">
@@ -46,11 +46,7 @@ export default {
   },
   created() {
       this.jsonPropriete = Cartes_propriete_gares_services;
-      this.card=this.carteInventaire;
   },
-  updated(){
-    this.card=this.carteInventaire;
-  }
 };
 </script>
 
