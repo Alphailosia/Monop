@@ -1,19 +1,19 @@
 <template >
   <div id="base">
     <v-btn v-if="!partie" @click="lancerPartie()" :disabled="partie"
-      >Lancer Partie</v-btn
+    >Lancer Partie</v-btn
     >
     <div v-if="partie">
       <v-btn @click="jouer" :disabled="desactif">Lancer</v-btn>
       <p>{{ joueurs[numJoueur].nom }} doit jouer.</p>
     </div>
     <v-alert
-      id="des"
-      v-if="desactif"
-      border="top"
-      colored-border
-      color="deep-black"
-      elevation="2"
+            id="des"
+            v-if="desactif"
+            border="top"
+            colored-border
+            color="deep-black"
+            elevation="2"
     >
       <p>Voici vos dés.</p>
       <img :src="affichedes[2]" alt="dé 1" />
@@ -53,15 +53,16 @@
     <p v-if="partie">Tour numéro : {{ partieTerminer }}</p>
     <div v-if="partie">
       <div
-        v-for="(joueur, index) in joueurs"
-        :key="index"
-        :class="`pion${index}`"
-        :style="`left:${joueur.deplLeft}px;top:${joueur.deplTop}px;`"
+              v-for="(joueur, index) in joueurs"
+              :key="index"
+              :class="`pion${index}`"
+              :style="`left:${joueur.deplLeft}px;top:${joueur.deplTop}px;`"
       ></div>
     </div>
     <Plateau v-if="partie" :joueurs="joueurs" class="plateau" />
   </div>
 </template>
+
 
 
 <script>
@@ -71,6 +72,33 @@ import CartesProprieteGareService from "../Cartes_propriete_gares_services.json"
 export default {
   components: {
     Plateau,
+  },
+  sockets: {
+    connection: function () {
+      this.connected = true;
+      console.log("socket connected");
+    },
+    envoiNom: function (data) {
+      this.joueurs = data;
+    },
+    start: function () {
+      this.partie = true;
+      this.lancerPartie();
+    },
+    deplacement: function (data) {
+      if (data.nom !== this.nom) {
+        this.affichedes[0] = data.de1;
+        this.affichedes[1] = data.de2;
+        this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+      }
+    },
+    etatJoueur: function (data) {
+      this.joueurs = data;
+    },
+    finPartie: function () {
+      this.partie = false;
+      this.desactif = false;
+    },
   },
   data: () => ({
     partie: false,
@@ -152,6 +180,11 @@ export default {
         this.joueurs[i].deplTop = 200;
         this.joueurs[i].retDepl = 0;
         this.joueurs[i].caseVisitees = 0;
+        this.joueurs[i].inventaire = {
+          argent: 0,
+          proprietes: [],
+          cartePrison: [],
+        };
       }
       this.initBanque();
     },
@@ -201,6 +234,7 @@ export default {
       this.joueurs[this.numJoueur].inventaire.argent -= proprieteEnVente.loyer[0] ; 
       console.log(this.joueurs[this.numJoueur].inventaire);
     },
+
 
     PositionToPropriete: function () {
       let numCase = this.joueurs[this.numJoueur].caseVisitees + this.memoire;
@@ -329,7 +363,6 @@ export default {
       this.depl = de1 + de2;
       this.memoire = this.depl;
       this.joueurs[this.numJoueur].retDepl += this.depl;
-
       while (this.depl != 0) {
         if (
           this.PositionToPropriete() != "inachetable" 
@@ -479,11 +512,9 @@ export default {
           this.joueurs[this.numJoueur].prison = false;
           if (this.numJoueur < this.joueurs.length - 1) {
             this.numJoueur++;
-            console.log(this.numJoueur);
           } else {
             this.numJoueur = 0;
             this.partieTerminer += 1;
-            console.log(this.numJoueur);
           }
         } else {
           this.comptdouble++;
