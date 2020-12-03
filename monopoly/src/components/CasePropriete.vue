@@ -26,6 +26,7 @@ export default {
   props: {
     monopole: String,
     nom: String,
+    proprietaire: String,
     sous_nom: String,
     loyer: Number,
     position: String,

@@ -111,8 +111,8 @@ export default {
       this.proprietes = this.jsonPropriete[0];
       this.gares = this.jsonPropriete[1];
       this.services = this.jsonPropriete[2];
-      console.log(this.gares);
-      console.log(this.services);
+     // console.log(this.gares);
+     // console.log(this.services);
     },
     lancerPartie: function () {
       this.partie = true;
@@ -163,70 +163,86 @@ export default {
         }
       }
     },
-    EtatVente : function() {
-
+    ProposerAchat:function(joueur,proprieteEnVente){
+console.log(joueur,proprieteEnVente);
     },
+
 
     PositionToPropriete : function(){
      let numCase = this.joueurs[this.numJoueur].caseVisitees +this.memoire;
 
-     console.log("case :" + this.joueurs[this.numJoueur].caseVisitees);
+     //console.log("case :" + this.joueurs[this.numJoueur].caseVisitees);
      if(this.depl>1){
        return "en deplacement";
 
      }
 switch(numCase) {
   case 1 :
-    return "RUE ROSSETTI";
-
+   // return "RUE ROSSETTI";
+ return"0,0,1";
   case 3 :
-    return "RUE SMOLETT";
-
-  case 4 :
-    return "inachetable";
-
+        // return "RUE SMOLETT";
+    return"0,0,2";
   case 6 :
-    return "BOULEVARD RENE CASSIN";
-
+        //  return "BOULEVARD RENE CASSIN";
+    return"0,1,0";
   case 8 :
-    return "BOULEVARD RISSO";
-
+        //  return "BOULEVARD RISSO";
+    return"0,1,1";
   case 9 :
-    return "QUAI PAPACINO";
+        //  return "QUAI PAPACINO";
+    return"0,1,2";
   case 11 :
-    return "RUE BARLA";
+        // return "RUE BARLA";
+    return"0,2,0";
   case 13 :
-    return "AVENUE VALROSE";
+        //  return "AVENUE VALROSE";
+    return"0,2,1";
   case 14 :
-    return "AVENUE SAINT JEAN BAPTISTE";
+        //  return "AVENUE SAINT JEAN BAPTISTE";
+    return"0,2,2";
   case 16 :
-    return "PLACE GARIBALDI";
+        //  return "PLACE GARIBALDI";
+    return"0,3,0";
   case 18 :
-    return "AVENUE DE LA CALIFORNIE";
+        //  return "AVENUE DE LA CALIFORNIE";
+    return"0,3,1";
   case 19 :
-    return "RUE ST FRANCOIS DE PAULE";
+        // return "RUE ST FRANCOIS DE PAULE";
+    return"0,3,2";
   case 21 :
-    return "RUE GIOFFREDO";
+        // return "RUE GIOFFREDO";
+    return"0,4,0";
   case 23 :
-    return "COURS SALEYA";
+        // return "COURS SALEYA";
+    return"0,4,1";
   case 24 :
-    return "AVENUE JEAN MEDECIN\"";
+        //  return "AVENUE JEAN MEDECIN\"";
+    return"0,4,2";
   case 26 :
-    return "BOULEVARD DUBOUCHAGE";
+        // return "BOULEVARD DUBOUCHAGE";
+    return"0,5,0";
   case 27 :
-    return "BOULEVARD CARABACEL";
+        // return "BOULEVARD CARABACEL";
+    return"0,5,1";
   case 29 :
-    return "BOULEVARD TZAREWITCH";
+        //  return "BOULEVARD TZAREWITCH";
+    return"0,5,2";
   case 30 :
-    return "BOULEVARD DE CIMIEZ";
+        //  return "BOULEVARD DE CIMIEZ";
+    return"0,6,0";
   case 31 :
-    return "PLACE MASSENA";
+        // return "PLACE MASSENA";
+    return"0,6,1";
   case 33 :
-    return "BD MAURICE MAETERLINCK";
+        // return "BD MAURICE MAETERLINCK";
+    return"0,6,2";
   case 35 :
-    return "AVENUE DE VERDUN";
+        //   return "AVENUE DE VERDUN";
+    return"0,7,0";
   case 36 :
-    return "PROMENADE DES ANGLAIS";
+        //  return "PROMENADE DES ANGLAIS";
+    return"0,7,1";
 
   default :
     return "inachetable";
@@ -241,9 +257,18 @@ switch(numCase) {
 
       while (this.depl != 0) {
 
-        console.log(this.PositionToPropriete());
         if(this.PositionToPropriete()!="inachetable" && this.PositionToPropriete()!="en deplacement"){
-          this.EtatVente(this.PositionToPropriete());
+
+           let positions = this.PositionToPropriete();
+
+
+          console.log(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].nom);
+      // on vérifie que l'objet carte ne contient pas déjà un propriétaire
+          if(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire==""){
+            this.ProposerAchat(this.joueur,this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)]);
+          }else{
+            // faire payer
+          }
         }
 
         if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 39) {
@@ -315,11 +340,11 @@ switch(numCase) {
         if (this.affichedes[0] != this.affichedes[1]) {
           if (this.numJoueur < this.joueurs.length - 1) {
             this.numJoueur++;
-            console.log(this.numJoueur);
+          //  console.log(this.numJoueur);
           } else {
             this.numJoueur = 0;
             this.partieTerminer += 1;
-            console.log(this.numJoueur);
+          //  console.log(this.numJoueur);
           }
         } else {
           this.comptdouble++;
@@ -328,11 +353,11 @@ switch(numCase) {
             this.joueurs[this.numJoueur].deplTop = 250;
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
-              console.log(this.numJoueur);
+             // console.log(this.numJoueur);
             } else {
               this.numJoueur = 0;
               this.partieTerminer += 1;
-              console.log(this.numJoueur);
+            //  console.log(this.numJoueur);
             }
             this.comptdouble = 0;
           }
