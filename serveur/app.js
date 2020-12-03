@@ -6,40 +6,43 @@ app.use(cors());
 
 // ajout de socket.io
 const server = require('http').Server(app)
-const io = require('socket.io')(server,{
+const io = require('socket.io')(server, {
    cors: {
       origin: '*',
-    }  
+   }
 })
 
- 
+
 
 var joueurs = [];
 var index = 0;
 
 // établissement de la connexion
-io.on('connection', (socket) =>{
-   
+io.on('connection', (socket) => {
+
    console.log(`Connecté au client ${socket.id}`);
    socket.emit("connection");
 
-   
+
    // ecoute du nom  
-   socket.on('nom', data =>{
-      console.log("nom recu %s",data);
-      joueurs[index]={
+   socket.on('nom', data => {
+      console.log("nom recu %s", data);
+      joueurs[index] = {
          nom: data,
+         prison: false,
+         tourPrison: 0,
          deplLeft: 150,
          deplTop: 200,
          caseVisitees: 0,
          retDepl: 0,
-         inventaire:{
-          argent:0,
-          proprietes:[],
-        }
+         inventaire: {
+            argent: 0,
+            proprietes: [],
+            cartePrison: []
+         }
       }
       index++;
-      io.emit("envoiNom",joueurs);
+      io.emit("envoiNom", joueurs);
    });
 
    // lancement de la partie
@@ -48,8 +51,28 @@ io.on('connection', (socket) =>{
    });
 
    // deplacement du joueur
-   socket.on('jouer', data=> {
-      io.emit('deplacement',data);
+   socket.on('jouer', (data) => {
+      io.emit('deplacement', data);
+   });
+
+   // effet de la case départ
+   socket.on('prison', (data) => {
+      io.emit("etatJoueurs", data)
+   });
+
+   // etat prison du joueur 
+   socket.on('prison', (data) => {
+      io.emit("etatJoueurs", data)
+   });
+
+   // etat prison du joueur 
+   socket.on('sortiPrison', (data) => {
+      io.emit("etatJoueurs", data)
+   });
+
+   // fin de la partie
+   socket.on('end', () => {
+      io.emit("finPartie");
    });
 });
 
