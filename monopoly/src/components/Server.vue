@@ -202,6 +202,16 @@
         if(this.depl>1){
           return "en deplacement";
 
+  }},
+    prison: function(cpt){
+      this.joueurs[this.numJoueur].tourPrison +=1;
+      if(cpt ==1){
+        this.lancerDes();
+        if(this.affichedes[0] == this.affichedes[1]){
+          this.joueurs[this.numJoueur].caseVisitees =10;
+          this.joueurs[this.numJoueur].retDepl =10;
+          this.joueurs[this.numJoueur].tourPrison =0;
+          this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
         }
         switch(numCase) {
           case 1 :
@@ -351,8 +361,78 @@
 
                     if (j == 0 && this.joueurs[this.numJoueur].proprietes[i].color == "#ff69b4") {
 
+
                       newtab.push(this.joueurs[this.numJoueur].proprietes[i]);
                     }
+
+    
+      console.log("dep1 = " + this.depl);
+      console.log("retDep1 = "+ this.joueurs[this.numJoueur].retDepl);
+      if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 40){
+        this.memoire = this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40 ;
+      }
+      while (this.depl != 0) {
+        setTimeout(this.animation, 1000 * (de1 + de2 - this.depl));
+        this.depl--;
+      }
+    }},
+    animation: function () {
+      if(this.joueurs[this.numJoueur].caseVisitees === 0||
+        this.joueurs[this.numJoueur].caseVisitees === 40){
+          this.joueurs[this.numJoueur].inventaire.argent += 200;
+          console.log("Inventaire du joueur " + this.numJoueur + " : " + this.joueurs[this.numJoueur].inventaire.argent);
+        }
+      
+      if (
+        this.joueurs[this.numJoueur].caseVisitees === 0 ||
+        this.joueurs[this.numJoueur].caseVisitees === 9
+      ) {
+        this.joueurs[this.numJoueur].deplLeft += 223;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees >= 1 &&
+        this.joueurs[this.numJoueur].caseVisitees < 9
+      ) {
+        this.joueurs[this.numJoueur].deplLeft += 200;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees === 10 ||
+        this.joueurs[this.numJoueur].caseVisitees === 19
+      ) {
+        this.joueurs[this.numJoueur].deplTop += 235;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees >= 11 &&
+        this.joueurs[this.numJoueur].caseVisitees < 19
+      ) {
+        this.joueurs[this.numJoueur].deplTop += 200;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees === 20 ||
+        this.joueurs[this.numJoueur].caseVisitees === 29
+      ) {
+        this.joueurs[this.numJoueur].deplLeft -= 223;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees >= 20 &&
+        this.joueurs[this.numJoueur].caseVisitees < 29
+      ) {
+        this.joueurs[this.numJoueur].deplLeft -= 200;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (this.joueurs[this.numJoueur].caseVisitees === 20) {
+        this.joueurs[this.numJoueur].deplTop -= 223;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (
+        this.joueurs[this.numJoueur].caseVisitees >= 30 &&
+        this.joueurs[this.numJoueur].caseVisitees < 39
+      ) {
+        this.joueurs[this.numJoueur].deplTop -= 200;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      } else if (this.joueurs[this.numJoueur].caseVisitees === 39) {
+        this.joueurs[this.numJoueur].deplTop -= 235;
+        this.joueurs[this.numJoueur].caseVisitees++;
+      }
+
 
                     if (j == 1 && this.joueurs[this.numJoueur].proprietes[i].color == "#87cefa") {
 
