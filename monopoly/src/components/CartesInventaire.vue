@@ -8,13 +8,10 @@
     <div class="organisation">
     <h1>Propriétés</h1>
     <v-card class="carte" v-for="(monopole, index) in carteInventaire.inventaire.proprietes" :key="index">
-      <v-card v-for="(item, j) in monopole" :key="j">
         <v-card-title
-          v-if="j === 0"
-          :style="{ backgroundColor: item.Color }"
+          :style="{ backgroundColor: monopole.Color }"
         ></v-card-title>
-        <v-card-text>{{ item.nom }} </v-card-text>
-      </v-card>
+        <v-card-text>{{ monopole.nom }} </v-card-text>
     </v-card>
     </div>  
         <div class="organisation">

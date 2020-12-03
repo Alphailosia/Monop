@@ -4,7 +4,7 @@
         <v-card-title class="title-inventaire">  <span :class="`J${index+1}`">{{ joueur.nom }} </span>
             <div class="argent"> {{ joueur.inventaire.argent }} €</div>
         </v-card-title>
-        <div class="proprietes">  {{ joueur.inventaire.proprietes }}</div>
+        <div v-for="(propriete, index) in joueur.inventaire.proprietes" :key="index" class="proprietes" :style="{ backgroundColor: propriete.Color }"></div>
     </v-card>
 </div>
 </template>
@@ -17,6 +17,11 @@ export default {
   }),
     props:{
         joueurs:Array, 
+    },
+    mounted(){
+        for(let i=0; i<this.joueurs.length;i++) {
+            this.joueurs[i].inventaire.argent=1500;
+        }
     },
     methods: {
     affichageInventaire: function (joueur) {
@@ -55,5 +60,10 @@ export default {
 }
 .J2 {
     Color: blue;
+}
+.proprietes {
+    width: 55px;
+    height: 55px;
+    border-radius: 5px;
 }
 </style>

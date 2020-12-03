@@ -83,33 +83,6 @@ export default {
     Inventaire,
     CartesInventaire,
   },
-  sockets: {
-    connection: function () {
-      this.connected = true;
-      console.log("socket connected");
-    },
-    envoiNom: function (data) {
-      this.joueurs = data;
-    },
-    start: function () {
-      this.partie = true;
-      this.lancerPartie();
-    },
-    deplacement: function (data) {
-      if (data.nom !== this.nom) {
-        this.affichedes[0] = data.de1;
-        this.affichedes[1] = data.de2;
-        this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
-      }
-    },
-    etatJoueur: function (data) {
-      this.joueurs = data;
-    },
-    finPartie: function () {
-      this.partie = false;
-      this.desactif = false;
-    },
-  },
   data: () => ({
     partie: false,
     comptdouble: 0,
@@ -175,6 +148,36 @@ export default {
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
+    this.joueurs=[
+      {
+        nom: "Joueur1",
+        prison: false,
+        tourPrison: 0,
+        cartePrison: [],
+        deplLeft: 150,
+        deplTop: 200,
+        caseVisitees: 0,
+        retDepl: 0,
+        inventaire: {
+          argent: 1500,
+          proprietes: [],
+        },
+      },
+      {
+        nom: "Joueur2",
+        prison: false,
+        tourPrison: 0,
+        cartePrison: [],
+        deplLeft: 120,
+        deplTop: 200,
+        caseVisitees: 0,
+        retDepl: 0,
+        inventaire: {
+          argent: 1500,
+          proprietes: [],
+        },
+      },
+    ]
   },
   methods: {
     afficheCarte: function () {
