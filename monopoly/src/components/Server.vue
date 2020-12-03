@@ -18,13 +18,8 @@
          </div>
      </div>
     <div v-if="partie">
-<<<<<<< HEAD
       <v-btn @click="jouer" :disabled="desactif || nom!==joueurs[numJoueur].nom">Lancer</v-btn>
       <p>{{ joueurs[numJoueur].nom }} doit lancer les dés</p>
-=======
-      <v-btn @click="jouer" :disabled="desactif">Lancer</v-btn>
-      <p>{{ joueurs[numJoueur].nom }} doit jouer.</p>
->>>>>>> 2865ed0c341f3fb8dffb446cc27b9a2fd9168e5e
     </div>
     <v-alert
       id="des"
@@ -108,40 +103,7 @@ export default {
     nom: "",
     partie: false,
     comptdouble: 0,
-<<<<<<< HEAD
     joueurs: [],
-=======
-    joueurs: [
-      {
-        nom: "joueur1",
-        prison: false,
-        tourPrison:0,
-        cartePrison: [],
-        deplLeft: 150,
-        deplTop: 200,
-        caseVisitees: 0,
-        retDepl: 0,
-        inventaire:{
-          argent:0,
-          proprietes:[],
-        }
-      },
-      {
-        nom: "joueur2",
-        prison: false,
-        tourPrison:0,
-        cartePrison: [],
-        deplLeft: 120,
-        deplTop: 200,
-        caseVisitees: 0,
-        retDepl: 0,
-        inventaire:{
-          argent:0,
-          proprietes:[],
-        }
-      },
-    ],
->>>>>>> 2865ed0c341f3fb8dffb446cc27b9a2fd9168e5e
     partieTerminer: 0,
     numJoueur: 0,
     destime: "",
@@ -215,7 +177,6 @@ export default {
         this.desactif = false;
         console.log("partie terminer");
       } else {
-<<<<<<< HEAD
         this.lancerDes();
         let data = {
           nom: this.nom,
@@ -225,12 +186,6 @@ export default {
         this.$socket.emit('jouer',data)
         this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
         
-=======
-        if(this.joueurs[this.numJoueur].prison == false) {
-          this.lancerDes();
-          this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
-        }
->>>>>>> 2865ed0c341f3fb8dffb446cc27b9a2fd9168e5e
       }
     },
     initBanque: function () {

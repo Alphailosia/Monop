@@ -19,6 +19,7 @@ var index = 0;
 
 // établissement de la connexion
 io.on('connection', (socket) =>{
+   
    console.log(`Connecté au client ${socket.id}`);
    socket.emit("connection");
 
