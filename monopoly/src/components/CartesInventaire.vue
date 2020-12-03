@@ -7,7 +7,7 @@
     <div class="separation">
     <div class="organisation">
     <h1>Propriétés</h1>
-    <v-card class="carte" v-for="(monopole, index) in jsonPropriete[0]" :key="index">
+    <v-card class="carte" v-for="(monopole, index) in carteInventaire.inventaire.proprietes" :key="index">
       <v-card v-for="(item, j) in monopole" :key="j">
         <v-card-title
           v-if="j === 0"
@@ -19,13 +19,13 @@
     </div>  
         <div class="organisation">
     <h1>Gares</h1>
-    <v-card class="carte" v-for="(gare, index) in jsonPropriete[1]" :key="index">
+    <v-card class="carte" v-for="(gare, index) in carteInventaire.inventaire.gares" :key="index">
       <v-card-text>{{ gare.nom }} </v-card-text>
     </v-card>
     </div>  
         <div class="organisation">
     <h1>Services</h1>
-    <v-card class="carte" v-for="(service, index) in jsonPropriete[2]" :key="index">
+    <v-card class="carte" v-for="(service, index) in carteInventaire.inventaire.services" :key="index">
       <v-card-text>{{ service.nom }} </v-card-text>
     </v-card>
     </div>  
