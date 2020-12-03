@@ -1,11 +1,29 @@
 <template >
   <div id="base">
-    <v-btn v-if="!partie" @click="lancerPartie()" :disabled="partie"
-    >Lancer Partie</v-btn
-    >
+    <div v-if="!partie">
+      <div v-if="connected">
+        <div v-if="!nomEnvoyer">
+          <p>Entrez votre nom :</p>
+          <input type="text" placeholder="nom ..." v-model="nom" />
+          <v-btn @click="envoiNom()">envoyer</v-btn>
+        </div>
+        <p>Joueurs présent :</p>
+        <ul>
+          <li v-for="(joueur, index) in joueurs" :key="index">
+            <div v-if="nom === joueur.nom">{{ joueur.nom }} (vous)</div>
+            <div v-if="nom !== joueur.nom">{{ joueur.nom }}</div>
+          </li>
+        </ul>
+        <v-btn @click="launch()" :disabled="joueurs.length < 2">Lancer</v-btn>
+      </div>
+    </div>
     <div v-if="partie">
-      <v-btn @click="jouer" :disabled="desactif">Lancer</v-btn>
-      <p>{{ joueurs[numJoueur].nom }} doit jouer.</p>
+      <v-btn
+        @click="jouer"
+        :disabled="desactif || nom !== joueurs[numJoueur].nom"
+        >Lancer</v-btn
+      >
+      <p>{{ joueurs[numJoueur].nom }} doit lancer les dés</p>
     </div>
     <v-alert
             id="des"
@@ -20,36 +38,37 @@
       <img :src="affichedes[3]" alt="dé 2" />
     </v-alert>
 
-    <v-alert
-      v-if="joueurs[numJoueur].prison"
-      id="prison"
-      colored-border
-      color="deep-black"
-      elevation="2"
-    >
-      <h1 style="text-align: center">Vous êtes en prison.</h1>
-      <h2 style="text-align: center">Que voulez vous faire?</h2>
-      <div>
-        <v-btn @click="prison(1)" text>Essayer de faire un double.</v-btn>
-      </div>
-      <div>
-        <v-btn
-          @click="prison(2)"
-          :disabled="joueurs[numJoueur].inventaire.argent < 50"
-          text
-          >Payer 50 pour pouvoir sortir.</v-btn
-        >
-      </div>
-      <div>
-        <v-btn
-          @click="prison(3)"
-          :disabled="joueurs[numJoueur].cartePrison.length == 0"
-          text
-          >Utiliser une carte "Vous êtes libéré de prison".</v-btn
-        >
-      </div>
-    </v-alert>
-
+    <div v-if="joueurs.length !== 0">
+      <v-alert
+        v-if="joueurs[numJoueur].prison"
+        id="prison"
+        colored-border
+        color="deep-black"
+        elevation="2"
+      >
+        <h1 style="text-align: center">Vous êtes en prison.</h1>
+        <h2 style="text-align: center">Que voulez vous faire?</h2>
+        <div>
+          <v-btn @click="prison(1)" text>Essayer de faire un double.</v-btn>
+        </div>
+        <div>
+          <v-btn
+            @click="prison(2)"
+            :disabled="joueurs[numJoueur].inventaire.argent < 50"
+            text
+            >Payer 50 pour pouvoir sortir.</v-btn
+          >
+        </div>
+        <div>
+          <v-btn
+            @click="prison(3)"
+            :disabled="joueurs[numJoueur].cartePrison.length == 0"
+            text
+            >Utiliser une carte "Vous êtes libéré de prison".</v-btn
+          >
+        </div>
+      </v-alert>
+    </div>
     <p v-if="partie">Tour numéro : {{ partieTerminer }}</p>
     <div v-if="partie">
       <div
@@ -83,39 +102,40 @@ export default {
     Inventaire,
     CartesInventaire,
   },
+  sockets: {
+    connection: function () {
+      this.connected = true;
+      console.log("socket connected");
+    },
+    envoiNom: function (data) {
+      this.joueurs = data;
+    },
+    start: function () {
+      this.partie = true;
+      this.lancerPartie();
+    },
+    deplacement: function (data) {
+      if (data.nom !== this.nom) {
+        this.affichedes[0] = data.de1;
+        this.affichedes[1] = data.de2;
+        this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+      }
+    },
+    etatJoueur: function (data) {
+      this.joueurs = data;
+    },
+    finPartie: function () {
+      this.partie = false;
+      this.desactif = false;
+    },
+  },
   data: () => ({
+    nomEnvoyer: false,
+    connected: false,
+    nom: "",
     partie: false,
     comptdouble: 0,
-    joueurs: [
-      {
-        nom: "Joueur1",
-        prison: false,
-        tourPrison: 0,
-        cartePrison: [],
-        deplLeft: 150,
-        deplTop: 200,
-        caseVisitees: 0,
-        retDepl: 0,
-        inventaire: {
-          argent: 1500,
-          proprietes: [],
-        },
-      },
-      {
-        nom: "Joueur2",
-        prison: false,
-        tourPrison: 0,
-        cartePrison: [],
-        deplLeft: 120,
-        deplTop: 200,
-        caseVisitees: 0,
-        retDepl: 0,
-        inventaire: {
-          argent: 1500,
-          proprietes: [],
-        },
-      },
-    ],
+    joueurs: [],
     partieTerminer: 0,
     numJoueur: 0,
     destime: "",
@@ -148,38 +168,15 @@ export default {
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
-    this.joueurs=[
-      {
-        nom: "Joueur1",
-        prison: false,
-        tourPrison: 0,
-        cartePrison: [],
-        deplLeft: 150,
-        deplTop: 200,
-        caseVisitees: 0,
-        retDepl: 0,
-        inventaire: {
-          argent: 1500,
-          proprietes: [],
-        },
-      },
-      {
-        nom: "Joueur2",
-        prison: false,
-        tourPrison: 0,
-        cartePrison: [],
-        deplLeft: 120,
-        deplTop: 200,
-        caseVisitees: 0,
-        retDepl: 0,
-        inventaire: {
-          argent: 1500,
-          proprietes: [],
-        },
-      },
-    ]
   },
   methods: {
+    launch: function () {
+      this.$socket.emit("launch");
+    },
+    envoiNom: function () {
+      this.nomEnvoyer = true;
+      this.$socket.emit("nom", this.nom);
+    },
     afficheCarte: function () {
       this.proprietes = this.jsonPropriete[0];
       this.gares = this.jsonPropriete[1];
@@ -221,18 +218,14 @@ export default {
       this.destime = setTimeout(this.desTime, 3000);
     },
     jouer: function () {
-      if (this.partieTerminer == 8) {
-        this.partie = false;
-        this.desactif = false;
-        console.log("partie terminer");
-      } else {
-        if (this.joueurs[this.numJoueur].prison == false) {
-          this.lancerDes();
-          //this.deplacerJoueur(3, 3);  // pour piper les dés
-          
-          this.deplacerJoueur(this.affichedes[0], this.affichedes[1]); 
-        }
-      }
+      this.lancerDes();
+      let data = {
+        nom: this.nom,
+        de1: this.affichedes[0],
+        de2: this.affichedes[1],
+      };
+      this.$socket.emit("jouer", data);
+      this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
     },
     initBanque: function () {
       for (let i = 0; i < this.jsonPropriete.length; i++) {
@@ -341,6 +334,7 @@ export default {
           this.joueurs[this.numJoueur].retDepl = 10;
           this.joueurs[this.numJoueur].tourPrison = 0;
           this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+          this.$socket.emit("sortiPrison", this.joueurs);
         } else {
           if (this.joueurs[this.numJoueur].tourPrison == 3) {
             this.joueurs[this.numJoueur].inventaire.argent -= 50;
@@ -348,6 +342,7 @@ export default {
             this.joueurs[this.numJoueur].retDepl = 10;
             this.joueurs[this.numJoueur].tourPrison = 0;
             this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+            this.$socket.emit("sortiPrison", this.joueurs);
           } else {
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
@@ -366,6 +361,7 @@ export default {
         this.joueurs[this.numJoueur].retDepl = 10;
         this.joueurs[this.numJoueur].tourPrison = 0;
         this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+        this.$socket.emit("sortiPrison", this.joueurs);
       } else if (cpt == 3) {
         this.joueurs[this.numJoueur].cartePrison.remove(0);
         this.lancerDes();
@@ -373,6 +369,7 @@ export default {
         this.joueurs[this.numJoueur].retDepl = 10;
         this.joueurs[this.numJoueur].tourPrison = 0;
         this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+        this.$socket.emit("sortiPrison", this.joueurs);
       }
     },
     deplacerJoueur: function (de1, de2) {
@@ -524,6 +521,7 @@ export default {
             //  console.log(this.numJoueur);
           }
           this.comptdouble = 0;
+          this.$emit("prison", this.joueurs);
         } else if (
           this.joueurs[this.numJoueur].prison ||
           this.affichedes[0] != this.affichedes[1]
@@ -535,7 +533,11 @@ export default {
           } else {
             this.numJoueur = 0;
             this.partieTerminer += 1;
+            if (this.partieTerminer === 8) {
+              this.$emit("end");
+            }
           }
+          this.$emit("sortiPrison", this.joueurs);
         } else {
           this.comptdouble++;
 
@@ -553,6 +555,7 @@ export default {
               //  console.log(this.numJoueur);
             }
             this.comptdouble = 0;
+            this.$emit("prison", this.joueurs);
           }
         }
       }

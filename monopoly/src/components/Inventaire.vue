@@ -36,7 +36,7 @@ export default {
     margin-left: 5%;
     margin-bottom: 5%;
     width: 600px;
-    height: 300px;
+    height: 600px;
     border: solid 5px;
     border-radius: 10px;
     position: relative;
