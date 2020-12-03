@@ -491,6 +491,7 @@
     ],
     [
         {
+            "image": 1,
             "nom": "COMPAGNIE DE DISTRIBUTION DE L'ELECTRICITE",
             "proprietaire": "",
             "loyer": [
@@ -499,6 +500,7 @@
             "hypotheque": 75
         },
         {
+            "image": 2,
             "nom": "COMPAGNIE DE DISTRIBUTION DES EAUX",
             "proprietaire": "",
             "loyer": [

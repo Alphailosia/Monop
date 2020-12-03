@@ -103,7 +103,7 @@ export default {
   font-weight: bold;
   word-break: break-word;
   justify-content: center;
-  font-size: 230%;
+  font-size: 200%;
 }
 
 .sous-nom-propriete {
@@ -142,7 +142,7 @@ export default {
   margin-top: 50px;
 }
 .tab {
-  padding-right: 45px;
+  padding-right: 40px;
   padding-left: 20px;
 }
 .tab1 {

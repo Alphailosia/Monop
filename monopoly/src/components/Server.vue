@@ -5,7 +5,7 @@
     >
     <div v-if="partie">
       <v-btn @click="jouer" :disabled="desactif">Lancer</v-btn>
-      <p>{{ joueurs[numJoueur].nom }} doit lancer les dés</p>
+      <p>{{ joueurs[numJoueur].nom }} doit jouer.</p>
     </div>
     <v-alert
       id="des"
@@ -20,6 +20,26 @@
       <img :src="affichedes[3]" alt="dé 2" />
     </v-alert>
 
+
+    <v-alert v-if="joueurs[numJoueur].prison"
+        id="prison"
+        colored-border
+        color="deep-black"
+        elevation="2"
+    >
+      <h1 style="text-align: center">Vous êtes en prison.</h1>
+      <h2 style="text-align: center">Que voulez vous faire?</h2>
+      <div>
+      <v-btn @click="prison(1)" text>Essayer de faire un double.</v-btn>
+      </div>
+      <div>
+        <v-btn @click="prison(2)" :disabled="joueurs[numJoueur].inventaire.argent<50" text>Payer 50 pour pouvoir sortir.</v-btn>
+      </div>
+      <div>
+        <v-btn @click="prison(3)" :disabled="joueurs[numJoueur].cartePrison.length==0" text>Utiliser une carte "Vous êtes libéré de prison".</v-btn>
+      </div>
+    </v-alert>
+
     <p v-if="partie">Tour numéro : {{ partieTerminer }}</p>
     <div v-if="partie">
       <div
@@ -29,33 +49,18 @@
         :style="`left:${joueur.deplLeft}px;top:${joueur.deplTop}px;`"
       ></div>
     </div>
-    <Plateau v-if="partie" :joueurs="joueurs" />
-      <CartesPropriete
-    :carte="proprietes[0][1]"
-    />
-    <CartesGare
-    :carte="gares[0]"
-    />
-    <CartesService
-    :carte="services[0]"
-    />
-  </div>   
+    <Plateau v-if="partie" :joueurs="joueurs" class="plateau" />
+  </div>
 </template>
 
 
 <script>
 import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
-import CartesPropriete from "./CartesPropriete.vue";
-import CartesGare from "./CartesGare.vue";
-import CartesService from "./CartesService.vue";
 
 export default {
   components: {
     Plateau,
-    CartesPropriete,
-    CartesGare,
-    CartesService,
   },
   data: () => ({
     partie: false,
@@ -63,17 +68,31 @@ export default {
     joueurs: [
       {
         nom: "joueur1",
+        prison: false,
+        tourPrison:0,
+        cartePrison: [],
         deplLeft: 150,
         deplTop: 200,
         caseVisitees: 0,
         retDepl: 0,
+        inventaire:{
+          argent:0,
+          proprietes:[],
+        }
       },
       {
         nom: "joueur2",
+        prison: false,
+        tourPrison:0,
+        cartePrison: [],
         deplLeft: 120,
         deplTop: 200,
         caseVisitees: 0,
         retDepl: 0,
+        inventaire:{
+          argent:0,
+          proprietes:[],
+        }
       },
     ],
     partieTerminer: 0,
@@ -101,10 +120,11 @@ export default {
     proprietes: [],
     gares: [],
     services: [],
+    memoire: 0,
+
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
-    this.afficheCarte();
   },
   methods: {
     afficheCarte: function () {
@@ -148,8 +168,10 @@ export default {
         this.desactif = false;
         console.log("partie terminer");
       } else {
-        this.lancerDes();
-        this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+        if(this.joueurs[this.numJoueur].prison == false) {
+          this.lancerDes();
+          this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+        }
       }
     },
     initBanque: function () {
@@ -248,6 +270,54 @@ switch(numCase) {
     return "inachetable";
 
   }
+    prison: function(cpt){
+      this.joueurs[this.numJoueur].tourPrison +=1;
+      if(cpt ==1){
+        this.lancerDes();
+        if(this.affichedes[0] == this.affichedes[1]){
+          this.joueurs[this.numJoueur].caseVisitees =10;
+          this.joueurs[this.numJoueur].retDepl =10;
+          this.joueurs[this.numJoueur].tourPrison =0;
+          this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+        }
+        else{
+          if(this.joueurs[this.numJoueur].tourPrison ==3){
+            this.joueurs[this.numJoueur].inventaire.argent -=50;
+            this.joueurs[this.numJoueur].caseVisitees =10;
+            this.joueurs[this.numJoueur].retDepl =10;
+            this.joueurs[this.numJoueur].tourPrison =0;
+            this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+          }
+          else{
+            if (this.numJoueur < this.joueurs.length - 1) {
+              this.numJoueur++;
+              console.log(this.numJoueur);
+
+            }
+            else {
+              this.numJoueur = 0;
+              this.partieTerminer += 1;
+              console.log(this.numJoueur);
+            }
+          }
+        }
+      }
+      else if(cpt ==2){
+          this.joueurs[this.numJoueur].inventaire.argent-=50;
+          this.lancerDes();
+          this.joueurs[this.numJoueur].caseVisitees=10;
+          this.joueurs[this.numJoueur].retDepl =10;
+          this.joueurs[this.numJoueur].tourPrison =0;
+          this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+      }
+      else if(cpt ==3){
+          this.joueurs[this.numJoueur].cartePrison.remove(0);
+          this.lancerDes();
+          this.joueurs[this.numJoueur].caseVisitees =10;
+          this.joueurs[this.numJoueur].retDepl =10;
+          this.joueurs[this.numJoueur].tourPrison =0;
+          this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+      }
     },
     deplacerJoueur: function (de1, de2) {
 
@@ -276,12 +346,28 @@ switch(numCase) {
           this.memoire =
             this.joueurs[this.numJoueur].caseVisitees + this.memoire - 39;
         }
+       console.log("dep1 = " + this.depl);
+      console.log("retDep1 = "+ this.joueurs[this.numJoueur].retDepl);
+      if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 40){
+        this.memoire = this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40 ;
+      }
+      while (this.depl != 0) {
+        //if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 39) {
+          //this.memoire =
+            //this.joueurs[this.numJoueur].caseVisitees + this.memoire - 39;
+        //}
+
         setTimeout(this.animation, 1000 * (de1 + de2 - this.depl));
         this.depl--;
       }
-
     },
     animation: function () {
+      if(this.joueurs[this.numJoueur].caseVisitees === 0||
+        this.joueurs[this.numJoueur].caseVisitees === 40){
+          this.joueurs[this.numJoueur].inventaire.argent += 200;
+          console.log("Inventaire du joueur " + this.numJoueur + " : " + this.joueurs[this.numJoueur].inventaire.argent);
+        }
+      
       if (
         this.joueurs[this.numJoueur].caseVisitees === 0 ||
         this.joueurs[this.numJoueur].caseVisitees === 9
@@ -329,29 +415,57 @@ switch(numCase) {
         this.joueurs[this.numJoueur].caseVisitees++;
       } else if (this.joueurs[this.numJoueur].caseVisitees === 39) {
         this.joueurs[this.numJoueur].deplTop -= 235;
-        this.joueurs[this.numJoueur].retDepl = this.memoire;
-        this.joueurs[this.numJoueur].caseVisitees = 0;
-        this.partie = false;
+        this.joueurs[this.numJoueur].caseVisitees++;
       }
 
+        else if(this.joueurs[this.numJoueur].caseVisitees === 40){
+          this.joueurs[this.numJoueur].deplLeft += 223;
+          this.joueurs[this.numJoueur].caseVisitees = 1;
+          this.joueurs[this.numJoueur].retDepl = this.memoire;
+          console.log("retDep1 = "+ this.joueurs[this.numJoueur].retDepl);
+          console.log("CaseVisitees = "+ this.joueurs[this.numJoueur].caseVisitees);
+          
+
+        }
+        
       if (
         this.joueurs[this.numJoueur].retDepl ===
         this.joueurs[this.numJoueur].caseVisitees
       ) {
-        if (this.affichedes[0] != this.affichedes[1]) {
+        console.log(this.joueurs[this.numJoueur].caseVisitees)
+        if(this.joueurs[this.numJoueur].caseVisitees ===30){
+          this.joueurs[this.numJoueur].prison = true;
+          this.joueurs[this.numJoueur].deplLeft = 2170;
+          this.joueurs[this.numJoueur].deplTop = 250;
           if (this.numJoueur < this.joueurs.length - 1) {
             this.numJoueur++;
-          //  console.log(this.numJoueur);
           } else {
             this.numJoueur = 0;
             this.partieTerminer += 1;
           //  console.log(this.numJoueur);
           }
-        } else {
+          this.comptdouble = 0 ;
+        }
+        else if ((this.joueurs[this.numJoueur].prison)||(this.affichedes[0] != this.affichedes[1])) {
+          this.comptdouble = 0;
+          this.joueurs[this.numJoueur].prison = false;
+          if (this.numJoueur < this.joueurs.length - 1) {
+            this.numJoueur++;
+            console.log(this.numJoueur);
+          } else {
+            this.numJoueur = 0;
+            this.partieTerminer += 1;
+            console.log(this.numJoueur);
+          }
+        }
+        else {
           this.comptdouble++;
+
           if (this.comptdouble === 3) {
+            this.joueurs[this.numJoueur].prison = true;
             this.joueurs[this.numJoueur].deplLeft = 2170;
             this.joueurs[this.numJoueur].deplTop = 250;
+            this.joueurs[this.numJoueur].caseVisitees = 10 ; // mise a jour case visitées
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
              // console.log(this.numJoueur);
@@ -397,7 +511,7 @@ template {
   height: 50px;
   border: solid 1px;
   border-radius: 25px;
-  background-color: blue;
+  background-color: #0000ff;
   position: absolute;
   transition: all ease-in-out 1s;
   z-index: 10000000000;
@@ -410,6 +524,16 @@ template {
   height: 7%;
   top: 500px;
   left: 900px;
+  z-index: 10000000000;
+}
+
+#prison{
+  position: absolute;
+  text-align: center;
+  width: 500px;
+  height: 220px;
+  top: 700px;
+  left: 940px;
   z-index: 10000000000;
 }
 </style>
