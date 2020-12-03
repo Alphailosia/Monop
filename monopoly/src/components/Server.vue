@@ -72,7 +72,7 @@ export default {
     comptdouble: 0,
     joueurs: [
       {
-        nom: "joueur1",
+        nom: "Joueur1",
         prison: false,
         tourPrison:0,
         cartePrison: [],
@@ -86,7 +86,7 @@ export default {
         }
       },
       {
-        nom: "joueur2",
+        nom: "Joueur2",
         prison: false,
         tourPrison:0,
         cartePrison: [],
@@ -429,6 +429,9 @@ template {
   top: 700px;
   left: 940px;
   z-index: 10000000000;
-
 }
+.organisation {
+  display: flex;
+}
+
 </style>

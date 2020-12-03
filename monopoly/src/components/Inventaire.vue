@@ -1,7 +1,7 @@
 <template>
 <div>
     <v-card v-for="(joueur,index) in joueurs" :key="index" class="inventaire">
-        <v-card-title>  {{ joueur.nom }} 
+        <v-card-title class="title-inventaire">  <span :class="`J${index+1}`">{{ joueur.nom }} </span>
             <div class="argent"> {{ joueur.inventaire.argent }} €</div>
         </v-card-title>
         <div class="proprietes">  {{ joueur.inventaire.proprietes }}</div>
@@ -13,6 +13,7 @@
 export default {
     props:{
         joueurs:Array,
+        
     }
 }
 </script>
@@ -26,16 +27,25 @@ export default {
     border: solid 5px;
     border-radius: 10px;
     position: relative;
+    
 }
 
 .title-inventaire {
     text-align: left;
     font-weight: bold;
     word-break: break-word;
-    justify-content: center;
+    font-size: 2em;
+    
 }
 
 .argent{
-    margin-left: 5%;
+    margin-left: 10%;
+}
+
+.J1 {
+    color: red;
+}
+.J2 {
+    Color: blue;
 }
 </style>
