@@ -265,7 +265,8 @@ switch(numCase) {
           console.log(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].nom);
       // on vérifie que l'objet carte ne contient pas déjà un propriétaire
           if(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire==""){
-            this.ProposerAchat(this.joueur,this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)]);
+          //  this.ProposerAchat(this.joueur,this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)]);
+            
           }else{
             // faire payer
           }
