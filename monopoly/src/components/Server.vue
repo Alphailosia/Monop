@@ -95,12 +95,15 @@ import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
 import Inventaire from './Inventaire.vue';
 import CartesInventaire from './CartesInventaire.vue';
+/*import CartesChanceCommunaute from './CartesChanceCommunaute.vue';*/
+import CartesChancesCommunautes from "../Cartes_chances_communautes.json";
 
 export default {
   components: {
     Plateau,
     Inventaire,
     CartesInventaire,
+    /*CartesChanceCommunaute,*/
   },
   sockets: {
     connection: function () {
@@ -164,10 +167,14 @@ export default {
     memoire: 0,
     carteInventaire: {},
     dialog: false,
+    chances: [],
+    communautes: [],
+    jsonChanceCommunaute: [],
 
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
+    this.jsonChanceCommunaute = CartesChancesCommunautes;
   },
   methods: {
     launch: function () {
@@ -181,6 +188,7 @@ export default {
       this.proprietes = this.jsonPropriete[0];
       this.gares = this.jsonPropriete[1];
       this.services = this.jsonPropriete[2];
+      
       // console.log(this.gares);
       // console.log(this.services);
     },
