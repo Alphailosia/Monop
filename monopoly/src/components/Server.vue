@@ -95,12 +95,14 @@ import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
 import Inventaire from './Inventaire.vue';
 import CartesInventaire from './CartesInventaire.vue';
+/*import CartesHypotheque from './CartesHypotheque.vue';*/
 
 export default {
   components: {
     Plateau,
     Inventaire,
     CartesInventaire,
+    /*CartesHypotheque,*/
   },
   sockets: {
     connection: function () {
@@ -164,10 +166,13 @@ export default {
     memoire: 0,
     carteInventaire: {},
     dialog: false,
+    hypotheque: [],
+    jsonHypotheque: [],
 
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
+    this.jsonHypotheque = CartesProprieteGareService;
   },
   methods: {
     launch: function () {
