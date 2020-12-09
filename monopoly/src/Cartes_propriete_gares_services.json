@@ -18,7 +18,8 @@
                     50,
                     50
                 ],
-                "hypotheque": 30
+                "hypotheque": 30,
+                "estHypothequee": false
             },
             {
                 "nom": "RUE SMOLETT",
@@ -37,7 +38,8 @@
                     50,
                     50
                 ],
-                "hypotheque": 30
+                "hypotheque": 30,
+                "estHypothequee": false
             }
         ],
         [
@@ -58,7 +60,8 @@
                     50,
                     50
                 ],
-                "hypotheque": 50
+                "hypotheque": 50,
+                "estHypothequee": false
             },
             {
                 "nom": "BOULEVARD RISSO",
@@ -77,7 +80,8 @@
                     50,
                     50
                 ],
-                "hypotheque": 50
+                "hypotheque": 50,
+                "estHypothequee": false
             },
             {
                 "nom": "QUAI PAPACINO",
@@ -96,7 +100,8 @@
                     50,
                     50
                 ],
-                "hypotheque": 60
+                "hypotheque": 60,
+                "estHypothequee": false
             }
         ],
         [
@@ -117,7 +122,8 @@
                     100,
                     100
                 ],
-                "hypotheque": 70
+                "hypotheque": 70,
+                "estHypothequee": false
             },
             {
                 "nom": "AVENUE VALROSE",
@@ -136,7 +142,8 @@
                     100,
                     100
                 ],
-                "hypotheque": 70
+                "hypotheque": 70,
+                "estHypothequee": false
             },
             {
                 "nom": "AVENUE SAINT JEAN BAPTISTE",
@@ -155,7 +162,8 @@
                     100,
                     100
                 ],
-                "hypotheque": 80
+                "hypotheque": 80,
+                "estHypothequee": false
             }
         ],
         [
@@ -176,7 +184,8 @@
                     100,
                     100
                 ],
-                "hypotheque": 90
+                "hypotheque": 90,
+                "estHypothequee": false
             },
             {
                 "nom": "AVENUE DE LA CALIFORNIE",
@@ -195,7 +204,8 @@
                     100,
                     100
                 ],
-                "hypotheque": 90
+                "hypotheque": 90,
+                "estHypothequee": false
             },
             {
                 "nom": "RUE ST FRANCOIS DE PAULE",
@@ -214,7 +224,8 @@
                     100,
                     100
                 ],
-                "hypotheque": 100
+                "hypotheque": 100,
+                "estHypothequee": false
             }
         ],
         [
@@ -235,7 +246,8 @@
                     150,
                     150
                 ],
-                "hypotheque": 110
+                "hypotheque": 110,
+                "estHypothequee": false
             },
             {
                 "nom": "COURS SALEYA",
@@ -254,7 +266,8 @@
                     150,
                     150
                 ],
-                "hypotheque": 110
+                "hypotheque": 110,
+                "estHypothequee": false
             },
             {
                 "nom": "AVENUE JEAN MEDECIN",
@@ -273,7 +286,8 @@
                     150,
                     150
                 ],
-                "hypotheque": 120
+                "hypotheque": 120,
+                "estHypothequee": false
             }
         ],
         [
@@ -294,7 +308,8 @@
                     150,
                     150
                 ],
-                "hypotheque": 130
+                "hypotheque": 130,
+                "estHypothequee": false
             },
             {
                 "nom": "BOULEVARD CARABACEL",
@@ -313,7 +328,8 @@
                     150,
                     150
                 ],
-                "hypotheque": 130
+                "hypotheque": 130,
+                "estHypothequee": false
             },
             {
                 "nom": "BOULEVARD TZAREWITCH",
@@ -332,7 +348,8 @@
                     150,
                     150
                 ],
-                "hypotheque": 140
+                "hypotheque": 140,
+                "estHypothequee": false
             }
         ],
         [
@@ -353,7 +370,8 @@
                     200,
                     200
                 ],
-                "hypotheque": 150
+                "hypotheque": 150,
+                "estHypothequee": false
             },
             {
                 "nom": "PLACE MASSENA",
@@ -372,7 +390,8 @@
                     200,
                     200
                 ],
-                "hypotheque": 150
+                "hypotheque": 150,
+                "estHypothequee": false
             },
             {
                 "nom": "BD MAURICE MAETERLINCK",
@@ -391,7 +410,8 @@
                     200,
                     200
                 ],
-                "hypotheque": 160
+                "hypotheque": 160,
+                "estHypothequee": false
             }
         ],
         [
@@ -412,7 +432,8 @@
                     200,
                     200
                 ],
-                "hypotheque": 175
+                "hypotheque": 175,
+                "estHypothequee": false
             },
             {
                 "nom": "PROMENADE DES ANGLAIS",
@@ -431,7 +452,8 @@
                     200,
                     200
                 ],
-                "hypotheque": 200
+                "hypotheque": 200,
+                "estHypothequee": false
             }
         ]
     ],
@@ -447,7 +469,8 @@
                 200
             ],
             "hypotheque": 100,
-            "prixAchat": 200
+            "prixAchat": 200,
+            "estHypothequee": false
         },
         {
             "image": 1,
@@ -460,7 +483,8 @@
                 200
             ],
             "hypotheque": 100,
-            "prixAchat": 200
+            "prixAchat": 200,
+            "estHypothequee": false
         },
         {
             "image": 2,
@@ -473,7 +497,8 @@
                 200
             ],
             "hypotheque": 100,
-            "prixAchat": 200
+            "prixAchat": 200,
+            "estHypothequee": false
         },
         {
             "image": 2,
@@ -486,7 +511,8 @@
                 200
             ],
             "hypotheque": 100,
-            "prixAchat": 200
+            "prixAchat": 200,
+            "estHypothequee": false
         }
     ],
     [
@@ -497,7 +523,8 @@
             "loyer": [
                 150
             ],
-            "hypotheque": 75
+            "hypotheque": 75,
+            "estHypothequee": false
         },
         {
             "image": 2,
@@ -506,7 +533,8 @@
             "loyer": [
                 150
             ],
-            "hypotheque": 75
+            "hypotheque": 75,
+            "estHypothequee": false
         }
     ]
 ]
