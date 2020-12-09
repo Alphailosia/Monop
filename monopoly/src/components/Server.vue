@@ -112,7 +112,13 @@ export default {
     envoiNom: function (data) {
       this.joueurs = data;
     },
-    start: function () {
+    ordre: function(){
+      console.log("ordre")
+      this.lancerDes();
+      setTimeout(this.ordreJ,3000)
+    },
+    start: function (data) {
+      this.joueurs = data;
       this.partie = true;
       this.lancerPartie();
     },
@@ -175,6 +181,13 @@ export default {
     this.jsonHypotheque = CartesProprieteGareService;
   },
   methods: {
+    ordreJ: function(){
+      let info = {
+        nom: this.nom,
+        lancer: this.affichedes[0]+this.affichedes[1]
+      }
+      this.$socket.emit("ordreJ",info);
+    },
     launch: function () {
       this.$socket.emit("launch");
     },
