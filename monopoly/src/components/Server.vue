@@ -97,6 +97,8 @@ export default {
         {
           nom: "joueur1",
           proprietes:[],
+          gares:[],
+          services:[],
           prison: false,
           tourPrison:0,
           cartePrison: [],
@@ -112,6 +114,8 @@ export default {
         {
           nom: "joueur2",
           proprietes:[],
+          gares:[],
+          services:[],
           prison: false,
           tourPrison:0,
           cartePrison: [],
@@ -224,7 +228,8 @@ export default {
           //  return "BOULEVARD RENE CASSIN";
           return "0,1,0";
         case 5:
-          return "1,0,0";
+         // console.log(this.banque.gares[1]);
+          return "lympia";
         case 8:
           //  return "BOULEVARD RISSO";
           return "0,1,1";
@@ -235,64 +240,64 @@ export default {
           // return "RUE BARLA";
           return "0,2,0";
         case 12:
-          // return "RUE BARLA";
-          return "3,0,0";
+          // compagnie d'electricite";
+          return "electricite";
         case 13:
-          //  return "AVENUE VALROSE";
+          //   "AVENUE VALROSE";
           return "0,2,1";
         case 14:
-          //  return "AVENUE SAINT JEAN BAPTISTE";
+          //   "AVENUE SAINT JEAN BAPTISTE";
           return "0,2,2";
         case 15:
-          return "1,0,1";
+          return "sud";
           //gare
         case 16:
-          //  return "PLACE GARIBALDI";
+          //   "PLACE GARIBALDI";
           return "0,3,0";
         case 18:
-          //  return "AVENUE DE LA CALIFORNIE";
+          //  "AVENUE DE LA CALIFORNIE";
           return "0,3,1";
         case 19:
-          // return "RUE ST FRANCOIS DE PAULE";
+          //  "RUE ST FRANCOIS DE PAULE";
           return "0,3,2";
         case 21:
-          // return "RUE GIOFFREDO";
+          //  "RUE GIOFFREDO";
           return "0,4,0";
         case 23:
-          // return "COURS SALEYA";
+          //  "COURS SALEYA";
           return "0,4,1";
         case 24:
-          //  return "AVENUE JEAN MEDECIN\"";
+          //   "AVENUE JEAN MEDECIN\"";
           return "0,4,2";
         case 25:
-          return "1,0,2";
+          return "aeroport";
           //gare
         case 26:
-          // return "BOULEVARD DUBOUCHAGE";
+          //  "BOULEVARD DUBOUCHAGE";
           return "0,5,0";
         case 27:
-          // return "BOULEVARD CARABACEL";
+          //  "BOULEVARD CARABACEL";
           return "0,5,1";
         case 28:
-          // return "RUE BARLA";
-          return "3,0,1";
+          //  "RUE BARLA";
+          return "eau";
         case 29:
-          //  return "BOULEVARD TZAREWITCH";
+          //   "BOULEVARD TZAREWITCH";
           return "0,5,2";
         case 30:
-          //  return "BOULEVARD DE CIMIEZ";
+          //   "BOULEVARD DE CIMIEZ";
           return "0,6,0";
         case 31:
-          // return "PLACE MASSENA";
+          //  "PLACE MASSENA";
           return "0,6,1";
         case 33:
-          // return "BD MAURICE MAETERLINCK";
+          //  "BD MAURICE MAETERLINCK";
           return "0,6,2";
         case 35:
           //   gare
-          return "0,7,0";
+          return "Nice-ville";
         case 36:
-          //  return "PROMENADE DES ANGLAIS";
+          //   "PROMENADE DES ANGLAIS";
           return "0,7,1";
         default:
           return "inachetable";
@@ -317,11 +322,11 @@ export default {
           } else {
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
-              console.log(this.numJoueur);
+             // console.log(this.numJoueur);
             } else {
               this.numJoueur = 0;
               this.partieTerminer += 1;
-              console.log(this.numJoueur);
+             // console.log(this.numJoueur);
             }
           }
         }
@@ -342,7 +347,8 @@ export default {
       }
     },
     deplacerJoueur: function (de1, de2) {
-      this.depl = de1 + de2;
+     // this.depl = de1 + de2;
+      this.depl = 12 ;
       this.memoire = this.depl;
       this.joueurs[this.numJoueur].retDepl += this.depl;
       while (this.depl != 0) {
@@ -351,16 +357,50 @@ export default {
 
         ) {
           let positions = this.PositionToPropriete();
+
+          //achat gare et services
+          if(this.PositionToPropriete()=="lympia"){
+
+            //console.log(this.banque.gares[1].proprietaire);
+            this.banque.gares[1].proprietaire = this.joueurs[this.numJoueur];
+            this.joueurs[this.numJoueur].gares.push(this.banque.gares[1]);
+            //console.log("ICI"+this.banque.gares[1].nom);
+          }else if(this.PositionToPropriete()=="sud"){
+            this.banque.gares[3].proprietaire = this.joueurs[this.numJoueur];
+            this.joueurs[this.numJoueur].gares.push(this.banque.gares[2]);
+           // console.log("ICI"+this.banque.gares[3].nom);
+          }else if(this.PositionToPropriete()=="aeroport"){
+            this.banque.gares[0].proprietaire = this.joueurs[this.numJoueur];
+            this.joueurs[this.numJoueur].gares.push(this.banque.gares[0]);
+            //console.log("ICI"+this.banque.gares[0].nom);
+          }else if(this.PositionToPropriete()=="Nice-Ville"){
+            this.banque.gares[3].proprietaire = this.joueurs[this.numJoueur];
+            this.joueurs[this.numJoueur].gares.push(this.banque.gares[2]);
+           // console.log("ICI"+this.banque.gares[2].nom);
+            //achat services
+          }else if(this.PositionToPropriete()=="electricite"){
+            this.banque.services[0].proprietaire = this.joueurs[this.numJoueur];
+            this.joueurs[this.numJoueur].services.push(this.banque.services[0]);
+           // console.log("ICI"+this.banque.services[0].nom);
+
+          }else if(this.PositionToPropriete()=="eau"){
+            this.banque.services[1].proprietaire = this.joueurs[this.numJoueur];
+            this.joueurs[this.numJoueur].services.push(this.banque.services[1]);
+           // console.log("ICI"+this.banque.services[1].nom);
+          }
+
+
+
           //  console.log(this.banque.proprietes[2][1]);
           //console.log(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].nom);
           // on vérifie que l'objet carte ne contient pas déjà un propriétaire
-          console.log(this.banque.proprietes[positions.substring(2, 3)][positions.substring(4, 5)].proprietaire);
+          //console.log(this.banque.proprietes[positions.substring(2, 3)][positions.substring(4, 5)].proprietaire);
           if (
             this.banque.proprietes[positions.substring(2, 3)][
               positions.substring(4, 5)
             ].proprietaire == ""
           ) {
-            console.log("in");
+            //console.log("in");
             //  this.ProposerAchat(this.joueur,this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)]);
             this.banque.proprietes[positions.substring(2, 3)][
               positions.substring(4, 5)
@@ -370,10 +410,8 @@ export default {
                 positions.substring(4, 5)
               ]
             );
-           console.log( this.banque.proprietes[positions.substring(2, 3)][
-                    positions.substring(4, 5)
-                    ].proprietaire);
-            console.log(this.joueurs[this.numJoueur].proprietes);
+          // console.log( this.banque.proprietes[positions.substring(2, 3)][positions.substring(4, 5)].proprietaire);
+           // console.log(this.joueurs[this.numJoueur].proprietes);
 
             let newtab = [];
             //trier monopoles
@@ -442,8 +480,8 @@ export default {
           this.memoire =
             this.joueurs[this.numJoueur].caseVisitees + this.memoire - 39;
         }
-        console.log("dep1 = " + this.depl);
-        console.log("retDep1 = " + this.joueurs[this.numJoueur].retDepl);
+     //   console.log("dep1 = " + this.depl);
+       // console.log("retDep1 = " + this.joueurs[this.numJoueur].retDepl);
         if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 40) {
           this.memoire =
             this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40;
@@ -524,7 +562,7 @@ export default {
         this.joueurs[this.numJoueur].retDepl ===
         this.joueurs[this.numJoueur].caseVisitees
       ) {
-        console.log(this.joueurs[this.numJoueur].caseVisitees);
+      //  console.log(this.joueurs[this.numJoueur].caseVisitees);
         if (this.joueurs[this.numJoueur].caseVisitees === 30) {
           this.joueurs[this.numJoueur].prison = true;
           this.joueurs[this.numJoueur].deplLeft = 2170;
@@ -534,7 +572,7 @@ export default {
           } else {
             this.numJoueur = 0;
             this.partieTerminer += 1;
-            console.log(this.numJoueur);
+           // console.log(this.numJoueur);
           }
           this.comptdouble = 0;
         } else if (
