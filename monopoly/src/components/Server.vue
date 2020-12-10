@@ -85,7 +85,7 @@
     <v-dialog v-model="dialog" max-width="700px">
     <CartesInventaire :carteInventaire="carteInventaire"/>
     </v-dialog>
-    <v-dialog v-model="dialog2" max-width="800px">
+    <v-dialog v-model="dialog2" max-width="800px" v-if="nomChanceCom===nom">
       <CartesChanceCommunaute :carte="carte" />
     </v-dialog>
   </div>
@@ -98,23 +98,17 @@ import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
 import Inventaire from './Inventaire.vue';
 import CartesInventaire from './CartesInventaire.vue';
-<<<<<<< HEAD
 import CartesChanceCommunaute from './CartesChanceCommunaute.vue';
 import CartesChancesCommunautes from "../Cartes_chances_communautes.json";
-=======
 /*import CartesHypotheque from './CartesHypotheque.vue';*/
->>>>>>> adee582a6dc0cc7225bc944e737ee1fb5786c8a4
 
 export default {
   components: {
     Plateau,
     Inventaire,
     CartesInventaire,
-<<<<<<< HEAD
     CartesChanceCommunaute,
-=======
     /*CartesHypotheque,*/
->>>>>>> adee582a6dc0cc7225bc944e737ee1fb5786c8a4
   },
   sockets: {
     connection: function () {
@@ -156,6 +150,7 @@ export default {
     partie: false,
     comptdouble: 0,
     joueurs: [],
+    nomChanceCom: "blabla",
     partieTerminer: 0,
     numJoueur: 0,
     destime: "",
@@ -184,25 +179,19 @@ export default {
     memoire: 0,
     carteInventaire: {},
     dialog: false,
-<<<<<<< HEAD
     chances: [],
     communautes: [],
     jsonChanceCommunaute: [],
     dialog2: false,
     carte: {},
-=======
     hypotheque: [],
     jsonHypotheque: [],
->>>>>>> adee582a6dc0cc7225bc944e737ee1fb5786c8a4
 
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
-<<<<<<< HEAD
     this.jsonChanceCommunaute = CartesChancesCommunautes;
-=======
     this.jsonHypotheque = CartesProprieteGareService;
->>>>>>> adee582a6dc0cc7225bc944e737ee1fb5786c8a4
   },
   methods: {
     ordreJ: function(){
@@ -434,7 +423,7 @@ export default {
       }
     },
     deplacerJoueur: function (de1, de2) {
-      this.depl = de1 + de2;
+      this.depl = /*de1 + de2;*/ 7;
       this.memoire = this.depl;
       this.joueurs[this.numJoueur].retDepl += this.depl;
       while (this.depl != 0) {
@@ -447,14 +436,15 @@ export default {
             //this.banque.proprietes[positions.substring(2, 3)][
               //positions.substring(4, 5)].nom);
           //on vérifie si on est sur une case chance ou communaute
-          if(positions.lenght===1) {
-            let index = Math.floor(Math.random()*this.jsonChanceCommunaute[positions.substring(0,1)].lenght);
+          if(positions.length===1) {
+            let index = Math.floor(Math.random()*this.jsonChanceCommunaute[positions.substring(0,1)].length)-1;
             this.carte=this.jsonChanceCommunaute[positions.substring(0,1)][index];
             this.jsonChanceCommunaute[positions.substring(0,1)].splice(index, 1);
+            this.nomChanceCom=this.joueurs[this.numJoueur].nom;
             this.dialog2=true;
           }
           // on vérifie que l'objet carte ne contient pas déjà un propriétaire
-          if (
+          else if ( 
             this.banque.proprietes[positions.substring(2, 3)][
               positions.substring(4, 5)
             ].proprietaire == ""
