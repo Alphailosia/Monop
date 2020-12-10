@@ -16,6 +16,8 @@ const io = require('socket.io')(server, {
 
 var joueurs = [];
 var index = 0;
+var ordre = [];
+var indexOrdre = 0;
 
 // établissement de la connexion
 io.on('connection', (socket) => {
@@ -47,7 +49,25 @@ io.on('connection', (socket) => {
 
    // lancement de la partie
    socket.on('launch', () => {
-      io.emit('start');
+      io.emit('ordre');
+   });
+
+   //ordre joueur
+   socket.on('ordreJ', (data) => {
+      ordre[indexOrdre]=data;
+      indexOrdre++;
+      console.log(ordre)
+      if(indexOrdre==joueurs.length){
+         if(ordreEgal()){
+            ordre = [];
+            indexOrdre=0;
+            io.emit('ordre');
+         }
+         else{
+            joueurs = triJoueur()
+            io.emit("start",joueurs)
+         }
+      }
    });
 
    // deplacement du joueur
@@ -76,7 +96,41 @@ io.on('connection', (socket) => {
    });
 });
 
+function ordreEgal(){
+   let egal = false;
+   for(let i=0;i<ordre.length;i++){
+      if(i>0){
+         egal = ordre[i].lancer==ordre[i-1].lancer;
+      }
+   }
+   return egal;
+}
 
+function triJoueur(){
+   console.log('appel du tri :)')
+   let joue = [];
+   for(let i=0;i<ordre.length-1;i++){
+      for(let j=0;j<ordre.length;j++){
+         if(j>0){
+            if(ordre[j].lancer>ordre[j-1].lancer){
+               let t = ordre[j];
+               ordre[j] = ordre[j-1];
+               ordre[j-1]=t
+            }
+         }
+      }
+   }
+   console.log(ordre)
+   for(let k=0;k<ordre.length;k++){
+      for(let l=0;l<joueurs.length;l++){
+         if(ordre[k].nom===joueurs[l].nom){
+            joue[k]=joueurs[l]
+         }
+      }
+   }
+
+   return joue;
+}
 
 // on change app par server
 server.listen(3000, function () {

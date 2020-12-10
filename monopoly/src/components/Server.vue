@@ -98,15 +98,23 @@ import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
 import Inventaire from './Inventaire.vue';
 import CartesInventaire from './CartesInventaire.vue';
+<<<<<<< HEAD
 import CartesChanceCommunaute from './CartesChanceCommunaute.vue';
 import CartesChancesCommunautes from "../Cartes_chances_communautes.json";
+=======
+/*import CartesHypotheque from './CartesHypotheque.vue';*/
+>>>>>>> adee582a6dc0cc7225bc944e737ee1fb5786c8a4
 
 export default {
   components: {
     Plateau,
     Inventaire,
     CartesInventaire,
+<<<<<<< HEAD
     CartesChanceCommunaute,
+=======
+    /*CartesHypotheque,*/
+>>>>>>> adee582a6dc0cc7225bc944e737ee1fb5786c8a4
   },
   sockets: {
     connection: function () {
@@ -116,7 +124,13 @@ export default {
     envoiNom: function (data) {
       this.joueurs = data;
     },
-    start: function () {
+    ordre: function(){
+      console.log("ordre")
+      this.lancerDes();
+      setTimeout(this.ordreJ,3000)
+    },
+    start: function (data) {
+      this.joueurs = data;
       this.partie = true;
       this.lancerPartie();
     },
@@ -170,18 +184,34 @@ export default {
     memoire: 0,
     carteInventaire: {},
     dialog: false,
+<<<<<<< HEAD
     chances: [],
     communautes: [],
     jsonChanceCommunaute: [],
     dialog2: false,
     carte: {},
+=======
+    hypotheque: [],
+    jsonHypotheque: [],
+>>>>>>> adee582a6dc0cc7225bc944e737ee1fb5786c8a4
 
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
+<<<<<<< HEAD
     this.jsonChanceCommunaute = CartesChancesCommunautes;
+=======
+    this.jsonHypotheque = CartesProprieteGareService;
+>>>>>>> adee582a6dc0cc7225bc944e737ee1fb5786c8a4
   },
   methods: {
+    ordreJ: function(){
+      let info = {
+        nom: this.nom,
+        lancer: this.affichedes[0]+this.affichedes[1]
+      }
+      this.$socket.emit("ordreJ",info);
+    },
     launch: function () {
       this.$socket.emit("launch");
     },
