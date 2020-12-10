@@ -423,7 +423,7 @@ export default {
       }
     },
     deplacerJoueur: function (de1, de2) {
-      this.depl = /*de1 + de2;*/ 7;
+      this.depl = de1 + de2;
       this.memoire = this.depl;
       this.joueurs[this.numJoueur].retDepl += this.depl;
       while (this.depl != 0) {
