@@ -85,6 +85,9 @@
     <v-dialog v-model="dialog" max-width="700px">
     <CartesInventaire :carteInventaire="carteInventaire"/>
     </v-dialog>
+    <v-dialog v-model="dialog2" max-width="800px">
+      <CartesChanceCommunaute :carte="carte" />
+    </v-dialog>
   </div>
 </template>
 
@@ -95,7 +98,7 @@ import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
 import Inventaire from './Inventaire.vue';
 import CartesInventaire from './CartesInventaire.vue';
-/*import CartesChanceCommunaute from './CartesChanceCommunaute.vue';*/
+import CartesChanceCommunaute from './CartesChanceCommunaute.vue';
 import CartesChancesCommunautes from "../Cartes_chances_communautes.json";
 
 export default {
@@ -103,7 +106,7 @@ export default {
     Plateau,
     Inventaire,
     CartesInventaire,
-    /*CartesChanceCommunaute,*/
+    CartesChanceCommunaute,
   },
   sockets: {
     connection: function () {
@@ -170,6 +173,8 @@ export default {
     chances: [],
     communautes: [],
     jsonChanceCommunaute: [],
+    dialog2: false,
+    carte: {},
 
   }),
   created() {
@@ -265,12 +270,18 @@ export default {
         case 1:
           // return "RUE ROSSETTI";
           return "0,0,0";
+        case 2:
+          // return "COMMUNAUTE";
+          return "1";
         case 3:
           // return "RUE SMOLETT";
           return "0,0,1";
         case 6:
           //  return "BOULEVARD RENE CASSIN";
           return "0,1,0";
+        case 7:
+          // return "CHANCE";
+          return "0";
         case 8:
           //  return "BOULEVARD RISSO";
           return "0,1,1";
@@ -289,6 +300,9 @@ export default {
         case 16:
           //  return "PLACE GARIBALDI";
           return "0,3,0";
+        case 17:
+          // return "COMMUNAUTE";
+          return "1";
         case 18:
           //  return "AVENUE DE LA CALIFORNIE";
           return "0,3,1";
@@ -298,6 +312,9 @@ export default {
         case 21:
           // return "RUE GIOFFREDO";
           return "0,4,0";
+        case 22:
+          // return "CHANCE";
+          return "0";
         case 23:
           // return "COURS SALEYA";
           return "0,4,1";
@@ -319,9 +336,15 @@ export default {
         case 32:
           // return "PLACE MASSENA";
           return "0,6,1";
+        case 33:
+          // return "COMMUNAUTE";
+          return "1";
         case 34:
           // return "BD MAURICE MAETERLINCK";
           return "0,6,2";
+        case 36:
+          // return "CHANCE";
+          return "0";
         case 37:
           //   return "AVENUE DE VERDUN";
           return "0,7,0";
@@ -393,7 +416,13 @@ export default {
           //console.log(
             //this.banque.proprietes[positions.substring(2, 3)][
               //positions.substring(4, 5)].nom);
-          
+          //on vérifie si on est sur une case chance ou communaute
+          if(positions.lenght===1) {
+            let index = Math.floor(Math.random()*this.jsonChanceCommunaute[positions.substring(0,1)].lenght);
+            this.carte=this.jsonChanceCommunaute[positions.substring(0,1)][index];
+            this.jsonChanceCommunaute[positions.substring(0,1)].splice(index, 1);
+            this.dialog2=true;
+          }
           // on vérifie que l'objet carte ne contient pas déjà un propriétaire
           if (
             this.banque.proprietes[positions.substring(2, 3)][
