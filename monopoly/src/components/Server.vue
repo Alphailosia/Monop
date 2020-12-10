@@ -17,13 +17,18 @@
         <v-btn @click="launch()" :disabled="joueurs.length < 2">Lancer</v-btn>
       </div>
     </div>
-    <div v-if="partie">
+    <div v-if="partie" class="ordre">
       <v-btn
         @click="jouer"
         :disabled="desactif || nom !== joueurs[numJoueur].nom"
         >Lancer</v-btn
       >
-      <p>{{ joueurs[numJoueur].nom }} doit lancer les dés</p>
+      <div class="ordre2">
+          <h1>Ordre des joueurs :</h1>
+            <h2 v-for="(joueur,index) in joueurs" :key="index">
+              <span v-if="joueurs[numJoueur].nom===joueur.nom" :class="colJoueur()">{{ index+1 }} - {{ joueur.nom }}</span>
+              <span v-if="joueurs[numJoueur].nom!==joueur.nom">{{ index+1 }} - {{ joueur.nom }}</span></h2>
+      </div>
     </div>
     <v-alert
             id="des"
@@ -174,13 +179,20 @@ export default {
     dialog: false,
     hypotheque: [],
     jsonHypotheque: [],
-
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
     this.jsonHypotheque = CartesProprieteGareService;
   },
   methods: {
+    colJoueur: function(){
+      if(this.numJoueur===0){
+        return "j1";
+      }
+      else{
+        return "j2";
+      }
+    },
     ordreJ: function(){
       let info = {
         nom: this.nom,
@@ -233,7 +245,8 @@ export default {
         this.des[de2][1],
       ];
       this.desactif = true;
-      this.destime = setTimeout(this.desTime, 3000);
+      this.desactifLancer = true;
+      this.destime = setTimeout(this.desTime, 1000*(this.affichedes[0]+this.affichedes[1]));
     },
     jouer: function () {
       this.lancerDes();
@@ -638,4 +651,19 @@ template {
   display: flex;
 }
 
+.ordre {
+  display: flex;
+}
+
+.ordre2{
+  padding-left: 20%;
+}
+
+.j1{
+  color: red;
+}
+
+.j2{
+  color: blue;
+}
 </style>
