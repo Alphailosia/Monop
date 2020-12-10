@@ -330,6 +330,34 @@ export default {
           return "inachetable";
       }
     },
+
+
+    hypothequer: function (numJoueur) {       // permet à un joueur d'hypothéquer une propriété si c'est possible (return true si c'est fait false sinon)
+      let all_proprietes = this.joueurs[numJoueur].inventaire.proprietes ;       // liste des propriétés du joueur en crise
+      let propriete_à_hypothequer = null ;
+      
+      for (let i = 0; i < all_proprietes.length; i++) {
+        if(all_proprietes[i].estHypothequee === false ){
+          propriete_à_hypothequer = this.joueurs[numJoueur].inventaire.proprietes[i] ;
+          let prix_hypotheque = propriete_à_hypothequer.hypotheque ;
+          this.joueurs[numJoueur].inventaire.argent += prix_hypotheque ;      // le joueur récupère l'argent de l'hypothèque
+
+          all_proprietes[i].estHypothequee = true ;  // la propriété est mtn hypothéqué par la banque 
+          break ;
+        }
+
+
+      if(propriete_à_hypothequer === null ){return false}     //  toutes les proprités sont déja hypothéqués  
+      else {return true}                                      //  une propriété à été hypothéqué 
+
+      }
+
+
+     
+
+    },
+
+    
     prison: function (cpt) {
       this.joueurs[this.numJoueur].tourPrison += 1;
       if (cpt == 1) {
@@ -402,20 +430,19 @@ export default {
               this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire = this.joueurs[this.numJoueur].nom
           } else {
             // faire payer
-            
-            let loyer = this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].loyer[0]
-            if(this.joueurs[this.numJoueur].nom != this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire){
-              this.joueurs[this.numJoueur].inventaire.argent -= loyer ;
-              if(this.numJoueur === 0){
+            if(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].estHypothequee === false){     // seulement si la carte n'est hypothéquée  
+              let loyer = this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].loyer[0]
+              if(this.joueurs[this.numJoueur].nom != this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire){
+                this.joueurs[this.numJoueur].inventaire.argent -= loyer ;
+                if(this.numJoueur === 0){
                 this.joueurs[1].inventaire.argent += loyer ;
-              }
-              else{
-                this.joueurs[0].inventaire.argent += loyer
-              }
-              
-            }
-            
-            
+                }
+                else{
+                  this.joueurs[0].inventaire.argent += loyer
+                }
+
+              } 
+            }            
           }
         }
         
