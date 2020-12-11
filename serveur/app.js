@@ -33,7 +33,6 @@ io.on('connection', (socket) => {
          nom: data,
          prison: false,
          tourPrison: 0,
-         cartePrison: [],
          deplLeft: 150,
          deplTop: 200,
          caseVisitees: 0,
@@ -41,6 +40,8 @@ io.on('connection', (socket) => {
          inventaire: {
             argent: 1500,
             proprietes: [],
+            gares: [],
+            services: []
          },
       }
       index++;
@@ -81,8 +82,9 @@ io.on('connection', (socket) => {
    });
 
    // etat prison du joueur 
-   socket.on('prison', (data) => {
-      io.emit("etatJoueurs", data)
+   socket.on('achat', (data) => {
+      console.log(data)
+      io.emit("etatAchat", data)
    });
 
    // etat prison du joueur 
