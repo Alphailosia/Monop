@@ -74,17 +74,36 @@
         <div>
           <v-btn
             @click="prison(3)"
-            :disabled="joueurs[numJoueur].cartePrison.length == 0"
+            :disabled="joueurs[numJoueur].inventaire.cartePrison.length == 0"
             text
             >Utiliser une carte "Vous êtes libéré de prison".</v-btn
           >
         </div>
       </v-alert>
     </div>
-    <v-dialog v-model="achat" v-if="acheteur === nom">
-      <h1>Achetez cette propiété</h1>
-      <v-btn @click="ProposerAchat()">Oui {{ acheteur }}</v-btn
-      ><v-btn @click="enchere()">Non</v-btn>
+    <v-dialog v-model="achat" v-if="acheteur === nom" max-width="800px">
+      <v-card>
+        <h1 color="white">Achetez cette propiété</h1>
+        <v-btn @click="ProposerAchat()">Oui {{ acheteur }}</v-btn
+        ><v-btn @click="miseEnchere()">Non</v-btn>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="enchere" max-width="800px">
+      <div v-if="dataEnchere.nom===nom">
+        <v-card>
+          <v-card-title>En attente d'autres propositions </v-card-title>
+          <v-card-text>Proposition actuelle : {{ dataEnchere.prixProp}}</v-card-text>
+        </v-card>
+      </div>
+      <div v-if="dataEnchere.nom!==nom">
+        <v-card>
+          <v-card-title>Veuillez faire un proposition d'enchère supérieur ou décidez de ne plus participer</v-card-title>
+          <v-card-text>Proposition actuelle : {{ dataEnchere.prixProp }}</v-card-text>
+          <input type="text" placeholder="prix ..." v-model="dataEnchere.prixProp" />
+          <v-btn @click="envoiProp()">Envoyer</v-btn>
+          <v-btn @click="finEnchere()">Ne plus participer</v-btn>
+        </v-card>
+      </div>
     </v-dialog>
     <p v-if="partie">Tour numéro : {{ partieTerminer }}</p>
     <div v-if="partie">
@@ -138,8 +157,36 @@ export default {
       this.lancerDes();
       setTimeout(this.ordreJ, 3000);
     },
+    propEnchere: function (data) {
+      for(let i=0;i<data.tab.length;i++){
+        if(this.nom===data.tab[i]){
+          console.log("mdr les enchère")
+          this.enchere=true;
+          this.dataEnchere = data.data;
+        }
+      }
+    },
+    finEnchere: function(data){
+      this.enchere=false;
+      for(let i=0;i<this.joueurs.length;i++){
+        if(this.joueurs[i].nom===data.nom){
+          if(data.position.length===5){
+            this.joueurs[i].inventaire.proprietes.push(data.prop);
+          }
+          else{ 
+            if(data.position.substring(0,1)===1){
+              this.joueurs[i].inventaire.gares.push(data.prop);
+            }
+            else{
+              this.joueurs[i].inventaire.services.push(data.prop);
+            }
+          }
+          this.joueurs[i].inventaire.argent -= data.prixProp;
+        }
+      }
+    },
     start: function (data) {
-      this.ordre=true;
+      this.ordre = true;
       this.joueurs = data;
       this.partie = true;
       this.lancerPartie();
@@ -155,9 +202,9 @@ export default {
       console.log(data);
       this.joueurs = data;
     },
-    etatAchat: function(data){
+    etatAchat: function (data) {
       this.joueurs = data.joueurs;
-      this.banque = data.banque
+      this.banque = data.banque;
     },
     finPartie: function () {
       this.partie = false;
@@ -206,12 +253,42 @@ export default {
     propAchete: {},
     positions: "",
     acheteur: "",
+    nomEnchere: "",
+    enchere: false,
+    dataEnchere: {
+      prop: {},
+      nom: "",
+      position: "",
+      prixProp: 0
+    },
+    tabEnchere: []
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
     this.jsonHypotheque = CartesProprieteGareService;
   },
   methods: {
+    envoiProp: function(){
+      this.dataEnchere.nom = this.nom;
+      this.$socket.emit("propositionEnchere",this.dataEnchere);
+    },
+    finEnchere: function(){
+      let donnees = {
+        nom: this.nom,
+        data: this.dataEnchere
+      }
+      this.$socket.emit("finEnchere",donnees);
+    },
+    miseEnchere: function () {
+      this.achat = false;
+      this.dataEnchere = {
+        prop: this.propAchete,
+        nom: this.nom,
+        position: this.positions,
+        prixProp: 0
+      };
+      this.$socket.emit("miseEnchere", this.dataEnchere);
+    },
     colJoueur: function () {
       if (this.numJoueur === 0) {
         return "j1";
@@ -228,6 +305,18 @@ export default {
     },
     launch: function () {
       this.$socket.emit("launch");
+    },
+    changer: function (data) {
+      if (data != this.nom) {
+        if (this.numJoueur < this.joueurs.length - 1) {
+          this.numJoueur++;
+          console.log(this.numJoueur);
+        } else {
+          this.numJoueur = 0;
+          this.partieTerminer += 1;
+          console.log(this.numJoueur);
+        }
+      }
     },
     envoiNom: function () {
       this.nomEnvoyer = true;
@@ -246,7 +335,7 @@ export default {
       this.numJoueur = 0;
       for (let i = 0; i < this.joueurs.length; i++) {
         this.joueurs[i].deplLeft = 125;
-        this.joueurs[i].deplTop = 200;
+        this.joueurs[i].deplTop = 300;
         this.joueurs[i].retDepl = 0;
         this.joueurs[i].caseVisitees = 0;
         this.joueurs[i].inventaire = {
@@ -274,11 +363,15 @@ export default {
       ];
       this.desactif = true;
       this.desactifLancer = true;
-      if(!this.ordre){
-        this.destime = setTimeout(this.desTime,3000)
-      }
-      else{
-        this.destime = setTimeout(this.desTime,1000 * (this.affichedes[0] + this.affichedes[1]));
+      if (!this.ordre) {
+        this.destime = setTimeout(this.desTime, 3000);
+      } else if (this.joueurs[this.numJoueur].prison) {
+        this.destime = setTimeout(this.desTime, 3000);
+      } else {
+        this.destime = setTimeout(
+          this.desTime,
+          1000 * (this.affichedes[0] + this.affichedes[1])
+        );
       }
     },
     jouer: function () {
@@ -304,7 +397,7 @@ export default {
     },
     ProposerAchat: function () {
       switch (this.positions.substring(0, 1)) {
-        case "0":{
+        case "0": {
           for (let i = 0; i < this.joueurs.length; i++) {
             if (this.joueurs[i].nom === this.acheteur) {
               this.joueurs[i].inventaire.proprietes.push(this.propAchete);
@@ -315,35 +408,39 @@ export default {
             }
           }
           this.achat = false;
-          let data = {joueurs: this.joueurs,banque: this.banque}
+          let data = { joueurs: this.joueurs, banque: this.banque };
           this.$socket.emit("achat", data);
           break;
         }
-        case "1":{
+        case "1": {
           for (let i = 0; i < this.joueurs.length; i++) {
             if (this.joueurs[i].nom === this.acheteur) {
-              console.log(this.joueurs[i].inventaire)
+              console.log(this.joueurs[i].inventaire);
               this.joueurs[i].inventaire.gares.push(this.propAchete);
               this.joueurs[i].inventaire.argent -= this.propAchete.prixAchat;
-              this.banque.gares[this.positions.substring(2, 3)].proprietaire = this.acheteur;
+              this.banque.gares[
+                this.positions.substring(2, 3)
+              ].proprietaire = this.acheteur;
             }
           }
           this.achat = false;
-          let data = {joueurs: this.joueurs,banque: this.banque}
+          let data = { joueurs: this.joueurs, banque: this.banque };
           this.$socket.emit("achat", data);
           break;
         }
-        case "2":{
+        case "2": {
           for (let i = 0; i < this.joueurs.length; i++) {
             if (this.joueurs[i].nom === this.acheteur) {
-              console.log(this.joueurs[i].inventaire)
+              console.log(this.joueurs[i].inventaire);
               this.joueurs[i].inventaire.services.push(this.propAchete);
               this.joueurs[i].inventaire.argent -= this.propAchete.loyer[0];
-              this.banque.services[this.positions.substring(2, 3)].proprietaire = this.acheteur;
+              this.banque.services[
+                this.positions.substring(2, 3)
+              ].proprietaire = this.acheteur;
             }
           }
           this.achat = false;
-          let data = {joueurs: this.joueurs,banque: this.banque}
+          let data = { joueurs: this.joueurs, banque: this.banque };
           this.$socket.emit("achat", data);
           break;
         }
@@ -473,6 +570,7 @@ export default {
               this.partieTerminer += 1;
               console.log(this.numJoueur);
             }
+            this.$socket.emit("changerJoueur", this.nom);
           }
         }
       } else if (cpt == 2) {
@@ -502,8 +600,14 @@ export default {
           this.positions = this.PositionToPropriete();
           switch (this.positions.substring(0, 1)) {
             case "0": {
-              if (this.banque.proprietes[this.positions.substring(2, 3)][this.positions.substring(4, 5)].proprietaire == "") {
-                this.propAchete = this.banque.proprietes[this.positions.substring(2, 3)][this.positions.substring(4, 5)];
+              if (
+                this.banque.proprietes[this.positions.substring(2, 3)][
+                  this.positions.substring(4, 5)
+                ].proprietaire == ""
+              ) {
+                this.propAchete = this.banque.proprietes[
+                  this.positions.substring(2, 3)
+                ][this.positions.substring(4, 5)];
                 this.acheteur = this.joueurs[this.numJoueur].nom;
                 this.achat = true;
               } else {
