@@ -479,46 +479,46 @@ export default {
           // COMPAGNIE DE DISTRIBUTION DE L'ELECTRICITE
           return "2,0";
         case 13:
-          //  return "AVENUE VALROSE";
+          //   "AVENUE VALROSE";
           return "0,2,1";
         case 14:
-          //  return "AVENUE SAINT JEAN BAPTISTE";
+          //   "AVENUE SAINT JEAN BAPTISTE";
           return "0,2,2";
         case 15:
           // GARE DU SUD
           return "1,3";
         case 16:
-          //  return "PLACE GARIBALDI";
+          //   "PLACE GARIBALDI";
           return "0,3,0";
         case 18:
-          //  return "AVENUE DE LA CALIFORNIE";
+          //  "AVENUE DE LA CALIFORNIE";
           return "0,3,1";
         case 19:
-          // return "RUE ST FRANCOIS DE PAULE";
+          //  "RUE ST FRANCOIS DE PAULE";
           return "0,3,2";
         case 21:
-          // return "RUE GIOFFREDO";
+          //  "RUE GIOFFREDO";
           return "0,4,0";
         case 23:
-          // return "COURS SALEYA";
+          //  "COURS SALEYA";
           return "0,4,1";
         case 24:
-          //  return "AVENUE JEAN MEDECIN\"";
+          //   "AVENUE JEAN MEDECIN\"";
           return "0,4,2";
         case 25:
           // AEROPORT NICE COTE D'AZUR
           return "1,0";
         case 26:
-          // return "BOULEVARD DUBOUCHAGE";
+          //  "BOULEVARD DUBOUCHAGE";
           return "0,5,0";
         case 27:
-          // return "BOULEVARD CARABACEL";
+          //  "BOULEVARD CARABACEL";
           return "0,5,1";
         case 28:
           // COMPAGNIE DE DISTRIBUTION DES EAUX
           return "2,1";
         case 29:
-          //  return "BOULEVARD TZAREWITCH";
+          //   "BOULEVARD TZAREWITCH";
           return "0,5,2";
         case 31:
           //  return "BOULEVARD DE CIMIEZ";
@@ -564,11 +564,11 @@ export default {
           } else {
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
-              console.log(this.numJoueur);
+             // console.log(this.numJoueur);
             } else {
               this.numJoueur = 0;
               this.partieTerminer += 1;
-              console.log(this.numJoueur);
+             // console.log(this.numJoueur);
             }
             this.$socket.emit("changerJoueur", this.nom);
           }
@@ -592,7 +592,8 @@ export default {
       }
     },
     deplacerJoueur: function (de1, de2) {
-      this.depl = de1 + de2;
+     // this.depl = de1 + de2;
+      this.depl = 12 ;
       this.memoire = this.depl;
       this.joueurs[this.numJoueur].retDepl += this.depl;
       while (this.depl != 0) {
@@ -701,13 +702,6 @@ export default {
             }
           }
         }
-
-        console.log("dep1 = " + this.depl);
-        console.log("retDep1 = " + this.joueurs[this.numJoueur].retDepl);
-        console.log(
-          "numCase : " +
-            (this.joueurs[this.numJoueur].caseVisitees + this.memoire)
-        );
         if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 40) {
           this.memoire =
             this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40;
@@ -798,7 +792,7 @@ export default {
         this.joueurs[this.numJoueur].retDepl ===
         this.joueurs[this.numJoueur].caseVisitees
       ) {
-        console.log(this.joueurs[this.numJoueur].caseVisitees);
+      //  console.log(this.joueurs[this.numJoueur].caseVisitees);
         if (this.joueurs[this.numJoueur].caseVisitees === 30) {
           this.joueurs[this.numJoueur].prison = true;
           this.joueurs[this.numJoueur].deplLeft = 2170;
@@ -808,7 +802,6 @@ export default {
           } else {
             this.numJoueur = 0;
             this.partieTerminer += 1;
-            //  console.log(this.numJoueur);
           }
           this.comptdouble = 0;
           this.$emit("prison", this.joueurs);
