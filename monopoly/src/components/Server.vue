@@ -130,9 +130,17 @@ export default {
     },
     deplacement: function (data) {
       if (data.nom !== this.nom) {
-        this.affichedes[0] = data.de1;
-        this.affichedes[1] = data.de2;
-        this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
+        this.depl = data.de1 + data.de2;
+        this.memoire = this.depl;
+        this.joueurs[this.numJoueur].retDepl += this.depl;
+
+        if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 40) {
+          this.memoire = this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40;
+        }
+        while (this.depl != 0) {
+          setTimeout(this.animation, 1000 * (data.de1 + data.de2 - this.depl));
+          this.depl--;
+        }
       }
     },
     etatJoueur: function (data) {
@@ -442,6 +450,9 @@ export default {
             this.jsonChanceCommunaute[positions.substring(0,1)].splice(index, 1);
             this.nomChanceCom=this.joueurs[this.numJoueur].nom;
             this.dialog2=true;
+            if(this.jsonChanceCommunaute[positions.substring(0,1)].length ===0) {
+              this.jsonChanceCommunaute[positions.substring(0,1)] = CartesChancesCommunautes[positions.substring(0,1)];
+            }
           }
           // on vérifie que l'objet carte ne contient pas déjà un propriétaire
           else if ( 
