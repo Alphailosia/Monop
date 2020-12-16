@@ -89,17 +89,28 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="enchere" max-width="800px">
-      <div v-if="dataEnchere.nom===nom">
+      <div v-if="dataEnchere.nom === nom">
         <v-card>
           <v-card-title>En attente d'autres propositions </v-card-title>
-          <v-card-text>Proposition actuelle : {{ dataEnchere.prixProp}}</v-card-text>
+          <v-card-text
+            >Proposition actuelle : {{ dataEnchere.prixProp }}</v-card-text
+          >
         </v-card>
       </div>
-      <div v-if="dataEnchere.nom!==nom">
+      <div v-if="dataEnchere.nom !== nom">
         <v-card>
-          <v-card-title>Veuillez faire un proposition d'enchère supérieur ou décidez de ne plus participer</v-card-title>
-          <v-card-text>Proposition actuelle : {{ dataEnchere.prixProp }}</v-card-text>
-          <input type="text" placeholder="prix ..." v-model="dataEnchere.prixProp" />
+          <v-card-title
+            >Veuillez faire un proposition d'enchère supérieur ou décidez de ne
+            plus participer</v-card-title
+          >
+          <v-card-text
+            >Proposition actuelle : {{ dataEnchere.prixProp }}</v-card-text
+          >
+          <input
+            type="text"
+            placeholder="prix ..."
+            v-model="dataEnchere.prixProp"
+          />
           <v-btn @click="envoiProp()">Envoyer</v-btn>
           <v-btn @click="finEnchere()">Ne plus participer</v-btn>
         </v-card>
@@ -125,7 +136,7 @@
     <v-dialog v-model="dialog" max-width="700px">
       <CartesInventaire :carteInventaire="carteInventaire" />
     </v-dialog>
-    <v-dialog v-model="dialog2" max-width="800px" v-if="nomChanceCom===nom">
+    <v-dialog v-model="dialog2" max-width="800px" v-if="nomChanceCom === nom">
       <CartesChanceCommunaute :carte="carte" />
     </v-dialog>
   </div>
@@ -632,7 +643,8 @@ export default {
       }
     },
     deplacerJoueur: function (de1, de2) {
-      this.depl = de1 + de2;
+      ///this.depl = de1 + de2;
+      this.depl = 7;
       this.memoire = this.depl;
       this.joueurs[this.numJoueur].retDepl += this.depl;
       while (this.depl != 0) {
@@ -885,7 +897,7 @@ export default {
           if (this.comptdouble === 3) {
             this.joueurs[this.numJoueur].prison = true;
             this.joueurs[this.numJoueur].deplLeft = 2170;
-            this.joueurs[this.numJoueur].deplTop = 250;
+            this.joueurs[this.numJoueur].deplTop = 300;
             this.joueurs[this.numJoueur].caseVisitees = 10; // mise a jour case visitées
             if (this.numJoueur < this.joueurs.length - 1) {
               this.numJoueur++;
@@ -907,7 +919,7 @@ export default {
         case ("Frais_scolarité"):
           this.joueurs[this.numJoueur].inventaire.argent -= 150;
           break;
-        case ("Reculez"):
+        case ("Reculez"):      ///TO DO
           console.log("Reculez");
           break;
         case ("Dividende"):  
@@ -919,27 +931,49 @@ export default {
         case("Exces_vitesse"):
           this.joueurs[this.numJoueur].inventaire.argent -= 15;
           break;
-        case ("Allez_prison"):{
+        case ("Allez_prison"):
           this.joueurs[this.numJoueur].prison = true;
           this.joueurs[this.numJoueur].deplLeft = 2170;
-          this.joueurs[this.numJoueur].deplTop = 250;}
+          this.joueurs[this.numJoueur].deplTop = 300;
+          this.joueurs[this.numJoueur].caseVisitees = 10;
           break;
         case ("RDV_promenade"):
+          this.joueurs[this.numJoueur].deplLeft = 125;
+          this.joueurs[this.numJoueur].deplTop = 535;
+          this.joueurs[this.numJoueur].caseVisitees = 39;
           console.log("RDV_promenade");
           break;
         case ("Libéré-prison"):
+          /*for(let i=0; i<this.joueurs.lenght; i++) {  
+
+            }  */  ///TO DO
           console.log("Libéré-prison");
           break;
         case ("Avancez"):
+          if(this.joueurs[this.numJoueur].caseVisitees>11){
+            this.joueurs[this.numJoueur].inventaire.argent += 200;
+          }
+          this.joueurs[this.numJoueur].deplLeft = 2170;
+          this.joueurs[this.numJoueur].deplTop = 535;
+          this.joueurs[this.numJoueur].caseVisitees = 11;
           console.log("Avancez");
           break;
-        case ("Réparation"):
+        case ("Réparation"):      ///TO DO
           console.log("Réparation");
           break;
         case ("Gare"):
+          if(this.joueurs[this.numJoueur].caseVisitees>15){
+            this.joueurs[this.numJoueur].inventaire.argent += 200;
+          }
+          this.joueurs[this.numJoueur].deplLeft = 2170;
+          this.joueurs[this.numJoueur].deplTop = 1135;
+          this.joueurs[this.numJoueur].caseVisitees = 15;
           console.log("Gare");
           break;
         case ("Départ_Chance"):
+          this.joueurs[this.numJoueur].deplLeft = 125;
+          this.joueurs[this.numJoueur].deplTop = 300;
+          this.joueurs[this.numJoueur].caseVisitees = 0;
           console.log("Départ_Chance");
           break;
         case ("Ivresse"):
@@ -949,9 +983,15 @@ export default {
           this.joueurs[this.numJoueur].inventaire.argent += 100;
           break;
         case ("RDV_Jean"):
+          if(this.joueurs[this.numJoueur].caseVisitees>24){
+            this.joueurs[this.numJoueur].inventaire.argent += 200;
+          }
+          this.joueurs[this.numJoueur].deplLeft = 1335;
+          this.joueurs[this.numJoueur].deplTop = 2170;
+          this.joueurs[this.numJoueur].caseVisitees = 24;
           console.log("RDV_Jean");
           break;
-        case ("Impots_réparation"):
+        case ("Impots_réparation"):      ///TO DO
           console.log("Impots_réparation");
           break;
         case ("Revenu"):
@@ -970,12 +1010,18 @@ export default {
           this.joueurs[this.numJoueur].inventaire.argent += 200;
           break;
         case ("Retournez"):
+          if(this.joueurs[this.numJoueur].caseVisitees>1){
+            this.joueurs[this.numJoueur].inventaire.argent += 200;
+          }
+          this.joueurs[this.numJoueur].deplLeft = 348;
+          this.joueurs[this.numJoueur].deplTop = 300;
+          this.joueurs[this.numJoueur].caseVisitees = 1;
           console.log("Retournez");
           break;
-        case ("Anniversaire"):
+        case ("Anniversaire"):      ///TO DO
           console.log("Anniversaire");
           break;
-        case ("Amende_Chance"):
+        case ("Amende_Chance"):      ///TO DO
           console.log("Amende_Chance");
           break;
         case ("Contributions"):
@@ -990,22 +1036,26 @@ export default {
         case ("Assurance"):
           this.joueurs[this.numJoueur].inventaire.argent -= 50;
           break;
-        case ("Libre"):
+        case ("Libre"):      ///TO DO
           console.log("Libre");
           break;
         case ("Prison"):
           this.joueurs[this.numJoueur].prison = true;
           this.joueurs[this.numJoueur].deplLeft = 2170;
-          this.joueurs[this.numJoueur].deplTop = 250;
+          this.joueurs[this.numJoueur].deplTop = 300;
+          this.joueurs[this.numJoueur].caseVisitees = 10;
           break;
         case ("Hôpital"):
           this.joueurs[this.numJoueur].inventaire.argent -= 100;
           break;
         case ("Départ_Communauté"):
+          this.joueurs[this.numJoueur].deplLeft = 125;
+          this.joueurs[this.numJoueur].deplTop = 300;
+          this.joueurs[this.numJoueur].caseVisitees = 0;
           console.log("Départ_Communauté");
         break;
       }
-    }
+    },
   }
 };
 
