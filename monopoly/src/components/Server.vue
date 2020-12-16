@@ -136,15 +136,10 @@
 <script>
 import Plateau from "./Plateau";
 import CartesProprieteGareService from "../Cartes_propriete_gares_services.json";
-<<<<<<< HEAD
 import Inventaire from './Inventaire.vue';
 import CartesInventaire from './CartesInventaire.vue';
 import CartesChanceCommunaute from './CartesChanceCommunaute.vue';
 import CartesChancesCommunautes from "../Cartes_chances_communautes.json";
-=======
-import Inventaire from "./Inventaire.vue";
-import CartesInventaire from "./CartesInventaire.vue";
->>>>>>> f60d86677446112dfbe5ea0628d7e1c0e8ef62c5
 /*import CartesHypotheque from './CartesHypotheque.vue';*/
 
 export default {
@@ -570,15 +565,13 @@ export default {
         case 34:
           // return "BD MAURICE MAETERLINCK";
           return "0,6,2";
-<<<<<<< HEAD
+          case 35:
+          // GARE DE NICE VILLE
+          return "1,2";
         case 36:
           // return "CHANCE";
           return "0";
-=======
-        case 35:
-          // GARE DE NICE VILLE
-          return "1,2";
->>>>>>> f60d86677446112dfbe5ea0628d7e1c0e8ef62c5
+        
         case 37:
           //   return "AVENUE DE VERDUN";
           return "0,7,0";
@@ -643,47 +636,27 @@ export default {
       this.memoire = this.depl;
       this.joueurs[this.numJoueur].retDepl += this.depl;
       while (this.depl != 0) {
-<<<<<<< HEAD
         if (
           this.PositionToPropriete() != "inachetable" 
         ) {
           
-          let positions = this.PositionToPropriete();
+          this.positions = this.PositionToPropriete();
           //console.log(
             //this.banque.proprietes[positions.substring(2, 3)][
               //positions.substring(4, 5)].nom);
           //on vérifie si on est sur une case chance ou communaute
-          if(positions.length===1) {
-            let index = Math.floor(Math.random()*this.jsonChanceCommunaute[positions.substring(0,1)].length)-1;
-            this.carte=this.jsonChanceCommunaute[positions.substring(0,1)][index];
-            this.jsonChanceCommunaute[positions.substring(0,1)].splice(index, 1);
+          if(this.positions.length===1) {
+            let index = Math.floor(Math.random()*this.jsonChanceCommunaute[this.positions.substring(0,1)].length)-1;
+            this.carte=this.jsonChanceCommunaute[this.positions.substring(0,1)][index];
+            this.jsonChanceCommunaute[this.positions.substring(0,1)].splice(index, 1);
             this.nomChanceCom=this.joueurs[this.numJoueur].nom;
             this.dialog2=true;
-            if(this.jsonChanceCommunaute[positions.substring(0,1)].length ===0) {
-              this.jsonChanceCommunaute[positions.substring(0,1)] = CartesChancesCommunautes[positions.substring(0,1)];
+            if(this.jsonChanceCommunaute[this.positions.substring(0,1)].length ===0) {
+              this.jsonChanceCommunaute[this.positions.substring(0,1)] = CartesChancesCommunautes[this.positions.substring(0,1)];
             }
             this.effetCarte(this.carte.label);
           }
           // on vérifie que l'objet carte ne contient pas déjà un propriétaire
-          else if ( 
-            this.banque.proprietes[positions.substring(2, 3)][
-              positions.substring(4, 5)
-            ].proprietaire == ""
-          ) {
-            //joueur achete toujours la propriété
-              this.ProposerAchat(this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)]);
-              this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire = this.joueurs[this.numJoueur].nom
-          } else {
-            // faire payer
-            
-            let loyer = this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].loyer[0]
-            if(this.joueurs[this.numJoueur].nom != this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire){
-              this.joueurs[this.numJoueur].inventaire.argent -= loyer ;
-              if(this.numJoueur === 0){
-                this.joueurs[1].inventaire.argent += loyer ;
-=======
-        if (this.PositionToPropriete() != "inachetable") {
-          this.positions = this.PositionToPropriete();
           switch (this.positions.substring(0, 1)) {
             case "0": {
               if (
@@ -745,7 +718,6 @@ export default {
                   }
                   this.joueurs[this.numJoueur].inventaire.argent -= loyer;
                 }
->>>>>>> f60d86677446112dfbe5ea0628d7e1c0e8ef62c5
               }
               break;
             }
