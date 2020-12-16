@@ -130,10 +130,9 @@ export default {
     },
     deplacement: function (data) {
       if (data.nom !== this.nom) {
-        this.depl = data.de1 + data.de2;
+              this.depl = data.de1 + data.de2;
         this.memoire = this.depl;
         this.joueurs[this.numJoueur].retDepl += this.depl;
-
         if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 40) {
           this.memoire = this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40;
         }
@@ -453,6 +452,7 @@ export default {
             if(this.jsonChanceCommunaute[positions.substring(0,1)].length ===0) {
               this.jsonChanceCommunaute[positions.substring(0,1)] = CartesChancesCommunautes[positions.substring(0,1)];
             }
+            this.effetCarte(this.carte.label);
           }
           // on vérifie que l'objet carte ne contient pas déjà un propriétaire
           else if ( 
@@ -477,8 +477,6 @@ export default {
               }
               
             }
-            
-            
           }
         }
         
@@ -628,8 +626,114 @@ export default {
         }
       }
     },
-  },
+
+    effetCarte: function(label) {
+      switch (label) {
+        case ("Frais_scolarité"):
+          this.joueurs[this.numJoueur].inventaire.argent -= 150;
+          break;
+        case ("Reculez"):
+          console.log("Reculez");
+          break;
+        case ("Dividende"):  
+          this.joueurs[this.numJoueur].inventaire.argent += 50;
+          break;
+        case ("Immeuble_prêt"):
+          this.joueurs[this.numJoueur].inventaire.argent += 150;
+          break;
+        case("Exces_vitesse"):
+          this.joueurs[this.numJoueur].inventaire.argent -= 15;
+          break;
+        case ("Allez_prison"):{
+          this.joueurs[this.numJoueur].prison = true;
+          this.joueurs[this.numJoueur].deplLeft = 2170;
+          this.joueurs[this.numJoueur].deplTop = 250;}
+          break;
+        case ("RDV_promenade"):
+          console.log("RDV_promenade");
+          break;
+        case ("Libéré-prison"):
+          console.log("Libéré-prison");
+          break;
+        case ("Avancez"):
+          console.log("Avancez");
+          break;
+        case ("Réparation"):
+          console.log("Réparation");
+          break;
+        case ("Gare"):
+          console.log("Gare");
+          break;
+        case ("Départ_Chance"):
+          console.log("Départ_Chance");
+          break;
+        case ("Ivresse"):
+          this.joueurs[this.numJoueur].inventaire.argent -= 20;
+          break;
+        case ("Mots_croisés"):
+          this.joueurs[this.numJoueur].inventaire.argent += 100;
+          break;
+        case ("RDV_Jean"):
+          console.log("RDV_Jean");
+          break;
+        case ("Impots_réparation"):
+          console.log("Impots_réparation");
+          break;
+        case ("Revenu"):
+          this.joueurs[this.numJoueur].inventaire.argent += 100;
+          break;
+        case ("Stock"):
+          this.joueurs[this.numJoueur].inventaire.argent += 50;
+          break;
+        case ("Intérêt"):
+          this.joueurs[this.numJoueur].inventaire.argent += 25;
+          break;
+        case ("Héritage"):
+          this.joueurs[this.numJoueur].inventaire.argent += 100;
+          break;
+        case ("Erreur_Banque"):
+          this.joueurs[this.numJoueur].inventaire.argent += 200;
+          break;
+        case ("Retournez"):
+          console.log("Retournez");
+          break;
+        case ("Anniversaire"):
+          console.log("Anniversaire");
+          break;
+        case ("Amende_Chance"):
+          console.log("Amende_Chance");
+          break;
+        case ("Contributions"):
+          this.joueurs[this.numJoueur].inventaire.argent += 20;
+          break;
+        case ("Beauté"):
+          this.joueurs[this.numJoueur].inventaire.argent += 10;
+          break;
+        case ("Médecin"):
+          this.joueurs[this.numJoueur].inventaire.argent -= 50;
+          break;
+        case ("Assurance"):
+          this.joueurs[this.numJoueur].inventaire.argent -= 50;
+          break;
+        case ("Libre"):
+          console.log("Libre");
+          break;
+        case ("Prison"):
+          this.joueurs[this.numJoueur].prison = true;
+          this.joueurs[this.numJoueur].deplLeft = 2170;
+          this.joueurs[this.numJoueur].deplTop = 250;
+          break;
+        case ("Hôpital"):
+          this.joueurs[this.numJoueur].inventaire.argent -= 100;
+          break;
+        case ("Départ_Communauté"):
+          console.log("Départ_Communauté");
+        break;
+      }
+    }
+  }
 };
+
 </script>
 <style scoped>
 template {
