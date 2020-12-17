@@ -79,7 +79,7 @@
       ></div>
     </div>
     <div class="organisation">
-    <Plateau v-if="partie" :joueurs="joueurs" class="plateau" />
+    <Plateau v-if="partie" :joueurs="joueurs" class="plateau" @achatBatiment = "achatBatiment($event)" :banque="banque.proprietes" />
     <Inventaire v-if="partie" :joueurs="joueurs" v-on:inventaire="affichageClick($event)"/>
     </div>
     <v-dialog v-model="dialog" max-width="700px">
@@ -174,7 +174,8 @@ export default {
     dialog: false,
     hypotheque: [],
     jsonHypotheque: [],
-
+    maison: 32,
+    hotel: 12,
   }),
   created() {
     this.jsonPropriete = CartesProprieteGareService;
@@ -206,6 +207,8 @@ export default {
       this.partie = true;
       this.partieTerminer = 1;
       this.numJoueur = 0;
+      this.maison= 32;
+      this.hotel= 12;
       for (let i = 0; i < this.joueurs.length; i++) {
         this.joueurs[i].deplLeft = 125;
         this.joueurs[i].deplTop = 200;
@@ -343,6 +346,88 @@ export default {
           return "inachetable";
       }
     },
+    achatBatiment: function (data){
+      let mono=0;
+      let pos = 0;
+      let min;
+      let max;
+      if(data.cpt == 1){
+        for(let i=0; i<this.banque.proprietes.length;i++){
+          if(this.banque.proprietes[i][1].Color == data.Color){
+            min = this.banque.proprietes[i][0].maison;
+            for(let j=0; j<this.banque.proprietes[i].length;j++){
+              if(this.banque.proprietes[i][j].proprietaire == this.numJoueur){
+                mono +=1;
+              }
+              if(this.banque.proprietes[i][j].nom == data.nom){
+                pos = j;
+              }
+              if(this.banque.proprietes[i][j].maison<min){
+                min = this.banque.proprietes[i][j].maison;
+              }
+            }
+            if(this.banque.proprietes[i][pos].maison && mono == this.banque.proprietes[i].length && min == this.banque.proprietes[i][pos].maison && this.maison > 0 && this.joueurs[this.numJoueur].argent >= this.banque.proprietes[i][pos].batiment[0]){
+              this.joueurs[this.numJoueur].argent -= this.banque.proprietes[i][pos].batiment[0];
+              this.banque.proprietes[i][pos].maison +=1
+              this.maison -=1;
+            }
+          }
+        }
+      }
+      else if(data.cpt == 2){
+        for(let i=0; i<this.banque.proprietes.length;i++){
+          if(this.banque.proprietes[i][1].Color == data.Color){
+            min = this.banque.proprietes[i][0].maison;
+            for(let j=0; j<this.banque.proprietes[i].length;j++){
+              if(this.banque.proprietes[i][j].proprietaire == this.numJoueur){
+                mono +=1;
+              }
+              if(this.banque.proprietes[i][j].nom == data.nom){
+                pos = j;
+              }
+              if(this.banque.proprietes[i][j].maison<min){
+                min = this.banque.proprietes[i][j].maison;
+              }
+            }
+            if(mono == this.banque.proprietes[i].length && min == 4 && this.banque.proprietes[i][pos].maison == 4 && this.hotel > 0 && this.joueurs[this.numJoueur].argent >= this.banque.proprietes[i][pos].batiment[1]){
+              this.joueurs[this.numJoueur].argent -= this.banque.proprietes[i][pos].batiment[1];
+              this.banque.proprietes[i][pos].maison +=1;
+              this.hotel -=1;
+              this.maison +=4;
+            }
+          }
+        }
+      }
+      else{
+        for(let i=0; i<this.banque.proprietes.length;i++){
+          if(this.banque.proprietes[i][1].Color == data.Color){
+            max = this.banque.proprietes[i][0].maison;
+            for(let j=0; j<this.banque.proprietes[i].length;j++){
+              if(this.banque.proprietes[i][j].proprietaire == this.numJoueur){
+                mono +=1;
+              }
+              if(this.banque.proprietes[i][j].nom == data.nom){
+                pos = j;
+              }
+              if(this.banque.proprietes[i][j].maison>max){
+                max = this.banque.proprietes[i][j].maison;
+              }
+            }
+            if(mono == this.banque.proprietes[i].length && max == this.banque.proprietes[i][pos].maison && max != 5){
+              this.joueurs[this.numJoueur].argent += this.banque.proprietes[i][pos].batiment[0];
+              this.banque.proprietes[i][pos].maison -=1;
+              this.maison +=1;
+            }
+            if(mono == this.banque.proprietes[i].length && max == this.banque.proprietes[i][pos].maison && this.maison >=4){
+              this.joueurs[this.numJoueur].argent += this.banque.proprietes[i][pos].batiment[0];
+              this.banque.proprietes[i][pos].maison -=1;
+              this.maison -=4;
+              this.hotel +=1;
+            }
+          }
+        }
+      }
+    },
     prison: function (cpt) {
       this.joueurs[this.numJoueur].tourPrison += 1;
       if (cpt == 1) {
@@ -416,7 +501,7 @@ export default {
           } else {
             // faire payer
             
-            let loyer = this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].loyer[0]
+            let loyer = this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].loyer[this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].maison]
             if(this.joueurs[this.numJoueur].nom != this.banque.proprietes[positions.substring(2,3)][positions.substring(4,5)].proprietaire){
               this.joueurs[this.numJoueur].inventaire.argent -= loyer ;
               if(this.numJoueur === 0){

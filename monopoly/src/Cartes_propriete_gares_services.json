@@ -19,7 +19,8 @@
                     50
                 ],
                 "hypotheque": 30,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             },
             {
                 "nom": "RUE SMOLETT",
@@ -39,7 +40,8 @@
                     50
                 ],
                 "hypotheque": 30,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 1
             }
         ],
         [
@@ -61,7 +63,8 @@
                     50
                 ],
                 "hypotheque": 50,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 2
             },
             {
                 "nom": "BOULEVARD RISSO",
@@ -81,7 +84,8 @@
                     50
                 ],
                 "hypotheque": 50,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 3
             },
             {
                 "nom": "QUAI PAPACINO",
@@ -101,7 +105,8 @@
                     50
                 ],
                 "hypotheque": 60,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 4
             }
         ],
         [
@@ -123,7 +128,8 @@
                     100
                 ],
                 "hypotheque": 70,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 5
             },
             {
                 "nom": "AVENUE VALROSE",
@@ -143,7 +149,8 @@
                     100
                 ],
                 "hypotheque": 70,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             },
             {
                 "nom": "AVENUE SAINT JEAN BAPTISTE",
@@ -163,7 +170,8 @@
                     100
                 ],
                 "hypotheque": 80,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             }
         ],
         [
@@ -185,7 +193,8 @@
                     100
                 ],
                 "hypotheque": 90,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             },
             {
                 "nom": "AVENUE DE LA CALIFORNIE",
@@ -205,7 +214,8 @@
                     100
                 ],
                 "hypotheque": 90,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             },
             {
                 "nom": "RUE ST FRANCOIS DE PAULE",
@@ -225,7 +235,8 @@
                     100
                 ],
                 "hypotheque": 100,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             }
         ],
         [
@@ -247,7 +258,8 @@
                     150
                 ],
                 "hypotheque": 110,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             },
             {
                 "nom": "COURS SALEYA",
@@ -267,7 +279,8 @@
                     150
                 ],
                 "hypotheque": 110,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             },
             {
                 "nom": "AVENUE JEAN MEDECIN",
@@ -287,7 +300,8 @@
                     150
                 ],
                 "hypotheque": 120,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             }
         ],
         [
@@ -309,7 +323,8 @@
                     150
                 ],
                 "hypotheque": 130,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             },
             {
                 "nom": "BOULEVARD CARABACEL",
@@ -329,7 +344,8 @@
                     150
                 ],
                 "hypotheque": 130,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             },
             {
                 "nom": "BOULEVARD TZAREWITCH",
@@ -349,7 +365,8 @@
                     150
                 ],
                 "hypotheque": 140,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             }
         ],
         [
@@ -371,7 +388,8 @@
                     200
                 ],
                 "hypotheque": 150,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             },
             {
                 "nom": "PLACE MASSENA",
@@ -391,7 +409,8 @@
                     200
                 ],
                 "hypotheque": 150,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             },
             {
                 "nom": "BD MAURICE MAETERLINCK",
@@ -411,7 +430,8 @@
                     200
                 ],
                 "hypotheque": 160,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             }
         ],
         [
@@ -433,7 +453,8 @@
                     200
                 ],
                 "hypotheque": 175,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             },
             {
                 "nom": "PROMENADE DES ANGLAIS",
@@ -453,7 +474,8 @@
                     200
                 ],
                 "hypotheque": 200,
-                "estHypothequee": false
+                "estHypothequee": false,
+                "maison": 0
             }
         ]
     ],
