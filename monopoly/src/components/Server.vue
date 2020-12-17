@@ -878,8 +878,8 @@ export default {
           this.changerJoueur();
           this.comptdouble = 0;
           this.$socket.emit("prison", this.joueurs);
-        } else if ( this.nom === this.nom
-          //this.joueurs[this.numJoueur].prison ||
+        } else if ( this.nom === this.nom ||
+          this.joueurs[this.numJoueur].prison /*||
           /*this.affichedes[0] 3 != 4 this.affichedes[1]*/
         ) {
           this.comptdouble = 0;
@@ -900,8 +900,12 @@ export default {
             if (this.partieTerminer === 8) {
               this.$socket.emit("end");
             }
+            this.$socket.emit("sortiPrison", this.joueurs);
           }
-          this.$socket.emit("sortiPrison", this.joueurs);
+          else{
+            this.changerJoueur();
+            this.$socket.emit("sortiPrison", this.joueurs);
+          }
         } else {
           this.comptdouble++;
 
@@ -935,16 +939,28 @@ export default {
       console.log(label);
       switch (label) {
         case "Frais_scolarité":
-          this.joueurs[this.numJoueur].inventaire.argent -= 150;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent -= 150;
+            }
+          }
           break;
         case "Reculez": ///TO DO
           console.log("Reculez");
           break;
         case "Dividende":
-          this.joueurs[this.numJoueur].inventaire.argent += 50;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent += 50;
+            }
+          }
           break;
         case "Immeuble_prêt":
-          this.joueurs[this.numJoueur].inventaire.argent += 150;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent += 150;
+            }
+          }
           break;
         case "Exces_vitesse":
           this.joueurs[this.numJoueur].inventaire.argent -= 15;
@@ -1018,10 +1034,18 @@ export default {
           console.log("Départ_Chance");
           break;
         case "Ivresse":
-          this.joueurs[this.numJoueur].inventaire.argent -= 20;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent -= 20;
+            }
+          }
           break;
         case "Mots_croisés":
-          this.joueurs[this.numJoueur].inventaire.argent += 100;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent += 100;
+            }
+          }
           break;
         case "RDV_Jean":
           for (let i = 0; i < this.joueurs.length; i++) {
@@ -1040,19 +1064,42 @@ export default {
           console.log("Impots_réparation");
           break;
         case "Revenu":
-          this.joueurs[this.numJoueur].inventaire.argent += 100;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent += 100;
+            }
+          }
+          console.log('revenu')
           break;
         case "Stock":
-          this.joueurs[this.numJoueur].inventaire.argent += 50;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent += 50;
+            }
+          }
+          console.log('stock')
           break;
         case "Intérêt":
-          this.joueurs[this.numJoueur].inventaire.argent += 25;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent += 25;
+            }
+          }
           break;
         case "Héritage":
-          this.joueurs[this.numJoueur].inventaire.argent += 100;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent += 100;
+            }
+          }
+          console.log('heritage')
           break;
         case "Erreur_Banque":
-          this.joueurs[this.numJoueur].inventaire.argent += 200;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent += 200;
+            }
+          }
           break;
         case "Retournez":
           for (let i = 0; i < this.joueurs.length; i++) {
@@ -1062,7 +1109,7 @@ export default {
               }
               this.joueurs[i].deplLeft = 348;
               this.joueurs[i].deplTop = 300;
-              this.joueurs[i].caseVisitees = 1;
+              this.joueurs[i].caseVisitees = 0;
             }
           }
           console.log("Retournez");
@@ -1074,16 +1121,33 @@ export default {
           console.log("Amende_Chance");
           break;
         case "Contributions":
-          this.joueurs[this.numJoueur].inventaire.argent += 20;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent += 20;
+            }
+          }
           break;
         case "Beauté":
-          this.joueurs[this.numJoueur].inventaire.argent += 10;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent += 10;
+            }
+          }
           break;
         case "Médecin":
-          this.joueurs[this.numJoueur].inventaire.argent -= 50;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent -= 50;
+            }
+          }
           break;
         case "Assurance":
-          this.joueurs[this.numJoueur].inventaire.argent -= 50;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent -= 50;
+            }
+          }
+          console.log('assurance')
           break;
         case "Libre": ///TO DO
           console.log("Libre");
@@ -1100,7 +1164,11 @@ export default {
           console.log("Prison");
           break;
         case "Hôpital":
-          this.joueurs[this.numJoueur].inventaire.argent -= 100;
+          for (let i = 0; i < this.joueurs.length; i++) {
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.argent -= 100;
+            }
+          }
           break;
         case "Départ_Communauté":
           for (let i = 0; i < this.joueurs.length; i++) {
@@ -1137,7 +1205,7 @@ template {
   background-color: red;
   position: absolute;
   transition: all ease-in-out 1s;
-  z-index: 10000000000;
+  z-index: 10000;
 }
 
 .pion1 {
@@ -1148,7 +1216,7 @@ template {
   background-color: #0000ff;
   position: absolute;
   transition: all ease-in-out 1s;
-  z-index: 10000000000;
+  z-index: 100;
 }
 
 #des {
