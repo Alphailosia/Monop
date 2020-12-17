@@ -14,6 +14,8 @@
           :loyer="c.loyer[0]"
           :position="getCasePosition(indexRow, indexCase)"
           @propriete="affichageClick(c.nom, c.Color)"
+
+
         />
         <CaseDepart
           v-else-if="c.type === 'Départ'"
@@ -73,6 +75,9 @@
     <v-dialog v-model="dialog3" max-width="500px">
       <CartesService :carte="carte" />
     </v-dialog>
+    <v-dialog v-model="dialog4" max-width="500px">
+      <CartesHypotheque :carte="carte" />
+    </v-dialog>
   </div>
 </template>
 
@@ -94,6 +99,7 @@ import cases from "../cases.json";
 import CartesPropriete from "./CartesPropriete.vue";
 import CartesGare from "./CartesGare.vue";
 import CartesService from "./CartesService.vue";
+import CartesHypotheque from "./CartesHypotheque.vue";
 
 export default {
   components: {
@@ -110,6 +116,7 @@ export default {
     CartesPropriete,
     CartesGare,
     CartesService,
+    CartesHypotheque
   },
   data: () => ({
     proprietes: [],
@@ -125,6 +132,7 @@ export default {
     dialog: false,
     dialog2: false,
     dialog3: false,
+    dialog4: false,
     carte: {},
   }),
   created() {
@@ -148,11 +156,17 @@ export default {
           for (let j = 0; j < this.proprietes[i].length; j++) {
             if (nom === this.proprietes[i][j].nom) {
               this.carte = this.proprietes[i][j];
+              if(this.proprietes[i][j].estHypothequee){
+                this.dialog4 = true;
+              }
+              else{
+                this.dialog = true;
+              }
             }
           }
         }
       }
-      this.dialog = true;
+
     },
     affichageClick2: function (nom, type) {
       if (type === "gare") {

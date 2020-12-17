@@ -332,29 +332,21 @@ export default {
     },
 
 
-    hypothequer: function (numJoueur) {       // permet à un joueur d'hypothéquer une propriété si c'est possible (return true si c'est fait false sinon)
-      let all_proprietes = this.joueurs[numJoueur].inventaire.proprietes ;       // liste des propriétés du joueur en crise
-      let propriete_à_hypothequer = null ;
-      
-      for (let i = 0; i < all_proprietes.length; i++) {
-        if(all_proprietes[i].estHypothequee === false ){
-          propriete_à_hypothequer = this.joueurs[numJoueur].inventaire.proprietes[i] ;
-          let prix_hypotheque = propriete_à_hypothequer.hypotheque ;
-          this.joueurs[numJoueur].inventaire.argent += prix_hypotheque ;      // le joueur récupère l'argent de l'hypothèque
 
-          all_proprietes[i].estHypothequee = true ;  // la propriété est mtn hypothéqué par la banque 
-          break ;
+    hypothequer: function (numJoueur,nomJoueur) {       // permet à un joueur d'hypothéquer une propriété si c'est possible (return true si c'est fait false sinon)
+      let all_proprietes = this.banque.proprietes ;       
+      for(let i=0; i< all_proprietes.length ; i++){
+        for(let j=0 ; j<all_proprietes[i].length ; j++){
+          if(all_proprietes[i][j].proprietaire === nomJoueur && all_proprietes[i][j].estHypothequee=== false) {
+            this.joueurs[numJoueur].inventaire.argent += all_proprietes[i][j].hypotheque ;
+            all_proprietes[i][j].estHypothequee = true ;
+            console.log("!!!!!!!! Propriété hypothéquée :" + all_proprietes[i][j].nom)
+            return true;
+          }
         }
-
-
-      if(propriete_à_hypothequer === null ){return false}     //  toutes les proprités sont déja hypothéqués  
-      else {return true}                                      //  une propriété à été hypothéqué 
-
+        
       }
-
-
-     
-
+      return false ;
     },
 
     
@@ -459,6 +451,20 @@ export default {
           this.depl--;
         }
       }
+
+      // !!!!!!!!!       Intégrer l'hypothèque ici         !!!!!!!!
+      for(let j = 0; j < this.joueurs.length; j++){
+        if(this.joueurs[j].inventaire.argent <= 0){ // si un joueur n'a plus d'argent
+          if(this.hypothequer(j,this.joueurs[j].nom)=== false){   // si le joueur n'a pas de propriété à hypothéquer
+            this.joueurs.splice(j,1);                       // le joueur est éliminé de la partie
+          }
+                     
+        
+        }
+      }
+
+
+
     },
     affichageClick: function (joueur) {
       this.carteInventaire=joueur;

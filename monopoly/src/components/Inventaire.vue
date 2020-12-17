@@ -4,7 +4,7 @@
         <v-card-title class="title-inventaire">  <span :class="`J${index+1}`">{{ joueur.nom }} </span>
             <div class="argent"> {{ joueur.inventaire.argent }} €</div>
         </v-card-title>
-        <div v-for="(propriete, index) in joueur.inventaire.proprietes" :key="index" class="proprietes" :style="{ backgroundColor: propriete.Color }"></div>
+        <div v-for="(propriete, index) in joueur.inventaire.proprietes" :key="index" class="proprietes" :style="{ backgroundColor: propriete.Color }" ></div>
     </v-card>
 </div>
 </template>
