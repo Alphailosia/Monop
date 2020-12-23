@@ -133,7 +133,7 @@
         v-on:inventaire="affichageClick($event)"
       />
     </div>
-    <v-dialog v-model="dialog" max-width="700px">
+    <v-dialog v-model="dialog" max-width="1000px">
       <CartesInventaire :carteInventaire="carteInventaire" />
     </v-dialog>
     <v-dialog v-model="dialog2" max-width="800px" v-if="nomChanceCom === nom">
@@ -164,13 +164,11 @@ export default {
   sockets: {
     connection: function () {
       this.connected = true;
-      console.log("socket connected");
     },
     envoiNom: function (data) {
       this.joueurs = data;
     },
     ordre: function () {
-      console.log("ordre");
       this.lancerDes();
       setTimeout(this.ordreJ, 3000);
     },
@@ -184,15 +182,19 @@ export default {
     },
     finEnchere: function (data) {
       this.enchere = false;
+      data.prop.proprietaire = data.nom;
       for (let i = 0; i < this.joueurs.length; i++) {
         if (this.joueurs[i].nom === data.nom) {
           if (data.position.length === 5) {
             this.joueurs[i].inventaire.proprietes.push(data.prop);
+            this.banque.proprietes[data.position.substring(2, 3)][data.position.substring(4, 5)] = data.prop;
           } else {
             if (data.position.substring(0, 1) === 1) {
               this.joueurs[i].inventaire.gares.push(data.prop);
+              this.banque.gares[data.position.substring(2, 3)] = data.prop;
             } else {
               this.joueurs[i].inventaire.services.push(data.prop);
+              this.banque.services[data.position.substring(2, 3)] = data.prop;
             }
           }
           this.joueurs[i].inventaire.argent -= data.prixProp;
@@ -205,30 +207,12 @@ export default {
       this.partie = true;
       this.lancerPartie();
     },
-    deplacement: function (data) {
-      console.log("deplacement " + this.numJoueur);
-      console.log(data.de1 + data.de2);
-      if (data.nom !== this.nom) {
-        this.depl = data.de1 + data.de2;
-        this.memoire = this.depl;
-        this.joueurs[this.numJoueur].retDepl += this.depl;
-        if (this.joueurs[this.numJoueur].caseVisitees + this.memoire > 40) {
-          this.memoire =
-            this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40;
-        }
-        while (this.depl != 0) {
-          setTimeout(this.animation, 1000 * (data.de1 + data.de2 - this.depl));
-          this.depl--;
-        }
-      }
-    },
     changer: function (data) {
       if (data.nom != this.nom) {
         this.numJoueur=data.num;
       }
     },
     etatJoueurs: function (data) {
-      console.log(data);
       this.joueurs = data;
     },
     etatAchat: function (data) {
@@ -356,9 +340,6 @@ export default {
       this.proprietes = this.jsonPropriete[0];
       this.gares = this.jsonPropriete[1];
       this.services = this.jsonPropriete[2];
-
-      // console.log(this.gares);
-      // console.log(this.services);
     },
     lancerPartie: function () {
       this.partie = true;
@@ -407,12 +388,6 @@ export default {
     },
     jouer: function () {
       this.lancerDes();
-      let data = {
-        nom: this.nom,
-        de1: /*this.affichedes[0]*/ 3,
-        de2: /*this.affichedes[1]*/ 4,
-      };
-      this.$socket.emit("jouer", data);
       this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
     },
     initBanque: function () {
@@ -446,7 +421,6 @@ export default {
         case "1": {
           for (let i = 0; i < this.joueurs.length; i++) {
             if (this.joueurs[i].nom === this.acheteur) {
-              console.log(this.joueurs[i].inventaire);
               this.joueurs[i].inventaire.gares.push(this.propAchete);
               this.joueurs[i].inventaire.argent -= this.propAchete.prixAchat;
               this.banque.gares[
@@ -462,7 +436,6 @@ export default {
         case "2": {
           for (let i = 0; i < this.joueurs.length; i++) {
             if (this.joueurs[i].nom === this.acheteur) {
-              console.log(this.joueurs[i].inventaire);
               this.joueurs[i].inventaire.services.push(this.propAchete);
               this.joueurs[i].inventaire.argent -= this.propAchete.loyer[0];
               this.banque.services[
@@ -483,7 +456,6 @@ export default {
       if (numCase > 40) {
         numCase = numCase - 40;
       }
-      //console.log("case :" + this.joueurs[this.numJoueur].caseVisitees);
       switch (numCase) {
         case 1:
           // return "RUE ROSSETTI";
@@ -581,14 +553,12 @@ export default {
         case 36:
           // return "CHANCE";
           return "0";
-
         case 37:
           //   return "AVENUE DE VERDUN";
           return "0,7,0";
         case 39:
           //  return "PROMENADE DES ANGLAIS";
           return "0,7,1";
-
         default:
           return "inachetable";
       }
@@ -597,12 +567,12 @@ export default {
       this.joueurs[this.numJoueur].tourPrison += 1;
       if (cpt == 1) {
         this.lancerDes();
-        if (this.affichedes[0] == this.affichedes[1]) {
+        if (this.affichedes[0] == this.affichedes[1]) {          
+          this.joueurs[this.numJoueur].prison = false;
           this.joueurs[this.numJoueur].caseVisitees = 10;
           this.joueurs[this.numJoueur].retDepl = 10;
           this.joueurs[this.numJoueur].tourPrison = 0;
           this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
-          this.$socket.emit("sortiPrison", this.joueurs);
         } else {
           if (this.joueurs[this.numJoueur].tourPrison == 3) {
             this.joueurs[this.numJoueur].inventaire.argent -= 50;
@@ -610,96 +580,60 @@ export default {
             this.joueurs[this.numJoueur].retDepl = 10;
             this.joueurs[this.numJoueur].tourPrison = 0;
             this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
-            this.$socket.emit("sortiPrison", this.joueurs);
           } else {
             this.changerJoueur();
           }
         }
       } else if (cpt == 2) {
         this.joueurs[this.numJoueur].inventaire.argent -= 50;
+        this.joueurs[this.numJoueur].prison = false;
         this.lancerDes();
         this.joueurs[this.numJoueur].caseVisitees = 10;
         this.joueurs[this.numJoueur].retDepl = 10;
         this.joueurs[this.numJoueur].tourPrison = 0;
         this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
-        this.$socket.emit("sortiPrison", this.joueurs);
       } else if (cpt == 3) {
+        this.joueurs[this.numJoueur].prison = false;
         this.joueurs[this.numJoueur].cartePrison.remove(0);
         this.lancerDes();
         this.joueurs[this.numJoueur].caseVisitees = 10;
         this.joueurs[this.numJoueur].retDepl = 10;
         this.joueurs[this.numJoueur].tourPrison = 0;
         this.deplacerJoueur(this.affichedes[0], this.affichedes[1]);
-        this.$socket.emit("sortiPrison", this.joueurs);
       }
     },
     deplacerJoueur: function (de1, de2) {
-      console.log(de1 + de2);
-      ///this.depl = de1 + de2;
-      this.depl = 7;
+      this.depl = de1 + de2;
       this.memoire = this.depl;
       this.joueurs[this.numJoueur].retDepl += this.depl;
       if (this.PositionToPropriete() != "inachetable") {
         this.positions = this.PositionToPropriete();
-        //console.log(
-        //this.banque.proprietes[positions.substring(2, 3)][
-        //positions.substring(4, 5)].nom);
+
         //on vérifie si on est sur une case chance ou communaute
         if (this.positions.length === 1) {
-          let index =
-            Math.floor(
-              Math.random() *
-                this.jsonChanceCommunaute[this.positions.substring(0, 1)].length
-            ) - 1;
+          let index = 7;//Math.floor(Math.random() *this.jsonChanceCommunaute[this.positions.substring(0, 1)].length) - 1;
           if (index === -1) {
             index = 0;
           }
-          this.carte = this.jsonChanceCommunaute[
-            this.positions.substring(0, 1)
-          ][index];
-          this.jsonChanceCommunaute[this.positions.substring(0, 1)].splice(
-            index,
-            1
-          );
+          this.carte = this.jsonChanceCommunaute[this.positions.substring(0, 1)][index];
+          this.jsonChanceCommunaute[this.positions.substring(0, 1)].splice(index, 1);
           this.nomChanceCom = this.joueurs[this.numJoueur].nom;
           this.dialog2 = true;
-          if (
-            this.jsonChanceCommunaute[this.positions.substring(0, 1)].length ===
-            0
-          ) {
-            this.jsonChanceCommunaute[this.positions.substring(0, 1)] =
-              CartesChancesCommunautes[this.positions.substring(0, 1)];
+          if (this.jsonChanceCommunaute[this.positions.substring(0, 1)].length === 0) {
+            this.jsonChanceCommunaute[this.positions.substring(0, 1)] = CartesChancesCommunautes[this.positions.substring(0, 1)];
           }
-          let data = {
-            nom: this.nomChanceCom,
-            json: this.jsonChanceCommunaute,
-          };
-          this.$socket.emit("chanceCom", data);
         } else {
           // on vérifie que l'objet carte ne contient pas déjà un propriétaire
           switch (this.positions.substring(0, 1)) {
             case "0": {
-              if (
-                this.banque.proprietes[this.positions.substring(2, 3)][
-                  this.positions.substring(4, 5)
-                ].proprietaire == ""
-              ) {
-                this.propAchete = this.banque.proprietes[
-                  this.positions.substring(2, 3)
-                ][this.positions.substring(4, 5)];
+              if (this.banque.proprietes[this.positions.substring(2, 3)][this.positions.substring(4, 5)].proprietaire == "") {
+                this.propAchete = this.banque.proprietes[this.positions.substring(2, 3)][this.positions.substring(4, 5)];
                 this.acheteur = this.joueurs[this.numJoueur].nom;
                 this.achat = true;
               } else {
                 // faire payer
-                let loyer = this.banque.proprietes[
-                  this.positions.substring(2, 3)
-                ][this.positions.substring(4, 5)].loyer[0];
-                if (
-                  this.joueurs[this.numJoueur].nom !=
-                  this.banque.proprietes[this.positions.substring(2, 3)][
-                    this.positions.substring(4, 5)
-                  ].proprietaire
-                ) {
+                let loyer = this.banque.proprietes[this.positions.substring(2, 3)][this.positions.substring(4, 5)].loyer[0];
+                if (this.joueurs[this.numJoueur].nom != this.banque.proprietes[this.positions.substring(2, 3)][this.positions.substring(4, 5)].proprietaire) {
                   this.joueurs[this.numJoueur].inventaire.argent -= loyer;
                   if (this.numJoueur === 0) {
                     this.joueurs[1].inventaire.argent += loyer;
@@ -711,29 +645,20 @@ export default {
               break;
             }
             case "1": {
-              if (
-                this.banque.gares[this.positions.substring(2, 3)]
-                  .proprietaire == ""
-              ) {
-                this.propAchete = this.banque.gares[
-                  this.positions.substring(2, 3)
-                ];
+              if (this.banque.gares[this.positions.substring(2, 3)].proprietaire == "") {
+                this.propAchete = this.banque.gares[this.positions.substring(2, 3)];
                 this.acheteur = this.joueurs[this.numJoueur].nom;
                 this.achat = true;
-              } else {
+              } 
+              else {
                 // faire payer
-                if (
-                  this.joueurs[this.numJoueur].nom !=
-                  this.banque.gares[this.positions.substring(2, 3)].proprietaire
-                ) {
+                if (this.joueurs[this.numJoueur].nom != this.banque.gares[this.positions.substring(2, 3)].proprietaire) {
                   let loyer = 0;
                   if (this.numJoueur === 0) {
-                    loyer = this.banque.gares[this.positions.substring(2, 3)]
-                      .loyer[this.joueurs[1].inventaire.gares.length - 1];
+                    loyer = this.banque.gares[this.positions.substring(2, 3)].loyer[this.joueurs[1].inventaire.gares.length - 1];
                     this.joueurs[1].inventaire.argent += loyer;
                   } else {
-                    loyer = this.banque.gares[this.positions.substring(2, 3)]
-                      .loyer[this.joueurs[0].inventaire.gares.length - 1];
+                    loyer = this.banque.gares[this.positions.substring(2, 3)].loyer[this.joueurs[0].inventaire.gares.length - 1];
                     this.joueurs[0].inventaire.argent += loyer;
                   }
                   this.joueurs[this.numJoueur].inventaire.argent -= loyer;
@@ -742,34 +667,22 @@ export default {
               break;
             }
             case "2": {
-              if (
-                this.banque.services[this.positions.substring(2, 3)]
-                  .proprietaire == ""
-              ) {
-                this.propAchete = this.banque.services[
-                  this.positions.substring(2, 3)
-                ];
+              if (this.banque.services[this.positions.substring(2, 3)].proprietaire == "") {
+                this.propAchete = this.banque.services[this.positions.substring(2, 3)];
                 this.acheteur = this.joueurs[this.numJoueur].nom;
                 this.achat = true;
-              } else {
+              } 
+              else {
                 // faire payer
-                if (
-                  this.joueurs[this.numJoueur].nom !=
-                  this.banque.services[this.positions.substring(2, 3)]
-                    .proprietaire
-                ) {
+                if (this.joueurs[this.numJoueur].nom != this.banque.services[this.positions.substring(2, 3)].proprietaire) {
                   let loyer = this.affichedes[1] + this.affichedes[0];
                   let multiplicateur = 0;
                   if (this.numJoueur === 0) {
-                    this.joueurs[0].inventaire.gares.length == 2
-                      ? (multiplicateur = 10)
-                      : (multiplicateur = 4);
+                    this.joueurs[0].inventaire.services.length == 2 ? (multiplicateur = 10) : (multiplicateur = 4);
                     loyer *= multiplicateur;
                     this.joueurs[1].inventaire.argent += loyer;
                   } else {
-                    this.joueurs[1].inventaire.gares.length == 2
-                      ? (multiplicateur = 10)
-                      : (multiplicateur = 4);
+                    this.joueurs[1].inventaire.services.length == 2 ? (multiplicateur = 10) : (multiplicateur = 4);
                     loyer *= multiplicateur;
                     this.joueurs[0].inventaire.argent += loyer;
                   }
@@ -785,8 +698,8 @@ export default {
         this.memoire =
           this.joueurs[this.numJoueur].caseVisitees + this.memoire - 40;
       }
-      while (this.depl != 0) {
-        setTimeout(this.animation, 1000 * /*de1 + de2*/ (7 - this.depl));
+      while (this.depl > 0) {
+        setTimeout(this.animation, 1000 * (de1 + de2  - this.depl));
         this.depl--;
       }
     },
@@ -795,82 +708,59 @@ export default {
       this.dialog = true;
     },
     animation: function () {
-      if (
-        //this.joueurs[this.numJoueur].caseVisitees === 0 ||
-        this.joueurs[this.numJoueur].caseVisitees === 40
-      ) {
+      if (this.joueurs[this.numJoueur].caseVisitees === 40) {
         this.joueurs[this.numJoueur].inventaire.argent += 200;
-        console.log(
-          "Inventaire du joueur " +
-            this.numJoueur +
-            " : " +
-            this.joueurs[this.numJoueur].inventaire.argent
-        );
       }
-
-      if (
-        this.joueurs[this.numJoueur].caseVisitees === 0 ||
-        this.joueurs[this.numJoueur].caseVisitees === 9
-      ) {
+      if (this.joueurs[this.numJoueur].caseVisitees === 0 || this.joueurs[this.numJoueur].caseVisitees === 9) {
         this.joueurs[this.numJoueur].deplLeft += 223;
         this.joueurs[this.numJoueur].caseVisitees++;
-      } else if (
-        this.joueurs[this.numJoueur].caseVisitees >= 1 &&
-        this.joueurs[this.numJoueur].caseVisitees < 9
-      ) {
+      } 
+      else if (this.joueurs[this.numJoueur].caseVisitees >= 1 && this.joueurs[this.numJoueur].caseVisitees < 9) {
         this.joueurs[this.numJoueur].deplLeft += 200;
         this.joueurs[this.numJoueur].caseVisitees++;
-      } else if (
-        this.joueurs[this.numJoueur].caseVisitees === 10 ||
-        this.joueurs[this.numJoueur].caseVisitees === 19
-      ) {
+      } 
+      else if (this.joueurs[this.numJoueur].caseVisitees === 10 || this.joueurs[this.numJoueur].caseVisitees === 19) {
         this.joueurs[this.numJoueur].deplTop += 235;
         this.joueurs[this.numJoueur].caseVisitees++;
-      } else if (
-        this.joueurs[this.numJoueur].caseVisitees >= 11 &&
-        this.joueurs[this.numJoueur].caseVisitees < 19
-      ) {
+      } 
+      else if (this.joueurs[this.numJoueur].caseVisitees >= 11 && this.joueurs[this.numJoueur].caseVisitees < 19) {
         this.joueurs[this.numJoueur].deplTop += 200;
         this.joueurs[this.numJoueur].caseVisitees++;
-      } else if (
-        this.joueurs[this.numJoueur].caseVisitees === 20 ||
-        this.joueurs[this.numJoueur].caseVisitees === 29
-      ) {
+      } 
+      else if (this.joueurs[this.numJoueur].caseVisitees === 20 || this.joueurs[this.numJoueur].caseVisitees === 29) {
         this.joueurs[this.numJoueur].deplLeft -= 223;
         this.joueurs[this.numJoueur].caseVisitees++;
-      } else if (
-        this.joueurs[this.numJoueur].caseVisitees >= 20 &&
-        this.joueurs[this.numJoueur].caseVisitees < 29
-      ) {
+      } 
+      else if (this.joueurs[this.numJoueur].caseVisitees >= 20 && this.joueurs[this.numJoueur].caseVisitees < 29) {
         this.joueurs[this.numJoueur].deplLeft -= 200;
         this.joueurs[this.numJoueur].caseVisitees++;
-      } else if (this.joueurs[this.numJoueur].caseVisitees === 20) {
+      } 
+      else if (this.joueurs[this.numJoueur].caseVisitees === 20) {
         this.joueurs[this.numJoueur].deplTop -= 223;
         this.joueurs[this.numJoueur].caseVisitees++;
-      } else if (
-        this.joueurs[this.numJoueur].caseVisitees >= 30 &&
-        this.joueurs[this.numJoueur].caseVisitees < 39
-      ) {
+      } 
+      else if (this.joueurs[this.numJoueur].caseVisitees >= 30 && this.joueurs[this.numJoueur].caseVisitees < 39) {
         this.joueurs[this.numJoueur].deplTop -= 200;
         this.joueurs[this.numJoueur].caseVisitees++;
-      } else if (this.joueurs[this.numJoueur].caseVisitees === 39) {
+      } 
+      else if (this.joueurs[this.numJoueur].caseVisitees === 39) {
         this.joueurs[this.numJoueur].deplTop -= 235;
         this.joueurs[this.numJoueur].caseVisitees++;
-      } else if (this.joueurs[this.numJoueur].caseVisitees === 40) {
+      } 
+      else if (this.joueurs[this.numJoueur].caseVisitees === 40) {
         this.joueurs[this.numJoueur].deplLeft += 223;
         this.joueurs[this.numJoueur].caseVisitees = 1;
         this.joueurs[this.numJoueur].retDepl = this.memoire;
-        console.log("retDep1 = " + this.joueurs[this.numJoueur].retDepl);
-        console.log(
-          "CaseVisitees = " + this.joueurs[this.numJoueur].caseVisitees
-        );
+      }
+      else if(this.joueurs[this.numJoueur].caseVisitees === 4){
+        this.joueurs[this.numJoueur].inventaire.argent -= 200;
+      }
+      else if(this.joueurs[this.numJoueur].caseVisitees === 38){
+        this.joueurs[this.numJoueur].inventaire.argent -= 100;
       }
 
-      if (
-        this.joueurs[this.numJoueur].retDepl ===
-        this.joueurs[this.numJoueur].caseVisitees
-      ) {
-        //  console.log(this.joueurs[this.numJoueur].caseVisitees);
+      if (this.joueurs[this.numJoueur].retDepl === this.joueurs[this.numJoueur].caseVisitees) {
+
         if (this.joueurs[this.numJoueur].caseVisitees === 30) {
           this.joueurs[this.numJoueur].prison = true;
           this.joueurs[this.numJoueur].deplLeft = 2170;
@@ -878,12 +768,9 @@ export default {
           this.changerJoueur();
           this.comptdouble = 0;
           this.$socket.emit("prison", this.joueurs);
-        } else if ( this.nom === this.nom ||
-          this.joueurs[this.numJoueur].prison /*||
-          /*this.affichedes[0] 3 != 4 this.affichedes[1]*/
-        ) {
+        } 
+        else if (this.affichedes[0]  !=  this.affichedes[1]) {
           this.comptdouble = 0;
-          this.joueurs[this.numJoueur].prison = false;
           if (
             this.joueurs[this.numJoueur].caseVisitees === 2 ||
             this.joueurs[this.numJoueur].caseVisitees === 7 ||
@@ -895,7 +782,6 @@ export default {
             if (this.nomChanceCom === this.nom) {
               this.effetCarte(this.carte.label);
             }
-
             this.changerJoueur();
             if (this.partieTerminer === 8) {
               this.$socket.emit("end");
@@ -906,9 +792,9 @@ export default {
             this.changerJoueur();
             this.$socket.emit("sortiPrison", this.joueurs);
           }
-        } else {
+        } 
+        else {
           this.comptdouble++;
-
           if (this.comptdouble === 3) {
             this.joueurs[this.numJoueur].prison = true;
             this.joueurs[this.numJoueur].deplLeft = 2170;
@@ -917,7 +803,20 @@ export default {
             this.changerJoueur();
             this.comptdouble = 0;
           }
-          this.$socket.emit("prison", this.joueurs);
+          if (
+            this.joueurs[this.numJoueur].caseVisitees === 2 ||
+            this.joueurs[this.numJoueur].caseVisitees === 7 ||
+            this.joueurs[this.numJoueur].caseVisitees === 17 ||
+            this.joueurs[this.numJoueur].caseVisitees === 22 ||
+            this.joueurs[this.numJoueur].caseVisitees === 33 ||
+            this.joueurs[this.numJoueur].caseVisitees === 36
+          ) {
+            if (this.nomChanceCom === this.nom) {
+              this.effetCarte(this.carte.label);
+            }
+            this.$socket.emit("sortiPrison", this.joueurs);
+          }
+          this.$socket.emit("sortiPrison", this.joueurs);
         }
       }
     },
@@ -928,7 +827,6 @@ export default {
           this.numJoueur = 0;
           this.partieTerminer += 1;
       }
-      console.log(this.numJoueur);
       let data = {
         nom: this.nom,
         num: this.numJoueur
@@ -936,7 +834,7 @@ export default {
       this.$socket.emit("changerJoueur",data);
     },
     effetCarte: function (label) {
-      console.log(label);
+      console.log(label+" "+this.nomChanceCom)
       switch (label) {
         case "Frais_scolarité":
           for (let i = 0; i < this.joueurs.length; i++) {
@@ -972,6 +870,7 @@ export default {
               this.joueurs[i].prison = true;
               this.joueurs[i].deplLeft = 2170;
               this.joueurs[i].deplTop = 300;
+              this.joueurs[i].retDepl = 10;
               this.joueurs[i].caseVisitees = 10;
             }
           }
@@ -983,16 +882,20 @@ export default {
               this.joueurs[i].deplLeft = 125;
               this.joueurs[i].deplTop = 535;
               this.joueurs[i].caseVisitees = 39;
+              this.joueurs[i].retDepl = 39;
             }
           }
           console.log("RDV_promenade");
           break;
         case "Libéré-prison": ///TO DO
-          /*for(let i=0; i<this.joueurs.lenght; i++) {  
-
-            }  */ console.log(
-            "Libéré-prison"
-          );
+          for(let i=0; i<this.joueurs.length; i++) {  
+            if (this.nomChanceCom === this.joueurs[i].nom) {
+              this.joueurs[i].inventaire.cartePrison.push(this.carte);
+              console.log(this.joueurs[i].inventaire)
+            }
+            console.log("ouai la boucle")
+          } 
+          console.log("Libéré-prison");
           break;
         case "Avancez":
           for (let i = 0; i < this.joueurs.length; i++) {
@@ -1003,6 +906,7 @@ export default {
               this.joueurs[i].deplLeft = 2170;
               this.joueurs[i].deplTop = 535;
               this.joueurs[i].caseVisitees = 11;
+              this.joueurs[i].retDepl = 11;
             }
           }
           console.log("Avancez");
@@ -1019,6 +923,7 @@ export default {
               this.joueurs[i].deplLeft = 2170;
               this.joueurs[i].deplTop = 1335;
               this.joueurs[i].caseVisitees = 15;
+              this.joueurs[i].retDepl = 15;
             }
           }
           console.log("Gare");
@@ -1056,6 +961,7 @@ export default {
               this.joueurs[i].deplLeft = 1335;
               this.joueurs[i].deplTop = 2300;
               this.joueurs[i].caseVisitees = 24;
+              this.joueurs[i].retDepl = 24;
             }
           }
           console.log("RDV_Jean");
@@ -1110,6 +1016,7 @@ export default {
               this.joueurs[i].deplLeft = 348;
               this.joueurs[i].deplTop = 300;
               this.joueurs[i].caseVisitees = 0;
+              this.joueurs[i].retDepl = 0;
             }
           }
           console.log("Retournez");
@@ -1159,6 +1066,7 @@ export default {
               this.joueurs[i].deplLeft = 2170;
               this.joueurs[i].deplTop = 300;
               this.joueurs[i].caseVisitees = 10;
+              this.joueurs[i].retDepl = 10;
             }
           }
           console.log("Prison");
@@ -1176,6 +1084,7 @@ export default {
               this.joueurs[i].deplLeft = 125;
               this.joueurs[i].deplTop = 300;
               this.joueurs[i].caseVisitees = 0;
+              this.joueurs[i].retDepl = 0;
             }
           }
           console.log("Départ_Communauté");

@@ -29,7 +29,6 @@ io.on('connection', (socket) => {
 
    // ecoute du nom  
    socket.on('nom', data => {
-      console.log("nom recu %s", data);
       joueurs[index] = {
          nom: data,
          prison: false,
@@ -42,7 +41,8 @@ io.on('connection', (socket) => {
             argent: 1500,
             proprietes: [],
             gares: [],
-            services: []
+            services: [],
+            cartePrison: []
          },
       }
       index++;
@@ -58,7 +58,6 @@ io.on('connection', (socket) => {
    socket.on('ordreJ', (data) => {
       ordre[indexOrdre]=data;
       indexOrdre++;
-      console.log(ordre)
       if(indexOrdre==joueurs.length){
          if(ordreEgal()){
             ordre = [];
@@ -70,11 +69,6 @@ io.on('connection', (socket) => {
             io.emit("start",joueurs)
          }
       }
-   });
-
-   // deplacement du joueur
-   socket.on('jouer', (data) => {
-      io.emit('deplacement', data);
    });
 
    // changement après un non double de la prison
@@ -129,11 +123,9 @@ io.on('connection', (socket) => {
       }
       tabEnchere.splice(indexOskour,1);
       if(tabEnchere.length===1){
-         console.log("aled")
          io.emit("finEnchere",data.data);
       }
       else{
-         console.log("oskour")
          let donnes = {
             tab : tabEnchere,
             data : data.data
@@ -164,7 +156,6 @@ function ordreEgal(){
 }
 
 function triJoueur(){
-   console.log('appel du tri :)')
    let joue = [];
    for(let i=0;i<ordre.length-1;i++){
       for(let j=0;j<ordre.length;j++){
