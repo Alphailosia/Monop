@@ -180,6 +180,6 @@ function triJoueur(){
 }
 
 // on change app par server
-server.listen(3000, function () {
+server.listen(process.env.PORT, function () {
    console.log('Votre app est disponible sur localhost:3000 !')
 })
