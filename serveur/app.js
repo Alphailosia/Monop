@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const path = require('path');
 app.use(cors());
 
 
@@ -12,7 +13,10 @@ const io = require('socket.io')(server, {
    }
 })
 
-
+// app.get('/', function (req, res) {
+//    res.sendFile(path.join(__dirname + '/../monopoly/dist/index.html'));
+// })
+app.use('/', express.static(path.join(__dirname + '/../monopoly/dist')) )
 
 var joueurs = [];
 var index = 0;
@@ -54,18 +58,18 @@ io.on('connection', (socket) => {
 
    //ordre joueur
    socket.on('ordreJ', (data) => {
-      ordre[indexOrdre]=data;
+      ordre[indexOrdre] = data;
       indexOrdre++;
       console.log(ordre)
-      if(indexOrdre==joueurs.length){
-         if(ordreEgal()){
+      if (indexOrdre == joueurs.length) {
+         if (ordreEgal()) {
             ordre = [];
-            indexOrdre=0;
+            indexOrdre = 0;
             io.emit('ordre');
          }
-         else{
+         else {
             joueurs = triJoueur()
-            io.emit("start",joueurs)
+            io.emit("start", joueurs)
          }
       }
    });
@@ -96,35 +100,35 @@ io.on('connection', (socket) => {
    });
 });
 
-function ordreEgal(){
+function ordreEgal() {
    let egal = false;
-   for(let i=0;i<ordre.length;i++){
-      if(i>0){
-         egal = ordre[i].lancer==ordre[i-1].lancer;
+   for (let i = 0; i < ordre.length; i++) {
+      if (i > 0) {
+         egal = ordre[i].lancer == ordre[i - 1].lancer;
       }
    }
    return egal;
 }
 
-function triJoueur(){
+function triJoueur() {
    console.log('appel du tri :)')
    let joue = [];
-   for(let i=0;i<ordre.length-1;i++){
-      for(let j=0;j<ordre.length;j++){
-         if(j>0){
-            if(ordre[j].lancer>ordre[j-1].lancer){
+   for (let i = 0; i < ordre.length - 1; i++) {
+      for (let j = 0; j < ordre.length; j++) {
+         if (j > 0) {
+            if (ordre[j].lancer > ordre[j - 1].lancer) {
                let t = ordre[j];
-               ordre[j] = ordre[j-1];
-               ordre[j-1]=t
+               ordre[j] = ordre[j - 1];
+               ordre[j - 1] = t
             }
          }
       }
    }
    console.log(ordre)
-   for(let k=0;k<ordre.length;k++){
-      for(let l=0;l<joueurs.length;l++){
-         if(ordre[k].nom===joueurs[l].nom){
-            joue[k]=joueurs[l]
+   for (let k = 0; k < ordre.length; k++) {
+      for (let l = 0; l < joueurs.length; l++) {
+         if (ordre[k].nom === joueurs[l].nom) {
+            joue[k] = joueurs[l]
          }
       }
    }

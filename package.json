@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "cd serveur && npm start"
+    "client": "cd monopoly && npm i && npm run build",
+    "serveur": "cd serveur && npm i && npm start",
+    "start": "npm run client && npm run serveur"
   },
   "author": "",
   "license": "ISC"
