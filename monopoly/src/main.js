@@ -4,7 +4,7 @@ import vuetify from './plugins/vuetify';
 import socketio from 'socket.io-client';
 import VueSocketIO from 'vue-socket.io';
 
-export const SocketInstance = socketio('https://localhost');
+export const SocketInstance = socketio('https://monopolymiage.herokuapp.com/');
 
 Vue.use(new VueSocketIO({
   connection: SocketInstance
