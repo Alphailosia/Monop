@@ -349,6 +349,29 @@ export default {
       return false ;
     },
 
+    lever_hypotheque: function () {
+      let all_proprietes = this.banque.proprietes ;
+      for(let j = 0; j < this.joueurs.length; j++){ // pour chaque joueur
+        let propr_joueur = this.joueurs[j].inventaire.proprietes
+        for(let i=0 ; i< propr_joueur.length ; i++){    
+          if(propr_joueur[i].estHypothequee === true && this.joueurs[j].inventaire.argent > 300){   // si le joueur a une propriété hypothéquée ET qu'il peut la lever
+            let nom_prop = propr_joueur[i].nom ;
+            this.joueurs[j].inventaire.argent -= (1.1 * propr_joueur[i].hypotheque) ;  // rembourse avec 10% d'intérêt
+            for(let k=0; k< all_proprietes.length ; k++){
+              for(let l=0 ; l<all_proprietes[k].length ; l++){
+                if(all_proprietes[k][l].nom === nom_prop){
+                  all_proprietes[k][l].estHypothequee = false;          // l'hypothèque est levée !!
+                  console.log("!!!!!!!! Hypothèque levée :" + all_proprietes[k][l].nom)
+                }
+              }
+            }
+
+          }
+        }
+      }
+
+    },
+
     
     prison: function (cpt) {
       this.joueurs[this.numJoueur].tourPrison += 1;
@@ -452,11 +475,15 @@ export default {
         }
       }
 
+      this.lever_hypotheque()
+
+
       // !!!!!!!!!       Intégrer l'hypothèque ici         !!!!!!!!
       for(let j = 0; j < this.joueurs.length; j++){
         if(this.joueurs[j].inventaire.argent <= 0){ // si un joueur n'a plus d'argent
           if(this.hypothequer(j,this.joueurs[j].nom)=== false){   // si le joueur n'a pas de propriété à hypothéquer
             this.joueurs.splice(j,1);                       // le joueur est éliminé de la partie
+            if(this.joueurs.length > 2){this.finPartie()}
           }
                      
         
