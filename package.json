@@ -5,7 +5,7 @@
   "scripts": {
     "client": "cd monopoly && npm i && npm run build",
     "serveur": "cd serveur && npm i && npm start",
-    "start": "npm run client && npm run serveur"
+    "start": "npm run serveur"
   },
   "author": "",
   "license": "ISC"
