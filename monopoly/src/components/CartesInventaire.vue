@@ -25,6 +25,12 @@
     <v-card class="carte" v-for="(service, index) in carteInventaire.inventaire.services" :key="index">
       <v-card-text>{{ service.nom }} </v-card-text>
     </v-card>
+    </div> 
+    <div class="organisation">
+    <h1>Cartes Prison</h1>
+    <v-card class="carte" v-for="(service, index) in carteInventaire.inventaire.cartePrison" :key="index">
+      <v-card-text>{{ service.label }} </v-card-text>
+    </v-card>
     </div>  
     </div>
   </v-card>

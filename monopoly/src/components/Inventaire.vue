@@ -5,6 +5,9 @@
             <div class="argent"> {{ joueur.inventaire.argent }} €</div>
         </v-card-title>
         <div v-for="(propriete, index) in joueur.inventaire.proprietes" :key="index" class="proprietes" :style="{ backgroundColor: propriete.Color }"></div>
+        <div v-for="(gare, index2) in joueur.inventaire.gares" :key="index2" class="proprietes" id="gare">G</div>
+        <div v-for="(service, index3) in joueur.inventaire.services" :key="index3" class="proprietes" id="service">S</div>
+        <div v-for="(carte, index4) in joueur.inventaire.cartePrison" :key="index4" class="proprietes" id="service">P</div>
     </v-card>
 </div>
 </template>
@@ -17,11 +20,6 @@ export default {
   }),
     props:{
         joueurs:Array, 
-    },
-    mounted(){
-        for(let i=0; i<this.joueurs.length;i++) {
-            this.joueurs[i].inventaire.argent=1500;
-        }
     },
     methods: {
     affichageInventaire: function (joueur) {
@@ -36,7 +34,7 @@ export default {
     margin-left: 5%;
     margin-bottom: 5%;
     width: 600px;
-    height: 600px;
+    height: 1000px;
     border: solid 5px;
     border-radius: 10px;
     position: relative;
@@ -65,5 +63,13 @@ export default {
     width: 55px;
     height: 55px;
     border-radius: 5px;
+}
+
+#gare{
+    border: solid black 1px ;
+}
+
+#service{
+    border: solid black 1px ;
 }
 </style>

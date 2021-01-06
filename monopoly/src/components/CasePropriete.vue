@@ -4,13 +4,7 @@
     v-bind:class="[position]"
     @click="affichagePropriete()"
   >
-
-    <div v-if="maison == 0" class="color-propriete" :style="{ backgroundColor: monopole }"></div>
-    <div v-else-if="maison == 1" class="color-propriete" :style="{ backgroundColor: monopole }"><img :src="maisonimage"/></div>
-    <div v-else-if="maison == 2" class="color-propriete" :style="{ backgroundColor: monopole }"><img :src="maisonimage"/><img :src="maisonimage"/></div>
-    <div v-else-if="maison == 3" class="color-propriete" :style="{ backgroundColor: monopole }"><img :src="maisonimage"/><img :src="maisonimage"/><img :src="maisonimage"/></div>
-    <div v-else-if="maison == 4" class="color-propriete" :style="{ backgroundColor: monopole }"><img :src="maisonimage"/><img :src="maisonimage"/><img :src="maisonimage"/><img :src="maisonimage"/></div>
-    <div v-else class="color-proprietehotel" :style="{ backgroundColor: monopole}"><img :src="hotelimage" style="margin-top: -5px"/></div>
+    <div class="color-propriete" :style="{ backgroundColor: monopole }"></div>
     <v-card-title class="title-propriete">
       {{ nom }}
     </v-card-title>
@@ -30,8 +24,6 @@ export default {
   data: () => ({
     carte: {},
     proprietes: [],
-    maisonimage : require("../assets/images/Maison.png"),
-    hotelimage : require("../assets/images/Hotel.png")
     
   }),
   props: {
@@ -41,7 +33,6 @@ export default {
     sous_nom: String,
     loyer: Number,
     position: String,
-    maison: Number,
   },
   created() {
     this.proprietes = Cartes_propriete_gares_services[0];
@@ -74,11 +65,6 @@ export default {
 
 .color-propriete {
   height: 20%;
-}
-
-.color-proprietehotel {
-  height: 20%;
-  text-align: center;
 }
 
 .title-propriete {
