@@ -11,11 +11,10 @@
           :nom="c.nom"
           :sous_nom="c.sous_nom"
           :monopole="c.Color"
-          :loyer="c.loyer[0]"
+          :loyer="c.loyer[maisonCase(c.nom)]"
           :position="getCasePosition(indexRow, indexCase)"
           @propriete="affichageClick(c.nom, c.Color)"
-
-
+          :maison ="maisonCase(c.nom)"
         />
         <CaseDepart
           v-else-if="c.type === 'Départ'"
@@ -68,6 +67,15 @@
     </div>
     <v-dialog v-model="dialog" max-width="500px">
       <CartesPropriete :carte="carte" />
+      <div class="achatMaison">
+        <v-btn @click="achatBatimentPlateau(1,carte.Color,carte.nom)" text x-large>Acheter une maison.</v-btn>
+      </div>
+      <div class="achatMaison">
+        <v-btn @click="achatBatimentPlateau(2,carte.Color,carte.nom)" text x-large>Acheter un hotel.</v-btn>
+      </div>
+      <div class="achatMaison">
+        <v-btn @click="achatBatimentPlateau(3,carte.Color,carte.nom)" text x-large>Vendre un batiment.</v-btn>
+      </div>
     </v-dialog>
     <v-dialog v-model="dialog2" max-width="500px">
       <CartesGare :carte="carte" />
@@ -135,6 +143,9 @@ export default {
     dialog4: false,
     carte: {},
   }),
+  props:{
+    banque: Object,
+  },
   created() {
     this.jsonProprietes = Cartes_propriete_gares_services;
     this.jsonChance = Cartes_chances_communautes;
@@ -167,6 +178,20 @@ export default {
         }
       }
 
+    },
+    maisonCase: function(nom){
+      for(let i=0;i<this.banque.length;i++){
+        for(let j=0;j<this.banque[i].length;j++){
+          if(this.banque[i][j].nom == nom){
+            return this.banque[i][j].maison;
+          }
+        }
+      }
+      return 0;
+    },
+    achatBatimentPlateau: function(cpt,color,nom){
+      let data={cpt:cpt,Color:color,nom:nom}
+      this.$emit("achatBatiment",data);
     },
     affichageClick2: function (nom, type) {
       if (type === "gare") {
@@ -215,4 +240,11 @@ export default {
   width: 200px;
   height: 200px;
 }
+.achatMaison{
+  text-align: center;
+  background: white;
+  border: solid 2px;
+  margin-top: 10px;
+}
+
 </style>

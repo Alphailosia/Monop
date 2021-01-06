@@ -138,7 +138,12 @@ io.on('connection', (socket) => {
    // chanceCom
    socket.on('chanceCom', (data) =>{
       io.emit('chanceCom',data);
-   });
+   });   
+
+   //achat batiment
+   socket.on('achatBat',(data) =>{
+      io.emit('achatBat',data)
+   })
 
    // fin de la partie
    socket.on('end', () => {
