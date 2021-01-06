@@ -84,7 +84,7 @@
     <v-dialog v-model="achat" v-if="acheteur === nom" max-width="800px">
       <v-card>
         <h1 color="white">Achetez cette propiété</h1>
-        <v-btn @click="ProposerAchat()">Oui {{ acheteur }}</v-btn
+        <v-btn @click="ProposerAchat()">Oui</v-btn
         ><v-btn @click="miseEnchere()">Non</v-btn>
       </v-card>
     </v-dialog>
