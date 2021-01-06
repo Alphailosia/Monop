@@ -765,7 +765,7 @@ export default {
         this.depl--;
       }
 
-      this.lever_hypotheque()
+      /*this.lever_hypotheque()
 
 
       // !!!!!!!!!       Intégrer l'hypothèque ici         !!!!!!!!
@@ -779,7 +779,7 @@ export default {
         
         }
       }
-
+      */
 
 
     },
